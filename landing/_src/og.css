@@ -1,0 +1,40 @@
+/* The social card: the hero of the page alone at 1200 by 630, in the dark set. Loaded after
+   styles.css by og.html only; nothing here reaches the deployed page. */
+html.og { color-scheme: dark; }
+.og body { width: 1200px; height: 630px; overflow: hidden; padding: 0; }
+
+.og .skip-link,
+.og main > :not(.hero),
+.og .site-footer,
+.og .tabbar,
+.og .toast-live,
+.og .lede,
+.og .cta-row,
+.og .hero-note,
+.og .live-cap { display: none; }
+
+.og .hero { height: 630px; min-height: 630px; grid-template-rows: minmax(0, 1fr); }
+.og .hero-copy { margin: 0; padding: 0 0 8px 64px; }
+.og .hero-copy > * { max-width: 520px; }
+.og .hero-eyebrow { margin: 40px 0 16px; }
+.og .display { font-size: 64px; }
+
+.og .live .hero-map { top: calc(44% - 852px * var(--s)); }
+.og .hud { top: 32px; bottom: 32px; }
+.og .map-btns { display: flex; }
+
+.og-legend {
+  --u: 1;
+  display: flex;
+  gap: 28px;
+  margin-top: 32px;
+  font-size: 19px;
+  color: var(--ink-2);
+}
+.og-legend span { display: inline-flex; align-items: center; gap: 10px; }
+.og-sw { width: 40px; height: 12px; overflow: visible; }
+.og-sw .cv-case { stroke-width: 7px; }
+.og-sw .cv-line { stroke-width: 5px; }
+.og-sw .cv-case.s-both { stroke-width: 9px; }
+.og-sw .cv-line.s-both { stroke-width: 7px; }
+.og-sw .cv-stripe.s-both { stroke-width: 1.8px; }

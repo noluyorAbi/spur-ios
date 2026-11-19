@@ -15,16 +15,16 @@
   <meta property="og:title" content="Spur, know which roads you have already driven">
   <meta property="og:description" content="An iPhone app that records every drive in full GPS and motion detail, shows the roads and directions you have covered, and plans routes over the ones you have not. Everything stays on the phone.">
   <meta property="og:url" content="https://spur-ios.vercel.app">
-  <meta property="og:image" content="https://spur-ios.vercel.app/assets/social-card.png">
-  <meta property="og:image:alt" content="Spur on an iPhone: every road you have driven, amber one way, green both ways">
+  <meta property="og:image" content="https://spur-ios.vercel.app/assets/og-card.png">
+  <meta property="og:image:alt" content="The live map of Spur on an invented street grid: roads driven one way in amber, both ways in green, next to the glass speed card with the START button">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Spur, know which roads you have already driven">
   <meta name="twitter:description" content="An iPhone app that records every drive in full GPS and motion detail, shows the roads and directions you have covered, and plans routes over the ones you have not. Everything stays on the phone.">
-  <meta name="twitter:image" content="https://spur-ios.vercel.app/assets/social-card.png">
-  <meta name="twitter:image:alt" content="Spur on an iPhone: every road you have driven, amber one way, green both ways">
+  <meta name="twitter:image" content="https://spur-ios.vercel.app/assets/og-card.png">
+  <meta name="twitter:image:alt" content="The live map of Spur on an invented street grid: roads driven one way in amber, both ways in green, next to the glass speed card with the START button">
 
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
@@ -141,8 +141,8 @@
             <p class="hud-foot" aria-hidden="true"><span class="rec-line" lang="de" data-recline>&Oslash; 0 km/h in Fahrt</span><span lang="de">Bedienung nur durch Beifahrer</span></p>
           </div>
         </div>
-        <figcaption class="live-cap" id="live-cap">A simulated drive on an invented street grid, drawn the way Spur draws it: a blue trail while it records, then amber for roads driven one way and green for roads driven both ways.<span class="live-cap-hint" data-hint hidden> Press START to drive it again.</span></figcaption>
       </figure>
+      <p class="live-cap" id="live-cap">A simulated drive on an invented street grid, drawn the way Spur draws it: a blue trail while it records, then amber for roads driven one way and green for roads driven both ways.<noscript> Without JavaScript the drive is shown finished.</noscript><span class="cap-hint cap-hint-still"> Reduced motion is on, so the drive is shown finished.</span><span class="cap-hint cap-hint-play" data-hint> Press START to drive it again.</span></p>
     </section>
 
     <!-- ============================================================ demo -->
@@ -181,8 +181,8 @@
             <div class="map-tile roads-tile" data-mode="dir">
               {{ROADS_MAP}}
               <div class="seg glass" role="group" aria-label="Coverage layer">
-                <button type="button" class="seg-btn" data-mode-btn="dir" aria-pressed="true"><span lang="de">Richtung</span><span class="sr-only">, by direction</span></button>
-                <button type="button" class="seg-btn" data-mode-btn="heat" aria-pressed="false"><span lang="de">H&auml;ufigkeit</span><span class="sr-only">, by frequency</span></button>
+                <button type="button" class="seg-btn" data-mode-btn="dir" aria-pressed="true"><span lang="de">Richtung</span><span class="sr-only"> (by direction)</span></button>
+                <button type="button" class="seg-btn" data-mode-btn="heat" aria-pressed="false"><span lang="de">H&auml;ufigkeit</span><span class="sr-only"> (by frequency)</span></button>
                 <span class="seg-thumb" aria-hidden="true"></span>
               </div>
               <div class="tile-foot">
@@ -192,7 +192,7 @@
                 </div>
               </div>
             </div>
-            <p class="visual-note">The layer switch works. In the app it sits in the map menu, next to the map type.</p>
+            <p class="visual-note">In the app this switch sits in the map menu, next to the map type.<span data-js-only hidden> Try it here.</span></p>
           </div>
         </div>
       </section>
@@ -262,19 +262,20 @@
             <div class="card gap-card">
               <p class="gap-text" lang="de">L&uuml;cke 47 s, 0,5 km, vermutlich &uuml;ber Mill Street</p>
               <div class="gap-actions gap-open">
-                <button type="button" class="cap-btn cap-accent" data-gap-btn="accepted"><span lang="de">&Uuml;bernehmen</span><span class="sr-only">, accept the suggestion</span></button>
-                <button type="button" class="cap-btn cap-quiet" data-gap-btn="rejected"><span lang="de">Verwerfen</span><span class="sr-only">, reject the suggestion</span></button>
+                <button type="button" class="cap-btn cap-accent" data-gap-btn="accepted"><span lang="de">&Uuml;bernehmen</span><span class="sr-only"> (accept the suggestion)</span></button>
+                <button type="button" class="cap-btn cap-quiet" data-gap-btn="rejected"><span lang="de">Verwerfen</span><span class="sr-only"> (reject the suggestion)</span></button>
               </div>
               <div class="gap-actions gap-accepted">
                 <span class="gap-state good" lang="de"><svg class="i"><use href="#i-check"/></svg>Erg&auml;nzt</span>
-                <button type="button" class="link-btn" data-gap-btn="open"><span lang="de">Erg&auml;nzung entfernen</span><span class="sr-only">, undo</span></button>
+                <button type="button" class="link-btn" data-gap-btn="open"><span lang="de">Erg&auml;nzung entfernen</span><span class="sr-only"> (undo)</span></button>
               </div>
               <div class="gap-actions gap-rejected">
                 <span class="gap-state" lang="de">Verworfen</span>
-                <button type="button" class="link-btn" data-gap-btn="open"><span lang="de">Doch vorschlagen</span><span class="sr-only">, undo</span></button>
+                <button type="button" class="link-btn" data-gap-btn="open"><span lang="de">Doch vorschlagen</span><span class="sr-only"> (undo)</span></button>
               </div>
             </div>
-            <p class="visual-note" role="status" data-gap-status>Both buttons work. The street name is made up, like the map.</p>
+            <p class="visual-note"><span data-js-only hidden>Both buttons work. </span>The street name is made up, like the map.</p>
+            <p class="visual-note gap-status" role="status" data-gap-status></p>
           </div>
         </div>
       </section>
@@ -514,10 +515,10 @@ xcodebuild -project Spur.xcodeproj -scheme Spur \
 
   <nav class="tabbar glass" aria-label="Sections">
     <span class="tab-thumb" aria-hidden="true"></span>
-    <a class="tab" href="#fahrt" data-tab="group-fahrt" aria-current="true"><svg class="i" aria-hidden="true"><use href="#i-fahrt"/></svg><span lang="de">Fahrt</span><span class="sr-only">: while you drive</span></a>
-    <a class="tab" href="#group-planen" data-tab="group-planen"><svg class="i" aria-hidden="true"><use href="#i-search"/></svg><span lang="de">Planen</span><span class="sr-only">: before you drive</span></a>
-    <a class="tab" href="#group-historie" data-tab="group-historie"><svg class="i" aria-hidden="true"><use href="#i-history"/></svg><span lang="de">Historie</span><span class="sr-only">: after you drive</span></a>
-    <a class="tab" href="#group-einstellungen" data-tab="group-einstellungen"><svg class="i" aria-hidden="true"><use href="#i-sliders"/></svg><span lang="de">Einstellungen</span><span class="sr-only">: privacy, code and license</span></a>
+    <a class="tab" href="#fahrt" data-tab="group-fahrt" aria-current="true"><svg class="i" aria-hidden="true"><use href="#i-fahrt"/></svg><span lang="de">Fahrt</span><span class="sr-only"> (while you drive)</span></a>
+    <a class="tab" href="#group-planen" data-tab="group-planen"><svg class="i" aria-hidden="true"><use href="#i-search"/></svg><span lang="de">Planen</span><span class="sr-only"> (before you drive)</span></a>
+    <a class="tab" href="#group-historie" data-tab="group-historie"><svg class="i" aria-hidden="true"><use href="#i-history"/></svg><span lang="de">Historie</span><span class="sr-only"> (after you drive)</span></a>
+    <a class="tab" href="#group-einstellungen" data-tab="group-einstellungen"><svg class="i" aria-hidden="true"><use href="#i-sliders"/></svg><span lang="de">Einstellungen</span><span class="sr-only"> (privacy, code and license)</span></a>
   </nav>
 
   <div class="toast-live glass" id="toast" role="status" aria-live="polite"></div>

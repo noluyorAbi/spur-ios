@@ -37,6 +37,8 @@
   --rc-stadt: #d9c28f;
   --rc-land: #5cbdb1;
   --rc-bahn: #9eccf7;
+  --speed-2: #3d6bb3;
+  --speed-3: #4d8fe0;
 
   --map-land: #161b23;
   --map-road: #262d39;
@@ -103,6 +105,8 @@
     --rc-stadt: #a07a35;
     --rc-land: #165e58;
     --rc-bahn: #3474c2;
+    --speed-2: #2f6ac4;
+    --speed-3: #2457a8;
 
     --map-land: #e8ebee;
     --map-road: #ffffff;
@@ -315,7 +319,7 @@ button.glass-circle:active { transform: scale(0.9); transition-duration: 100ms; 
 .live {
   position: relative;
   display: grid;
-  grid-template-rows: 660px auto;
+  grid-template-rows: 660px;
   margin-top: 36px;
 }
 .live > .hero-scrim,
@@ -419,7 +423,13 @@ button.glass-circle:active { transform: scale(0.9); transition-duration: 100ms; 
 .live[data-state="rec"] .speed-num { color: var(--ink-1); }
 /* Rolling digits, like the numeric text transition of the speed in the app. */
 .speed-num { display: inline-flex; height: 1em; line-height: 1; overflow: hidden; }
-.dg { display: block; height: 1em; overflow: hidden; }
+.dg {
+  display: block;
+  height: 1em;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+}
 .dg.is-off { display: none; }
 .dg-strip {
   display: flex;
@@ -548,6 +558,10 @@ button.round-btn:active { transform: scale(0.97); transition-duration: 100ms; }
   color: var(--ink-3);
   max-width: 44em;
 }
+/* The hint keeps its space while hidden, so the caption never changes height when it appears. */
+.cap-hint-play { visibility: hidden; opacity: 0; transition: opacity var(--t-state) var(--ease), visibility 0s linear var(--t-state); }
+.cap-hint-play.is-on { visibility: visible; opacity: 1; transition-delay: 0s; }
+.cap-hint-still { display: none; }
 
 /* --------------------------------------------------------------- the map */
 .map { display: block; width: 100%; height: 100%; }
@@ -786,9 +800,12 @@ button.round-btn:active { transform: scale(0.97); transition-duration: 100ms; }
 .gap-tile[data-gap="accepted"] .gap-fill { stroke: var(--accent-ink); }
 .gap-tile[data-gap="rejected"] .gap-fill { opacity: 0; }
 .run-case { fill: none; stroke: var(--casing); stroke-width: calc(6.5px * var(--u)); stroke-linecap: round; stroke-linejoin: round; }
-.run-line { fill: none; stroke: var(--rc-land); stroke-width: calc(4.5px * var(--u)); stroke-linecap: round; stroke-linejoin: round; }
+.run-line { fill: none; stroke: var(--speed-2); stroke-width: calc(4.5px * var(--u)); stroke-linecap: round; stroke-linejoin: round; }
+.run-line.sp-3 { stroke: var(--speed-3); }
 
 .gap-card { margin-top: 12px; padding: 16px; }
+.gap-status { margin-top: 4px; }
+.gap-status:empty { margin-top: 0; }
 .gap-text { font-size: 16px; color: var(--ink-1); }
 .gap-actions { display: none; align-items: center; gap: 12px; margin-top: 12px; }
 .gap-actions .cap-btn { flex: 1; }
@@ -1080,19 +1097,28 @@ button.round-btn:active { transform: scale(0.97); transition-duration: 100ms; }
 }
 
 @media (min-width: 1180px) {
+  /* The hero fills the first screen. The copy sits in the first row and the caption flows under it
+     in the second, so the two never meet. Type and spacing follow the window height, so both stay
+     above the tab bar from a 720 px high window up; below that the hero grows and scrolls. */
   .hero {
-    display: flex;
-    align-items: center;
-    min-height: clamp(720px, 100svh, 980px);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto;
+    min-height: min(100vh, 980px);
+    min-height: min(100svh, 980px);
   }
   .hero-copy {
+    align-self: center;
     width: 100%;
     max-width: 1228px;
     margin: 0 auto;
-    padding: 72px 48px 140px;
+    padding: clamp(24px, 6vh, 72px) 48px clamp(16px, 3vh, 32px);
   }
   .hero-copy > * { max-width: 600px; }
-  .display { max-width: 11.5ch; }
+  .hero-eyebrow { margin: clamp(20px, 4vh, 40px) 0 clamp(10px, 1.8vh, 16px); }
+  .display { max-width: 11.5ch; font-size: clamp(56px, min(6vw, 9.4vh), 84px); }
+  .lede { margin: clamp(14px, 2.6vh, 24px) 0 clamp(18px, 3.4vh, 32px); }
+  .hero-note { margin-top: clamp(10px, 2vh, 20px); }
   .live {
     position: absolute;
     inset: 0;
@@ -1104,7 +1130,7 @@ button.round-btn:active { transform: scale(0.97); transition-duration: 100ms; }
   .live .hero-map {
     --s: 0.9;
     --u: 1.15;
-    left: calc(100vw - max(48px, (100vw - 1228px) / 2 + 48px) - 412px - 1385px * var(--s));
+    left: calc(100vw - max(48px, (100vw - 1228px) / 2 + 48px) - 380px - 1385px * var(--s));
     top: calc(35% - 852px * var(--s));
   }
   .hero-scrim {
@@ -1113,29 +1139,46 @@ button.round-btn:active { transform: scale(0.97); transition-duration: 100ms; }
       linear-gradient(0deg, var(--bg) 0%, rgb(var(--bg-rgb) / 0) 14%),
       linear-gradient(180deg, rgb(var(--bg-rgb) / 0.7) 0%, rgb(var(--bg-rgb) / 0) 10%);
   }
+  /* The card ends 104 px above the bottom of the window, clear of the tab bar, even when the
+     hero is taller than the window. */
   .hud {
     position: absolute;
     top: 28px;
-    bottom: 104px;
+    bottom: max(104px, calc(100% - 100vh + 104px));
+    bottom: max(104px, calc(100% - 100svh + 104px));
     right: max(48px, calc((100vw - 1228px) / 2 + 48px));
     width: 400px;
     padding: 0;
   }
   .live-cap {
-    position: absolute;
-    left: max(48px, calc((100vw - 1228px) / 2 + 48px));
-    bottom: 104px;
-    max-width: 440px;
-    padding: 0;
+    justify-self: start;
+    width: 100%;
+    max-width: calc(470px + 96px);
+    margin-left: max(0px, calc((100% - 1228px) / 2));
+    padding: 0 48px 88px;
   }
   .wrap { padding: 0 48px; }
   .screens { padding: 16px max(48px, calc((100vw - 1228px) / 2 + 48px)) 24px; scroll-padding-inline: max(48px, calc((100vw - 1228px) / 2 + 48px)); }
   .shot { width: 260px; }
 }
 
+/* Between 1180 and 1239 px the copy column would reach the left leg of the route: narrower copy. */
+@media (min-width: 1180px) and (max-width: 1239px) {
+  .hero-copy > * { max-width: 520px; }
+  .lede { font-size: 17px; }
+}
+
+/* A short wide window keeps the speed card and drops the map buttons above it. */
+@media (min-width: 1180px) and (max-height: 680px) {
+  .map-btns { display: none; }
+}
+
 /* ======================================================== reduced motion */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .start-btn { opacity: 0.5; }
+  .cap-hint-play { display: none; }
+  .cap-hint-still { display: inline; }
   *,
   *::before,
   *::after {

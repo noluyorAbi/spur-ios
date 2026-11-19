@@ -13,6 +13,9 @@
   function $(sel, root) { return (root || document).querySelector(sel); }
   function $$(sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
 
+  /* Notes that promise a working control ("Both buttons work.") exist only once this script runs. */
+  $$("[data-js-only]").forEach(function (el) { el.hidden = false; });
+
   /* ---------------------------------------------------------------- utm */
   /* One rule for every outbound link to the repository: utm_source=landing,
      utm_medium=<slot>. The same parameters are already in the HTML, so a link
@@ -227,7 +230,7 @@
   var puck = $(".puck", map), head = $(".puck-head", map);
   var startBtn = $("[data-start]", live), pauseBtn = $("[data-pause]", live), stopBtn = $("[data-stop]", live);
   var elSpeed = $("[data-speed]", live), elDist = $("[data-dist]", live), elDur = $("[data-dur]", live);
-  var elClock = $("[data-clock]", live), elLine = $("[data-recline]", live), hint = $("[data-hint]", live);
+  var elClock = $("[data-clock]", live), elLine = $("[data-recline]", live), hint = $("[data-hint]");
 
   // Route corners and the length at each, for the speed profile.
   var pts = route.getAttribute("d").replace(/[ML]/g, " ").trim().split(/\s+/).map(Number);
@@ -409,7 +412,7 @@
   function begin() {
     if (sim.running) return;
     interactive(false);
-    if (hint) hint.hidden = true;
+    if (hint) hint.classList.remove("is-on");
     reset();
     startBtn.classList.add("is-pressed");
     setTimeout(function () {
@@ -424,6 +427,8 @@
 
   function stop() {
     if (!sim.running) return;
+    // The recording controls hide when the drive ends and take the focus with them: remember it.
+    var hadFocus = live.contains(document.activeElement);
     clearTimeout(arriveTimer); clearTimeout(holdTimer); clearTimeout(pressTimer);
     autoHold = false;
     sim.running = false;
@@ -460,10 +465,9 @@
       readouts(true);
       setSpeed(0);
       interactive(true);
-      if (hint) hint.hidden = false;
-      if (document.activeElement === stopBtn || document.activeElement === pauseBtn || document.activeElement === document.body) {
-        if (live.contains(document.activeElement)) startBtn.focus();
-      }
+      if (hint) hint.classList.add("is-on");
+      var lost = document.activeElement === document.body || live.contains(document.activeElement);
+      if (hadFocus && lost) startBtn.focus();
     }, delay + 520);
   }
 
@@ -497,12 +501,32 @@
   stopBtn.addEventListener("click", function (e) { if (e.detail === 0) stop(); });
   stopBtn.addEventListener("contextmenu", function (e) { e.preventDefault(); });
 
-  visible(live, function (on) { sim.inView = on; sim.last = 0; });
-
-  // Rewind to before the drive, then drive once on its own.
+  // Rewind to before the drive, then drive once on its own, but only where it can be seen: the
+  // route has to be on screen above the tab bar. It starts once most of the route shows and
+  // pauses when most of it has left, so a phone that loads with the map below the fold, or a
+  // reader who scrolls away, does not miss the drive. It counts pixels of the route, not a share
+  // of the whole figure, so a short landscape window still gets there.
   reset();
-  var started = false;
-  visible(live, function (on) {
-    if (on && !started) { started = true; setTimeout(begin, 1100); }
-  });
+  var BAR = 92, started = false, watchQueued = false;
+  function routeShare() {
+    var r = route.getBoundingClientRect();
+    if (!r.height) return 0;
+    var top = Math.max(r.top, 0), bottom = Math.min(r.bottom, window.innerHeight - BAR);
+    return Math.max(0, bottom - top) / r.height;
+  }
+  function watch() {
+    watchQueued = false;
+    var share = routeShare();
+    sim.inView = sim.inView ? share >= 0.4 : share >= 0.7;
+    if (!started && share >= 0.8) { started = true; setTimeout(begin, 900); }
+  }
+  function queueWatch() {
+    if (watchQueued) return;
+    watchQueued = true;
+    requestAnimationFrame(watch);
+  }
+  sim.inView = false;
+  window.addEventListener("scroll", queueWatch, { passive: true });
+  window.addEventListener("resize", queueWatch);
+  watch();
 })();

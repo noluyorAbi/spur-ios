@@ -15,6 +15,11 @@ const lerp = (a, b, t) => [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t];
 const deg = (a, b) => (Math.atan2(b[1] - a[1], b[0] - a[0]) * 180) / Math.PI;
 
 // ------------------------------------------------------------------ the city
+// One label only: every view of the city (the hero at any window size, the tiles) has its own
+// edges, and a district name would land on one of them somewhere. PARK sits inside its park, in
+// the part of the city the hero shows at every window size from 360 px wide (x 600 to 1165,
+// y 250 to 990). The tiles either show it whole or not at all; check for a cut label again after
+// moving a tile's viewBox.
 const XS = [40, 130, 215, 310, 400, 480, 575, 660, 750, 845, 930, 1020, 1110, 1195, 1290, 1380, 1470, 1560, 1650, 1745, 1830, 1925, 2015, 2110, 2200];
 const YS = [-300, -210, -120, -30, 60, 150, 235, 330, 410, 500, 590, 675, 770, 860, 950, 1040, 1130, 1225, 1310, 1400];
 const ART_X = [660, 1020, 1380, 1830];
@@ -96,10 +101,7 @@ const city = `<g id="city">
   <path class="m-major" d="${arterials()}"/>
   <path class="m-fwy-case" d="${poly(CARRIAGE_A)} ${poly(CARRIAGE_B)}"/>
   <path class="m-fwy" d="${poly(CARRIAGE_A)} ${poly(CARRIAGE_B)}"/>
-  <text class="m-label" x="190" y="600" transform="rotate(-32 190 600)">OLD TOWN</text>
-  <text class="m-label" x="1150" y="132">MILL DISTRICT</text>
-  <text class="m-label" x="-60" y="1250" transform="rotate(-52 -60 1250)">RIVERSIDE</text>
-  <text class="m-label m-label-s" x="1153" y="459" text-anchor="middle">PARK</text>
+  <text class="m-label m-label-s" x="1146" y="459" text-anchor="middle">PARK</text>
 </g>`;
 
 const defs = `<svg class="map-defs" width="0" height="0" aria-hidden="true" focusable="false">
@@ -261,6 +263,7 @@ const roadsMap = `<svg class="map mini-map roads-map" viewBox="960 150 600 400" 
 </svg>`;
 
 // ------------------------------------------------------------ the gap card
+// The trip is coloured by speed, as in the trip detail: 30 to 50 km/h before the gap, 50 to 70 after.
 const RUN_A = [[400, 860], [575, 860], [750, 860]];
 const RUN_B = [[1020, 770], [1195, 770], [1195, 590]];
 const FILL = [[750, 860], [845, 860], [845, 770], [1020, 770]];
@@ -269,7 +272,8 @@ const gapMap = `<svg class="map mini-map gap-map" viewBox="560 520 700 420" pres
   <path class="gap-line" d="${poly([RUN_A[RUN_A.length - 1], RUN_B[0]])}"/>
   <path class="gap-fill" d="${poly(FILL)}"/>
   <path class="run-case" d="${poly(RUN_A)} ${poly(RUN_B)}"/>
-  <path class="run-line" d="${poly(RUN_A)} ${poly(RUN_B)}"/>
+  <path class="run-line sp-2" d="${poly(RUN_A)}"/>
+  <path class="run-line sp-3" d="${poly(RUN_B)}"/>
 </svg>`;
 
 // ------------------------------------------------------------ the plan card
@@ -292,12 +296,12 @@ const planMap = `<svg class="map mini-map plan-map" viewBox="600 60 560 400" pre
 // ---------------------------------------------------------- the street card
 const STREET_DONE = [[620, 590], [930, 590]];
 const STREET_OPEN = [[930, 590], [1290, 590], [1560, 590]];
-const streetMap = `<svg class="map mini-map street-map" viewBox="700 440 600 480" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+const streetMap = `<svg class="map mini-map street-map" viewBox="700 470 600 480" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
   <use href="#city"/>
   <path class="st-case" d="${poly([STREET_DONE[0], STREET_OPEN[STREET_OPEN.length - 1]])}"/>
   <path class="st-open" d="${poly(STREET_OPEN)}"/>
   <path class="st-done" d="${poly(STREET_DONE)}"/>
-  <g class="puck puck-idle" transform="translate(890 535)"><g class="puck-s"><circle class="puck-ring" r="11"/><circle class="puck-dot" r="7.5"/></g></g>
+  <g class="puck puck-idle" transform="translate(890 565)"><g class="puck-s"><circle class="puck-ring" r="11"/><circle class="puck-dot" r="7.5"/></g></g>
 </svg>`;
 
 let html = fs.readFileSync(path.join(HERE, "index.src.html"), "utf8");
@@ -309,3 +313,20 @@ for (const [k, v] of Object.entries(parts)) {
 if (/\{\{[A-Z_]+\}\}/.test(html)) throw new Error("unfilled placeholder");
 fs.writeFileSync(OUT, html);
 console.log("wrote", OUT, html.length, "bytes; route length", r1(trail.length));
+
+// The social card page: the same hero alone at 1200 by 630, without the script, so it shows the
+// finished map and the card at rest. Served from the landing directory, screenshot at that size
+// gives assets/og-card.png (see README.md). It stays in _src, which is not deployed.
+const must = (s, a, b) => {
+  if (!s.includes(a)) throw new Error(`og: missing ${a}`);
+  return s.replace(a, b);
+};
+let og = html;
+og = must(og, '<html lang="en">', '<html lang="en" class="og">');
+og = must(og, '  <script src="app.js" defer></script>\n', "");
+og = must(og, '<link rel="stylesheet" href="styles.css">', '<link rel="stylesheet" href="../styles.css">\n  <link rel="stylesheet" href="og.css">');
+og = og.replace(/(src|href)="assets\//g, '$1="../assets/');
+og = must(og, "</h1>", `</h1>
+        <p class="og-legend"><span><svg class="og-sw" viewBox="0 0 40 12" aria-hidden="true"><path class="cv-case s-one" d="M 6 6 H 34"/><path class="cv-line s-one" d="M 6 6 H 34"/></svg>driven one way</span><span><svg class="og-sw" viewBox="0 0 40 12" aria-hidden="true"><path class="cv-case s-both" d="M 6 6 H 34"/><path class="cv-line s-both" d="M 6 6 H 34"/><path class="cv-stripe s-both" d="M 6 6 H 34"/></svg>both ways</span></p>`);
+fs.writeFileSync(path.join(HERE, "og.html"), og);
+console.log("wrote", path.join(HERE, "og.html"));
