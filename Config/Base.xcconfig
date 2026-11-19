@@ -1,0 +1,9 @@
+// Defaults for a fresh clone. Your own values go into the gitignored Config/Local.xcconfig.
+
+// Reverse-DNS prefix for every identifier: the app is $(SPUR_BUNDLE_PREFIX).spur.
+SPUR_BUNDLE_PREFIX = com.example
+
+// Apple developer team ID. Empty is enough for Simulator builds.
+DEVELOPMENT_TEAM =
+
+#include? "Local.xcconfig"

@@ -1,0 +1,2 @@
+id,title,start,end,distance_m,duration_s,moving_s,average_speed_mps,max_speed_mps,stadt_m,land_m,autobahn_m,stops,fixes,gaps,start_place,end_place,driver,vehicle,note,signal_sites,stop_signs,all_way_stops,skewed_junctions,stops_at_signal,stops_at_stop_sign,road_coverage
+0B1F9C2E-6A57-4D3B-9E1A-5C2D7F8E9A10,Testfahrt Nord,2026-11-11T18:00:00.000Z,2026-11-11T18:04:19.000Z,157,15,13,10.467,20,157,0,0,0,16,0,Dallas,Highland Park,Fahrer A,Testwagen 1,Baustelle auf der rechten Spur,,,,,,,

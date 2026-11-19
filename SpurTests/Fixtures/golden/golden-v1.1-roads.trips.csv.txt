@@ -1,0 +1,2 @@
+id,title,start,end,distance_m,duration_s,moving_s,average_speed_mps,max_speed_mps,stadt_m,land_m,autobahn_m,stops,fixes,gaps,start_place,end_place,driver,vehicle,note,signal_sites,stop_signs,all_way_stops,skewed_junctions,stops_at_signal,stops_at_stop_sign,road_coverage
+6F1B2D3C-0000-4000-8000-000000000011,,2026-01-06T15:00:00.000Z,2026-01-06T15:02:34.000Z,1199.5,154,93,7.789,11.628,1199.5,0,0,1,155,0,,,,,,7,0,0,1,1,0,0.9827

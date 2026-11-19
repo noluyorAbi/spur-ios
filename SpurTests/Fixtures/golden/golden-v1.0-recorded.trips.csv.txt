@@ -1,0 +1,2 @@
+id,title,start,end,distance_m,duration_s,moving_s,average_speed_mps,max_speed_mps,stadt_m,land_m,autobahn_m,stops,fixes,gaps,start_place,end_place,driver,vehicle,note,signal_sites,stop_signs,all_way_stops,skewed_junctions,stops_at_signal,stops_at_stop_sign,road_coverage
+93E13150-2679-46C1-9984-B92EAF00E651,Dallas,2026-11-11T11:28:12.621Z,2026-11-11T11:29:07.924Z,157,15,13,10.467,20,157,0,0,0,16,0,Dallas,Dallas,,,,,,,,,,

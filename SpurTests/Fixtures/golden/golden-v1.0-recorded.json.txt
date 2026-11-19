@@ -1,0 +1,470 @@
+{
+  "events" : [
+    {
+      "altitude" : 140,
+      "ellipsoidalAltitude" : 112,
+      "id" : "6F1B2D3C-0000-4000-8000-000000000001",
+      "latitude" : 32.77746442230916,
+      "longitude" : -96.797,
+      "note" : "Schlagloch, rechte Spur",
+      "tag" : "hazard",
+      "timestampMs" : 1794396498621
+    }
+  ],
+  "format" : "spur-trip",
+  "gaps" : [
+
+  ],
+  "statistics" : {
+    "dayNight" : {
+      "daySeconds" : 0,
+      "nightSeconds" : 13
+    },
+    "distance" : 156.99999999869414,
+    "dynamics" : {
+      "hardAccelerations" : 2,
+      "hardBrakings" : 1,
+      "maxAcceleration" : 7,
+      "maxDeceleration" : -5
+    },
+    "elevation" : {
+      "gain" : 0,
+      "loss" : 0,
+      "max" : 150,
+      "min" : 150
+    },
+    "gps" : {
+      "accessoryCount" : 0,
+      "fixCount" : 16,
+      "gapCount" : 0,
+      "gapTotal" : 0,
+      "meanRateHz" : 1,
+      "medianAccuracy" : 4,
+      "p95Accuracy" : 4,
+      "percentAbove30" : 0,
+      "percentPrecise" : 100,
+      "percentWithin10" : 100,
+      "simulatedCount" : 0,
+      "unknownAccuracyCount" : 0
+    },
+    "places" : {
+      "endPlace" : "Dallas",
+      "localities" : [
+        "Dallas"
+      ],
+      "startPlace" : "Dallas",
+      "streets" : [
+        {
+          "distance" : 156.99999999869414,
+          "name" : "McKinney Ave"
+        }
+      ]
+    },
+    "roadType" : {
+      "autobahn" : {
+        "distance" : 0,
+        "time" : 0
+      },
+      "land" : {
+        "distance" : 0,
+        "time" : 0
+      },
+      "stadt" : {
+        "distance" : 156.99999999869414,
+        "time" : 15
+      }
+    },
+    "segmentCount" : 1,
+    "speed" : {
+      "average" : 10.46666666657961,
+      "histogram" : [
+        {
+          "lowerKmh" : 0,
+          "seconds" : 1
+        },
+        {
+          "lowerKmh" : 10,
+          "seconds" : 2
+        },
+        {
+          "lowerKmh" : 20,
+          "seconds" : 1
+        },
+        {
+          "lowerKmh" : 30,
+          "seconds" : 2
+        },
+        {
+          "lowerKmh" : 40,
+          "seconds" : 1
+        },
+        {
+          "lowerKmh" : 50,
+          "seconds" : 2
+        },
+        {
+          "lowerKmh" : 60,
+          "seconds" : 1
+        },
+        {
+          "lowerKmh" : 70,
+          "seconds" : 3
+        }
+      ],
+      "max" : 20,
+      "movingAverage" : 12.076923076822625,
+      "p85" : 20
+    },
+    "stops" : {
+      "count" : 0,
+      "longest" : 0,
+      "startStopEvents" : 0,
+      "startStopPerKm" : 0,
+      "totalTime" : 0
+    },
+    "time" : {
+      "gapTime" : 0,
+      "movingTime" : 13,
+      "stoppedTime" : 2,
+      "totalDuration" : 15
+    }
+  },
+  "trip" : {
+    "context" : {
+      "accuracyAuthorization" : "full",
+      "appBuild" : "1",
+      "appVersion" : "1.0.0",
+      "authorization" : "whenInUse",
+      "deviceModel" : "iPhone18,1",
+      "lowPowerModeEnd" : false,
+      "lowPowerModeStart" : false,
+      "systemVersion" : "26.5",
+      "timeZoneIdentifier" : "America/Chicago"
+    },
+    "endedAt" : "2026-11-11T11:29:07.924Z",
+    "gaps" : [
+
+    ],
+    "id" : "93E13150-2679-46C1-9984-B92EAF00E651",
+    "isRecording" : false,
+    "places" : [
+      {
+        "kind" : "start",
+        "latitude" : 32.8,
+        "locality" : "Dallas",
+        "longitude" : -96.8,
+        "street" : "McKinney Ave",
+        "timestampMs" : 1794396492237
+      },
+      {
+        "kind" : "end",
+        "latitude" : 32.80607041683529,
+        "locality" : "Dallas",
+        "longitude" : -96.8,
+        "street" : "Carlisle St",
+        "timestampMs" : 1794396539369
+      }
+    ],
+    "preview" : [
+      [
+        [
+          32.8,
+          -96.8
+        ],
+        [
+          32.800134898151896,
+          -96.8
+        ],
+        [
+          32.80026979630379,
+          -96.8
+        ],
+        [
+          32.800404694455686,
+          -96.8
+        ],
+        [
+          32.80053959260758,
+          -96.8
+        ],
+        [
+          32.80067449075948,
+          -96.8
+        ],
+        [
+          32.80080938891137,
+          -96.8
+        ],
+        [
+          32.80094428706327,
+          -96.8
+        ],
+        [
+          32.80107918521516,
+          -96.8
+        ],
+        [
+          32.80121408336706,
+          -96.8
+        ],
+        [
+          32.80134898151895,
+          -96.8
+        ],
+        [
+          32.80148387967085,
+          -96.8
+        ],
+        [
+          32.80161877782274,
+          -96.8
+        ],
+        [
+          32.80175367597464,
+          -96.8
+        ],
+        [
+          32.80188857412653,
+          -96.8
+        ],
+        [
+          32.80202347227843,
+          -96.8
+        ],
+        [
+          32.80215837043032,
+          -96.8
+        ],
+        [
+          32.80229326858222,
+          -96.8
+        ],
+        [
+          32.80242816673411,
+          -96.8
+        ],
+        [
+          32.80256306488601,
+          -96.8
+        ],
+        [
+          32.8026979630379,
+          -96.8
+        ],
+        [
+          32.8028328611898,
+          -96.8
+        ],
+        [
+          32.8029677593417,
+          -96.8
+        ],
+        [
+          32.80310265749359,
+          -96.8
+        ],
+        [
+          32.80323755564549,
+          -96.8
+        ],
+        [
+          32.80337245379738,
+          -96.8
+        ],
+        [
+          32.80350735194928,
+          -96.8
+        ],
+        [
+          32.80364225010117,
+          -96.8
+        ],
+        [
+          32.80377714825307,
+          -96.8
+        ],
+        [
+          32.80391204640496,
+          -96.8
+        ],
+        [
+          32.80404694455686,
+          -96.8
+        ],
+        [
+          32.80418184270875,
+          -96.8
+        ],
+        [
+          32.80431674086065,
+          -96.8
+        ],
+        [
+          32.80445163901254,
+          -96.8
+        ],
+        [
+          32.80458653716444,
+          -96.8
+        ],
+        [
+          32.80458653716444,
+          -96.8
+        ],
+        [
+          32.80472143531633,
+          -96.8
+        ],
+        [
+          32.80485633346823,
+          -96.8
+        ],
+        [
+          32.80499123162012,
+          -96.8
+        ],
+        [
+          32.80512612977202,
+          -96.8
+        ],
+        [
+          32.80526102792391,
+          -96.8
+        ],
+        [
+          32.80539592607581,
+          -96.8
+        ],
+        [
+          32.8055308242277,
+          -96.8
+        ],
+        [
+          32.8056657223796,
+          -96.8
+        ],
+        [
+          32.80580062053149,
+          -96.8
+        ],
+        [
+          32.80593551868339,
+          -96.8
+        ],
+        [
+          32.80607041683529,
+          -96.8
+        ]
+      ]
+    ],
+    "schema" : 1,
+    "startedAt" : "2026-11-11T11:28:12.621Z",
+    "statistics" : {
+      "dayNight" : {
+        "daySeconds" : 0,
+        "nightSeconds" : 47.13199996948242
+      },
+      "distance" : 675.000487051178,
+      "dynamics" : {
+        "hardAccelerations" : 0,
+        "hardBrakings" : 0,
+        "maxAcceleration" : 0,
+        "maxDeceleration" : 0
+      },
+      "elevation" : {
+        "gain" : 0,
+        "loss" : 0,
+        "max" : 150,
+        "min" : 150
+      },
+      "gps" : {
+        "accessoryCount" : 0,
+        "fixCount" : 47,
+        "gapCount" : 0,
+        "gapTotal" : 0,
+        "meanRateHz" : 0.9759823480816562,
+        "medianAccuracy" : 5,
+        "p95Accuracy" : 5,
+        "percentAbove30" : 0,
+        "percentPrecise" : 100,
+        "simulatedCount" : 47,
+        "unknownAccuracyCount" : 0
+      },
+      "places" : {
+        "endPlace" : "Dallas",
+        "localities" : [
+          "Dallas"
+        ],
+        "startPlace" : "Dallas",
+        "streets" : [
+          {
+            "distance" : 675.000487051178,
+            "name" : "McKinney Ave"
+          }
+        ]
+      },
+      "roadType" : {
+        "autobahn" : {
+          "distance" : 0,
+          "time" : 0
+        },
+        "land" : {
+          "distance" : 675.000487051178,
+          "time" : 47.13199996948242
+        },
+        "stadt" : {
+          "distance" : 0,
+          "time" : 0
+        }
+      },
+      "segmentCount" : 1,
+      "speed" : {
+        "average" : 14.321490441488482,
+        "histogram" : [
+          {
+            "lowerKmh" : 0,
+            "seconds" : 0
+          },
+          {
+            "lowerKmh" : 10,
+            "seconds" : 0
+          },
+          {
+            "lowerKmh" : 20,
+            "seconds" : 0
+          },
+          {
+            "lowerKmh" : 30,
+            "seconds" : 0
+          },
+          {
+            "lowerKmh" : 40,
+            "seconds" : 0
+          },
+          {
+            "lowerKmh" : 50,
+            "seconds" : 47.13199996948242
+          }
+        ],
+        "max" : 15,
+        "movingAverage" : 14.321490441488482,
+        "p85" : 15
+      },
+      "stops" : {
+        "count" : 0,
+        "longest" : 0,
+        "startStopEvents" : 0,
+        "startStopPerKm" : 0,
+        "totalTime" : 0
+      },
+      "time" : {
+        "gapTime" : 0,
+        "movingTime" : 47.13199996948242,
+        "stoppedTime" : 0,
+        "totalDuration" : 47.13199996948242
+      }
+    },
+    "usableAccuracyLimit" : 30
+  },
+  "version" : 1
+}

@@ -1,0 +1,184 @@
+#!/usr/bin/env python3
+"""SPEC 18.1: contrast ratios (WCAG 2.x relative luminance) of the Theme tokens.
+
+Text against the app's surfaces needs 4.5:1, map overlays 3:1 against the base map. The base map
+colours are sampled from simulator screenshots of the MapKit standard style (see MAP below); the
+token values mirror Spur/UI/DesignSystem/Theme.swift and the colour tables in Components.swift and
+TripDetailModel.swift. Prints the Markdown table that goes into docs/contrast-1.4.md.
+
+Usage: python3 scripts/contrast.py > docs/contrast-1.4.md
+"""
+
+INK_LIGHT = 0x0B0D10
+WHITE = 0xFFFFFF
+
+SURFACES = {
+    "light": {"background": 0xF2F4F7, "surface": 0xFFFFFF, "raised surface": 0xF7F8FA},
+    "dark": {"background": 0x0A0C0F, "surface": 0x13161B, "raised surface": 0x1A1E24},
+}
+
+# Text tiers: (name, light alpha of the near-black ink, dark alpha of white).
+TEXT = [("primary", 0.92, 0.92), ("secondary", 0.68, 0.60), ("tertiary", 0.58, 0.46)]
+
+# Coloured text and status.
+COLOURED = {
+    "light": {"accent text": 0x1A5FC0, "good": 0x157443, "warn": 0x935500, "bad": 0xC8312C},
+    "dark": {"accent text": 0x6FA8FF, "good": 0x4DCC85, "warn": 0xFAB83D, "bad": 0xF55C54},
+}
+
+# Base map colours sampled from screenshots (land, a residential road, a major road), per style.
+MAP = {
+    "light": {"land": 0xF8F8F0, "park": 0xB4E08C, "road": 0xD0D4D4, "major road": 0xACB0B0},
+    "dark": {"land": 0x34445C, "park": 0x006058, "road": 0x40546C, "major road": 0x8094B4},
+}
+
+# Lines and marks on the map: (fill, casing) with casing = (colour, alpha) or None. A line counts
+# when its fill or its casing reaches the bar against the surface under it (WCAG 1.4.11: the
+# outline separates the graphic from what is adjacent). Lines get Theme.mapCasing, 1 pt per side.
+CASING = {"light": (0x3A3D42, 1.0), "dark": (0x0A0C0F, 1.0)}
+CHEVRON_CASING = (0x000000, 0.6)
+
+OVERLAYS = {
+    "light": {
+        "trail (accentLight)": (0x1A5FC0, CASING["light"]),
+        "coverage, one direction": (0xC27400, CASING["light"]),
+        "coverage, both directions": (0x15884F, CASING["light"]),
+        "coverage with traffic, one": (0x6B43D6, CASING["light"]),
+        "coverage with traffic, both": (0x9A2E8F, CASING["light"]),
+        "chevron and arrow (white)": (0xFFFFFF, CHEVRON_CASING),
+        "marker disc": (0x1F242E, None),
+        "road type: Stadt": (0xA07A35, CASING["light"]),
+        "road type: Land": (0x165E58, CASING["light"]),
+        "road type: Autobahn": (0x3474C2, CASING["light"]),
+        "speed step <30": (0x3F7FD8, CASING["light"]),
+        "speed step 110+": (0x0B2149, CASING["light"]),
+        "heat 1x": (0xA68FEE, CASING["light"]),
+        "heat 2x": (0x8466E0, CASING["light"]),
+        "heat 3-4x": (0x6544C9, CASING["light"]),
+        "heat 5-9x": (0x4A2CA3, CASING["light"]),
+        "heat 10x+": (0x301870, CASING["light"]),
+    },
+    "dark": {
+        "trail (accentLight)": (0x6FA8FF, CASING["dark"]),
+        "coverage, one direction": (0xFFB224, CASING["dark"]),
+        "coverage, both directions": (0x3DD68C, CASING["dark"]),
+        "coverage with traffic, one": (0xB49BFF, CASING["dark"]),
+        "coverage with traffic, both": (0xE88AD9, CASING["dark"]),
+        "chevron and arrow (white)": (0xFFFFFF, CHEVRON_CASING),
+        "road type: Stadt": (0xD9C28F, CASING["dark"]),
+        "road type: Land": (0x5CBDB1, CASING["dark"]),
+        "road type: Autobahn": (0x9ECCF7, CASING["dark"]),
+        "heat 1x": (0xAB9BF5, CASING["dark"]),
+        "heat 2x": (0xBDAEF9, CASING["dark"]),
+        "heat 3-4x": (0xCFC4FC, CASING["dark"]),
+        "heat 5-9x": (0xE0D8FE, CASING["dark"]),
+        "heat 10x+": (0xF2EEFF, CASING["dark"]),
+    },
+}
+
+# The speed limit sign sits on the HUD glass, not on the map: on light glass its red ring carries
+# it, on dark glass its white disc.
+HUD = {"light": {"speed limit ring on the glass": (0xCC1A1F, 0xF4F5F2)},
+       "dark": {"speed limit sign, white disc on the glass": (0xFFFFFF, 0x2A2D33)}}
+
+
+MEASURED_DARK = [("muted emphasis (1.3)", 0x6C7E96, 0x6C7E96, 0x6C849C), ("full emphasis (1.4)", 0x60728A, 0x7E90B4, 0xC0D2E4)]
+MEASURED_GLASS = [("park", 0xF4FCF0), ("water", 0xD4FCFC), ("major road", 0xE0FCC8)]
+IMAGERY = [0x262829, 0x484946, 0x6E6E68, 0x92908B, 0xB2B1AD, 0xD2D1D4]
+IMAGERY_LINES = {"coverage one (violet)": 0xB49BFF, "coverage both (magenta)": 0xE88AD9, "heat 1x": 0xAB9BF5,
+                 "heat 10x+": 0xF2EEFF, "trail": 0x6FA8FF}
+
+
+def rgb(h):
+    return ((h >> 16) & 255, (h >> 8) & 255, h & 255)
+
+
+def lum(c):
+    def lin(v):
+        v /= 255
+        return v / 12.92 if v <= 0.04045 else ((v + 0.055) / 1.055) ** 2.4
+    r, g, b = c
+    return 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b)
+
+
+def ratio(a, b):
+    la, lb = sorted([lum(a), lum(b)], reverse=True)
+    return (la + 0.05) / (lb + 0.05)
+
+
+def over(fg, alpha, bg):
+    return tuple(f * alpha + b * (1 - alpha) for f, b in zip(fg, bg))
+
+
+def main():
+    out = ["# Contrast, version 1.4 (SPEC 18.1)", "",
+           "Generated by `scripts/contrast.py`; do not edit by hand. WCAG relative luminance.",
+           "Text needs 4.5:1 against every surface it sits on, map overlays 3:1 against the base map.", ""]
+    fails = 0
+    for mode in ("light", "dark"):
+        surfaces = SURFACES[mode]
+        out += [f"## {mode.capitalize()}", "", "### Text", "",
+                "| token | " + " | ".join(surfaces) + " |", "|---|" + "---|" * len(surfaces)]
+        for name, la, da in TEXT:
+            ink, alpha = (rgb(INK_LIGHT), la) if mode == "light" else (rgb(WHITE), da)
+            cells = []
+            for bg in surfaces.values():
+                r = ratio(over(ink, alpha, rgb(bg)), rgb(bg))
+                fails += r < 4.5
+                cells.append(f"{r:.2f}")
+            out.append(f"| {name} ({alpha:.2f}) | " + " | ".join(cells) + " |")
+        for name, h in COLOURED[mode].items():
+            cells = []
+            for bg in surfaces.values():
+                r = ratio(rgb(h), rgb(bg))
+                fails += r < 4.5
+                cells.append(f"{r:.2f}")
+            out.append(f"| {name} #{h:06X} | " + " | ".join(cells) + " |")
+        base = MAP[mode]
+        out += ["", "### Map overlays (fill / with casing)", "",
+                "| overlay | " + " | ".join(base) + " |", "|---|" + "---|" * len(base)]
+        for name, (fill, casing) in OVERLAYS[mode].items():
+            cells = []
+            for bg in base.values():
+                b = rgb(bg)
+                r = ratio(rgb(fill), b)
+                c = ratio(over(rgb(casing[0]), casing[1], b), b) if casing else 0
+                best = max(r, c)
+                if mode == "light":
+                    fails += best < 3
+                cells.append(f"{r:.2f} / {best:.2f}" if casing else f"{r:.2f}")
+            out.append(f"| {name} #{fill:06X} | " + " | ".join(cells) + " |")
+        for name, (fg, bg) in HUD[mode].items():
+            r = ratio(rgb(fg), rgb(bg))
+            fails += r < 3
+            out.append(f"| {name} #{fg:06X} on #{bg:06X} | {r:.2f} |" + " |" * (len(base) - 1))
+        out.append("")
+    out += ["## Measured on screenshots (iPhone 16 simulator, 2026-11-13)", "",
+            "Sampled pixels, not tokens: the method is in `scripts/contrast.py`.", "",
+            "### The dark map before and after (same trip, layers and camera, only the emphasis differs)", "",
+            "| | land | road | road / land | major road | major road / land |", "|---|---|---|---|---|---|"]
+    for name, land, road, major in MEASURED_DARK:
+        out.append(f"| {name} | #{land:06X} | #{road:06X} | {ratio(rgb(road), rgb(land)):.2f} | #{major:06X} | {ratio(rgb(major), rgb(land)):.2f} |")
+    out += ["", "### Text on the HUD glass over the light map (V4; glass sampled behind the tertiary line)", "",
+            "| base under the card | glass | tertiary (0.58) | secondary (0.68) |", "|---|---|---|---|"]
+    for name, glass in MEASURED_GLASS:
+        g = rgb(glass)
+        t = ratio(over(rgb(INK_LIGHT), 0.58, g), g)
+        sec = ratio(over(rgb(INK_LIGHT), 0.68, g), g)
+        fails += t < 4.5
+        out.append(f"| {name} | #{glass:06X} | {t:.2f} | {sec:.2f} |")
+    out += ["", "### Satellite imagery (18.2b; six luminance clusters of Satellit and Hybrid over Dallas)", "",
+            "| line | fill, worst cluster | with casing, worst cluster |", "|---|---|---|"]
+    for name, fill in IMAGERY_LINES.items():
+        f = min(ratio(rgb(fill), rgb(b)) for b in IMAGERY)
+        w = min(max(ratio(rgb(fill), rgb(b)), ratio(rgb(0x0A0C0F), rgb(b))) for b in IMAGERY)
+        fails += w < 3
+        out.append(f"| {name} #{fill:06X} | {f:.2f} | {w:.2f} |")
+    out.append("")
+    out.append(f"Below the bar: {fails}. The dark overlays are listed for comparison; SPEC 18.1 sets the 3:1 bar")
+    out.append("against the light map.")
+    print("\n".join(out))
+
+
+if __name__ == "__main__":
+    main()

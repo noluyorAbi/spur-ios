@@ -1,0 +1,7 @@
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.mp4 binary
+*.spurpack binary
+docs/screenshots/** linguist-documentation
+SpurTests/Fixtures/** linguist-generated

@@ -1,0 +1,88 @@
+Live estimator against the truth and the trip analysis (SPEC 17.3), from
+SpurTests/LiveMotionTests.swift. Generated from the test log.
+
+Drives: the physics review's live set (15 drives) plus a city drive and slow swivels, each streamed through
+LiveMotionEstimator as the app feeds it: samples and fixes as they come, refreshes on the samples
+written so far (0.5 s behind the stream) and the fixes so far. Three configurations: a refresh
+every 5 s, every 30 s, and every 10 s plus the reviewer's extra refresh points (right after
+remounts and swivels, during slow swivels, before the first alignment).
+
+- first signed: when the first signed value is shown.
+- shown: share of readings with signed values (the rest show the magnitude only).
+- flaps: signed values dropped to magnitude only.
+- wrong sign: shown values of at least 0.3 m/s² whose true value (smoothed like the analysis) is
+  at least 0.3 m/s² the other way, longitudinal and lateral. The live value is a trailing 0.25 s
+  average, so it stands for the moment 0.125 s earlier and is compared there. Asserted 0.
+- off by more than 0.6 m/s²: seconds of shown values that far from the truth on either axis (an
+  old orientation shown). Asserted at most 0.5 s.
+- max peak drift: per refresh, Bremsen and Beschleunigen against the final analysis's 2 Hz
+  signal over the samples that refresh read. Asserted at most 0.3 m/s².
+- counts at stop: after the final refresh the counts equal the trip analysis's. Asserted.
+LIVE standard (remount) | every 5 s: first signed at 40.0 s, shown 48 %, flaps 1, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 0.0 s, worst 0.34 m/s², max peak drift 0.00 m/s², counts at stop equal true
+LIVE swivel 45 in 1.5 s | every 5 s: first signed at 40.0 s, shown 48 %, flaps 1, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 0.0 s, worst 0.34 m/s², max peak drift 0.03 m/s², counts at stop equal true
+LIVE slow swivel 40 in 6 s | every 5 s: first signed at 40.0 s, shown 47 %, flaps 1, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 0.0 s, worst 0.34 m/s², max peak drift 0.03 m/s², counts at stop equal true
+LIVE slow swivel 40 in 20 s | every 5 s: first signed at 40.0 s, shown 54 %, flaps 1, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 0.0 s, worst 0.52 m/s², max peak drift 0.02 m/s², counts at stop equal true
+LIVE tilt 40 in 3 s | every 5 s: first signed at 40.0 s, shown 49 %, flaps 1, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 0.0 s, worst 0.34 m/s², max peak drift 0.03 m/s², counts at stop equal true
+LIVE slow remount 8 s | every 5 s: first signed at 40.0 s, shown 45 %, flaps 1, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 0.0 s, worst 0.34 m/s², max peak drift 0.03 m/s², counts at stop equal true
+LIVE latency 2.5 s | every 5 s: first signed at 45.0 s, shown 44 %, flaps 1, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 0.0 s, worst 0.34 m/s², max peak drift 0.00 m/s², counts at stop equal true
+LIVE motorway lane changes | every 5 s: first signed at 60.0 s, shown 92 %, flaps 0, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 0.0 s, worst 0.40 m/s², max peak drift 0.05 m/s², counts at stop equal true
+LIVE motorway remount + lanes | every 5 s: first signed at 135.0 s, shown 84 %, flaps 0, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 0.0 s, worst 0.43 m/s², max peak drift 0.10 m/s², counts at stop equal true
+LIVE winding drift 0.001 | every 5 s: first signed at 50.0 s, shown 92 %, flaps 0, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 0.0 s, worst 0.43 m/s², max peak drift 0.00 m/s², counts at stop equal true
+LIVE 45 swivel inside drift road | every 5 s: first signed at 50.0 s, shown 54 %, flaps 1, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 0.0 s, worst 0.43 m/s², max peak drift 0.21 m/s², counts at stop equal true
+LIVE remount at red light | every 5 s: first signed at 40.0 s, shown 42 %, flaps 1, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 0.0 s, worst 0.36 m/s², max peak drift 0.00 m/s², counts at stop equal true
+LIVE cupholder turn mid-brake | every 5 s: first signed at 40.0 s, shown 42 %, flaps 1, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 0.0 s, worst 0.35 m/s², max peak drift 0.02 m/s², counts at stop equal true
+LIVE pull-aways, latency 1.5 | every 5 s: first signed at 45.0 s, shown 72 %, flaps 0, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 0.0 s, worst 0.37 m/s², max peak drift 0.00 m/s², counts at stop equal true
+LIVE grade +6/-6 | every 5 s: first signed at 40.0 s, shown 60 %, flaps 1, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 0.0 s, worst 0.36 m/s², max peak drift 0.00 m/s², counts at stop equal true
+LIVE standard (remount) | every 30 s: first signed at 60.0 s, shown 23 %, flaps 1, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 0.0 s, worst 0.32 m/s², max peak drift 0.00 m/s², counts at stop equal true
+LIVE swivel 45 in 1.5 s | every 30 s: first signed at 60.0 s, shown 22 %, flaps 1, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 0.0 s, worst 0.32 m/s², max peak drift 0.00 m/s², counts at stop equal true
+LIVE slow swivel 40 in 6 s | every 30 s: first signed at 60.0 s, shown 25 %, flaps 1, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 0.0 s, worst 0.32 m/s², max peak drift 0.00 m/s², counts at stop equal true
+LIVE slow swivel 40 in 20 s | every 30 s: first signed at 60.0 s, shown 16 %, flaps 1, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 0.0 s, worst 0.52 m/s², max peak drift 0.00 m/s², counts at stop equal true
+LIVE tilt 40 in 3 s | every 30 s: first signed at 60.0 s, shown 23 %, flaps 1, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 0.0 s, worst 0.32 m/s², max peak drift 0.00 m/s², counts at stop equal true
+LIVE slow remount 8 s | every 30 s: first signed at 60.0 s, shown 23 %, flaps 1, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 0.0 s, worst 0.32 m/s², max peak drift 0.00 m/s², counts at stop equal true
+LIVE latency 2.5 s | every 30 s: first signed at 62.0 s, shown 21 %, flaps 1, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 0.0 s, worst 0.32 m/s², max peak drift 0.00 m/s², counts at stop equal true
+LIVE motorway lane changes | every 30 s: first signed at 60.0 s, shown 92 %, flaps 0, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 0.0 s, worst 0.40 m/s², max peak drift 0.00 m/s², counts at stop equal true
+LIVE motorway remount + lanes | every 30 s: first signed at 150.0 s, shown 83 %, flaps 0, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 0.0 s, worst 0.43 m/s², max peak drift 0.03 m/s², counts at stop equal true
+LIVE winding drift 0.001 | every 30 s: first signed at 60.0 s, shown 90 %, flaps 0, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 0.0 s, worst 0.43 m/s², max peak drift 0.00 m/s², counts at stop equal true
+LIVE 45 swivel inside drift road | every 30 s: first signed at 60.0 s, shown 53 %, flaps 1, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 0.0 s, worst 0.43 m/s², max peak drift 0.21 m/s², counts at stop equal true
+LIVE remount at red light | every 30 s: first signed at 60.0 s, shown 17 %, flaps 1, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 0.0 s, worst 0.36 m/s², max peak drift 0.00 m/s², counts at stop equal true
+LIVE cupholder turn mid-brake | every 30 s: first signed at 60.0 s, shown 30 %, flaps 1, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 0.0 s, worst 0.35 m/s², max peak drift 0.02 m/s², counts at stop equal true
+LIVE pull-aways, latency 1.5 | every 30 s: first signed at 60.0 s, shown 62 %, flaps 0, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 0.0 s, worst 0.37 m/s², max peak drift 0.00 m/s², counts at stop equal true
+LIVE grade +6/-6 | every 30 s: first signed at 60.0 s, shown 43 %, flaps 0, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 0.0 s, worst 0.36 m/s², max peak drift 0.00 m/s², counts at stop equal true
+LIVE standard (remount) | 10 s + extra refreshes: first signed at 40.0 s, shown 44 %, flaps 1, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 0.0 s, worst 0.34 m/s², max peak drift 0.00 m/s², counts at stop equal true
+LIVE swivel 45 in 1.5 s | 10 s + extra refreshes: first signed at 40.0 s, shown 44 %, flaps 1, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 0.0 s, worst 0.34 m/s², max peak drift 0.03 m/s², counts at stop equal true
+LIVE slow swivel 40 in 6 s | 10 s + extra refreshes: first signed at 40.0 s, shown 47 %, flaps 1, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 0.0 s, worst 0.34 m/s², max peak drift 0.03 m/s², counts at stop equal true
+LIVE slow swivel 40 in 20 s | 10 s + extra refreshes: first signed at 40.0 s, shown 36 %, flaps 1, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 0.0 s, worst 0.51 m/s², max peak drift 0.02 m/s², counts at stop equal true
+LIVE tilt 40 in 3 s | 10 s + extra refreshes: first signed at 40.0 s, shown 45 %, flaps 1, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 0.0 s, worst 0.34 m/s², max peak drift 0.03 m/s², counts at stop equal true
+LIVE slow remount 8 s | 10 s + extra refreshes: first signed at 40.0 s, shown 45 %, flaps 1, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 0.0 s, worst 0.34 m/s², max peak drift 0.03 m/s², counts at stop equal true
+LIVE latency 2.5 s | 10 s + extra refreshes: first signed at 50.0 s, shown 37 %, flaps 1, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 0.0 s, worst 0.34 m/s², max peak drift 0.00 m/s², counts at stop equal true
+LIVE motorway lane changes | 10 s + extra refreshes: first signed at 60.0 s, shown 92 %, flaps 0, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 0.0 s, worst 0.40 m/s², max peak drift 0.04 m/s², counts at stop equal true
+LIVE motorway remount + lanes | 10 s + extra refreshes: first signed at 140.0 s, shown 84 %, flaps 0, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 0.0 s, worst 0.43 m/s², max peak drift 0.07 m/s², counts at stop equal true
+LIVE winding drift 0.001 | 10 s + extra refreshes: first signed at 50.0 s, shown 92 %, flaps 0, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 0.0 s, worst 0.43 m/s², max peak drift 0.00 m/s², counts at stop equal true
+LIVE 45 swivel inside drift road | 10 s + extra refreshes: first signed at 50.0 s, shown 54 %, flaps 1, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 0.0 s, worst 0.43 m/s², max peak drift 0.21 m/s², counts at stop equal true
+LIVE remount at red light | 10 s + extra refreshes: first signed at 40.0 s, shown 39 %, flaps 1, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 0.0 s, worst 0.36 m/s², max peak drift 0.00 m/s², counts at stop equal true
+LIVE cupholder turn mid-brake | 10 s + extra refreshes: first signed at 40.0 s, shown 42 %, flaps 1, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 0.0 s, worst 0.35 m/s², max peak drift 0.04 m/s², counts at stop equal true
+LIVE pull-aways, latency 1.5 | 10 s + extra refreshes: first signed at 45.0 s, shown 72 %, flaps 0, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 0.0 s, worst 0.37 m/s², max peak drift 0.00 m/s², counts at stop equal true
+LIVE grade +6/-6 | 10 s + extra refreshes: first signed at 40.0 s, shown 55 %, flaps 1, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 0.0 s, worst 0.36 m/s², max peak drift 0.00 m/s², counts at stop equal true
+LIVE swivel, refresh 2 s after, then 60 s: first signed at 60.0 s, shown 22 %, flaps 1, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 0.0 s, worst 0.32 m/s², max peak drift 0.00 m/s², counts at stop equal true
+LIVE city 3 blocks, U-turn 1.3 rad/s: first signed at 40.0 s, shown 92 %, flaps 0, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 0.6 s, worst 1.38 m/s², max peak drift 0.00 m/s², counts at stop equal true
+LIVE city, gyro bias 0.002 rad/s, course noise 30/v: first signed at 40.0 s, shown 85 %, flaps 2, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 0.3 s, worst 1.06 m/s², max peak drift 0.00 m/s², counts at stop equal true
+LIVE city, swivel 20 deg over 120 s: first signed at 40.0 s, shown 82 %, flaps 1, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 0.5 s, worst 1.07 m/s², max peak drift 0.14 m/s², counts at stop equal true
+LIVE city, swivel 40 deg over 20 s: first signed at 40.0 s, shown 83 %, flaps 1, wrong sign 0 (0.00 % of shown), off by more than 0.6 m/s² 4.5 s, worst 1.05 m/s², max peak drift 0.05 m/s², counts at stop equal true
+LIVE remount at 16 s per refresh: signed again after 56 s, segment refreshes 2, full 3
+
+Reviewer harness (review-motion/live2/main.swift) compiled against this code, Mac, -O:
+  534 runs (round-1 matrix: seeds 0/1000/2000 at 100 Hz, 50 Hz, adversarial refreshes, course noise
+  15/v; round-2 probes: city, U-turns, parking, gyro scale, gyro bias 0.0009 to 0.002, course noise
+  15/v and 30/v, slow swivels at 100 Hz/10 s and 50 Hz/60 s): wrong signs 0, count drops 0,
+  maxima shrinks 0.00 m/s², at most 4.3 s shown more than 0.6 m/s² off.
+  POLICY refresh 0.05 s: cadence 10 s, | signed again 56 s after the remount at 209 s | shown 88.1 % | wrong 0
+  POLICY refresh 0.50 s: cadence 25 s, | signed again 56 s after the remount at 209 s | shown 86.9 % | wrong 0
+  POLICY refresh 4.70 s: cadence 235 s, | signed again 56 s after the remount at 209 s | shown 67.9 % | wrong 0
+  POLICY refresh 7.80 s: cadence 390 s, | signed again 56 s after the remount at 209 s | shown 67.9 % | wrong 0
+  POLICY refresh 16.00 s: cadence 800 s, | signed again 56 s after the remount at 209 s | shown 67.9 % | wrong 0
+
+Refresh cost (scripts/live-bench.sh, MotionAnalyzer.live through the mapped reader, Mac, -O):
+  0.1666667 h: motion-bench live: 60000 samples, refresh 0.025 s, cadence 10 s (0.2 % of a core), footprint peak 6 MB, aligned 1
+  1 h: motion-bench live: 360000 samples, refresh 0.160 s, cadence 10 s (1.6 % of a core), footprint peak 22 MB, aligned 1
+  4 h: motion-bench live: 1440000 samples, refresh 0.715 s, cadence 36 s (2.0 % of a core), footprint peak 76 MB, aligned 1
+  8 h: motion-bench live: 2880000 samples, refresh 1.562 s, cadence 78 s (2.0 % of a core), footprint peak 151 MB, aligned 1

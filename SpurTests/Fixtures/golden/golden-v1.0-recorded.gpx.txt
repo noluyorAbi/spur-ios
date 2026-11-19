@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="Spur" xmlns="http://www.topografix.com/GPX/1/1" xmlns:spur="urn:spur:gpx:1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+  <metadata>
+    <name>Dallas</name>
+    <time>2026-11-11T11:28:12.621Z</time>
+  </metadata>
+  <wpt lat="32.77746442230916" lon="-96.797">
+    <ele>140</ele>
+    <time>2026-11-11T11:28:18.621Z</time>
+    <name>Gefahrenstelle</name>
+    <desc>Schlagloch, rechte Spur</desc>
+    <type>hazard</type>
+  </wpt>
+  <trk>
+    <name>Dallas</name>
+    <trkseg>
+      <trkpt lat="32.7767" lon="-96.797"><ele>150</ele><time>2026-11-11T11:28:12.621Z</time><extensions><spur:speed>0</spur:speed><spur:course>0</spur:course><spur:accuracy>4</spur:accuracy><spur:altitudeAccuracy>3</spur:altitudeAccuracy><spur:speedAccuracy>0.5</spur:speedAccuracy></extensions></trkpt>
+      <trkpt lat="32.77673597281455" lon="-96.797"><ele>150</ele><time>2026-11-11T11:28:13.621Z</time><extensions><spur:speed>4</spur:speed><spur:course>0</spur:course><spur:accuracy>4</spur:accuracy><spur:altitudeAccuracy>3</spur:altitudeAccuracy><spur:speedAccuracy>0.5</spur:speedAccuracy></extensions></trkpt>
+      <trkpt lat="32.77681691164729" lon="-96.797"><ele>150</ele><time>2026-11-11T11:28:14.621Z</time><extensions><spur:speed>9</spur:speed><spur:course>0</spur:course><spur:accuracy>4</spur:accuracy><spur:altitudeAccuracy>3</spur:altitudeAccuracy><spur:speedAccuracy>0.5</spur:speedAccuracy></extensions></trkpt>
+      <trkpt lat="32.776942816498206" lon="-96.797"><ele>150</ele><time>2026-11-11T11:28:15.621Z</time><extensions><spur:speed>14</spur:speed><spur:course>0</spur:course><spur:accuracy>4</spur:accuracy><spur:altitudeAccuracy>3</spur:altitudeAccuracy><spur:speedAccuracy>0.5</spur:speedAccuracy></extensions></trkpt>
+      <trkpt lat="32.777104694163675" lon="-96.797"><ele>150</ele><time>2026-11-11T11:28:16.621Z</time><extensions><spur:speed>18</spur:speed><spur:course>0</spur:course><spur:accuracy>4</spur:accuracy><spur:altitudeAccuracy>3</spur:altitudeAccuracy><spur:speedAccuracy>0.5</spur:speedAccuracy></extensions></trkpt>
+      <trkpt lat="32.77728455823642" lon="-96.797"><ele>150</ele><time>2026-11-11T11:28:17.621Z</time><extensions><spur:speed>20</spur:speed><spur:course>0</spur:course><spur:accuracy>4</spur:accuracy><spur:altitudeAccuracy>3</spur:altitudeAccuracy><spur:speedAccuracy>0.5</spur:speedAccuracy></extensions></trkpt>
+      <trkpt lat="32.77746442230916" lon="-96.797"><ele>150</ele><time>2026-11-11T11:28:18.621Z</time><extensions><spur:speed>20</spur:speed><spur:course>0</spur:course><spur:accuracy>4</spur:accuracy><spur:altitudeAccuracy>3</spur:altitudeAccuracy><spur:speedAccuracy>0.5</spur:speedAccuracy></extensions></trkpt>
+      <trkpt lat="32.7776442863819" lon="-96.797"><ele>150</ele><time>2026-11-11T11:28:19.621Z</time><extensions><spur:speed>20</spur:speed><spur:course>0</spur:course><spur:accuracy>4</spur:accuracy><spur:altitudeAccuracy>3</spur:altitudeAccuracy><spur:speedAccuracy>0.5</spur:speedAccuracy></extensions></trkpt>
+      <trkpt lat="32.7777881776401" lon="-96.797"><ele>150</ele><time>2026-11-11T11:28:20.621Z</time><extensions><spur:speed>16</spur:speed><spur:course>0</spur:course><spur:accuracy>4</spur:accuracy><spur:altitudeAccuracy>3</spur:altitudeAccuracy><spur:speedAccuracy>0.5</spur:speedAccuracy></extensions></trkpt>
+      <trkpt lat="32.77788710288011" lon="-96.797"><ele>150</ele><time>2026-11-11T11:28:21.621Z</time><extensions><spur:speed>11</spur:speed><spur:course>0</spur:course><spur:accuracy>4</spur:accuracy><spur:altitudeAccuracy>3</spur:altitudeAccuracy><spur:speedAccuracy>0.5</spur:speedAccuracy></extensions></trkpt>
+      <trkpt lat="32.77794106210193" lon="-96.797"><ele>150</ele><time>2026-11-11T11:28:22.621Z</time><extensions><spur:speed>6</spur:speed><spur:course>0</spur:course><spur:accuracy>4</spur:accuracy><spur:altitudeAccuracy>3</spur:altitudeAccuracy><spur:speedAccuracy>0.5</spur:speedAccuracy></extensions></trkpt>
+      <trkpt lat="32.7779590485092" lon="-96.797"><ele>150</ele><time>2026-11-11T11:28:23.621Z</time><extensions><spur:speed>2</spur:speed><spur:course>0</spur:course><spur:accuracy>4</spur:accuracy><spur:altitudeAccuracy>3</spur:altitudeAccuracy><spur:speedAccuracy>0.5</spur:speedAccuracy></extensions></trkpt>
+      <trkpt lat="32.7779590485092" lon="-96.797"><ele>150</ele><time>2026-11-11T11:28:24.621Z</time><extensions><spur:speed>0</spur:speed><spur:course>0</spur:course><spur:accuracy>4</spur:accuracy><spur:altitudeAccuracy>3</spur:altitudeAccuracy><spur:speedAccuracy>0.5</spur:speedAccuracy></extensions></trkpt>
+      <trkpt lat="32.7779590485092" lon="-96.797"><ele>150</ele><time>2026-11-11T11:28:25.621Z</time><extensions><spur:speed>0</spur:speed><spur:course>0</spur:course><spur:accuracy>4</spur:accuracy><spur:altitudeAccuracy>3</spur:altitudeAccuracy><spur:speedAccuracy>0.5</spur:speedAccuracy></extensions></trkpt>
+      <trkpt lat="32.77800401452739" lon="-96.797"><ele>150</ele><time>2026-11-11T11:28:26.621Z</time><extensions><spur:speed>5</spur:speed><spur:course>0</spur:course><spur:accuracy>4</spur:accuracy><spur:altitudeAccuracy>3</spur:altitudeAccuracy><spur:speedAccuracy>0.5</spur:speedAccuracy></extensions></trkpt>
+      <trkpt lat="32.778111932971036" lon="-96.797"><ele>150</ele><time>2026-11-11T11:28:27.621Z</time><extensions><spur:speed>12</spur:speed><spur:course>0</spur:course><spur:accuracy>4</spur:accuracy><spur:altitudeAccuracy>3</spur:altitudeAccuracy><spur:speedAccuracy>0.5</spur:speedAccuracy></extensions></trkpt>
+    </trkseg>
+  </trk>
+</gpx>

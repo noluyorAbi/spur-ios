@@ -1,0 +1,540 @@
+{
+  "events" : [
+
+  ],
+  "format" : "spur-trip",
+  "gaps" : [
+
+  ],
+  "passedFeatures" : [
+    {
+      "applies" : true,
+      "lat" : 32.7815979,
+      "lon" : -96.7984873,
+      "nodeId" : 5706869094,
+      "skewed" : false,
+      "street" : "Elm Street",
+      "time" : "2026-01-06T15:00:04.337Z",
+      "type" : "junction",
+      "wayId" : 599487856
+    },
+    {
+      "applies" : true,
+      "lat" : 32.7815785,
+      "lon" : -96.798581,
+      "nodeId" : 12519505048,
+      "street" : "Elm Street",
+      "time" : "2026-01-06T15:00:04.857Z",
+      "type" : "crossing",
+      "wayId" : 599487856
+    },
+    {
+      "applies" : true,
+      "lat" : 32.781348,
+      "lon" : -96.7996844,
+      "nodeId" : 5827966021,
+      "street" : "Elm Street",
+      "time" : "2026-01-06T15:00:14.013Z",
+      "type" : "crossing",
+      "wayId" : 599487856
+    },
+    {
+      "applies" : true,
+      "lat" : 32.7813324,
+      "lon" : -96.7997581,
+      "nodeId" : 82094121,
+      "siteId" : 82094121,
+      "skewed" : false,
+      "street" : "Elm Street",
+      "time" : "2026-01-06T15:00:14.447Z",
+      "type" : "traffic_signals",
+      "wayId" : 599487856
+    },
+    {
+      "applies" : true,
+      "lat" : 32.7813152,
+      "lon" : -96.7998329,
+      "nodeId" : 5827966019,
+      "street" : "Elm Street",
+      "time" : "2026-01-06T15:00:14.890Z",
+      "type" : "crossing",
+      "wayId" : 599487856
+    },
+    {
+      "applies" : true,
+      "lat" : 32.7812021,
+      "lon" : -96.8003669,
+      "nodeId" : 12519505056,
+      "skewed" : false,
+      "street" : "Elm Street",
+      "time" : "2026-01-06T15:00:20.939Z",
+      "type" : "junction",
+      "wayId" : 599487856
+    },
+    {
+      "applies" : true,
+      "lat" : 32.7811812,
+      "lon" : -96.8004652,
+      "nodeId" : 82159347,
+      "skewed" : false,
+      "street" : "Elm Street",
+      "time" : "2026-01-06T15:00:21.792Z",
+      "type" : "junction",
+      "wayId" : 599487856
+    },
+    {
+      "applies" : true,
+      "lat" : 32.7811305,
+      "lon" : -96.8007061,
+      "nodeId" : 12519505054,
+      "skewed" : false,
+      "street" : "Elm Street",
+      "time" : "2026-01-06T15:00:23.818Z",
+      "type" : "junction",
+      "wayId" : 599487856
+    },
+    {
+      "applies" : true,
+      "lat" : 32.7810432,
+      "lon" : -96.8011158,
+      "nodeId" : 5827966036,
+      "street" : "Elm Street",
+      "time" : "2026-01-06T15:01:30.045Z",
+      "type" : "crossing",
+      "wayId" : 599487856
+    },
+    {
+      "applies" : true,
+      "lat" : 32.7810215,
+      "lon" : -96.8012138,
+      "nodeId" : 2860391269,
+      "siteId" : 2860391269,
+      "skewed" : true,
+      "street" : "Elm Street",
+      "time" : "2026-01-06T15:01:31.000Z",
+      "type" : "traffic_signals",
+      "wayId" : 599487856
+    },
+    {
+      "applies" : true,
+      "lat" : 32.7809899,
+      "lon" : -96.8013717,
+      "nodeId" : 5827966033,
+      "street" : "Elm Street",
+      "time" : "2026-01-06T15:01:35.000Z",
+      "type" : "crossing",
+      "wayId" : 866244140
+    },
+    {
+      "applies" : true,
+      "lat" : 32.7807761,
+      "lon" : -96.8024152,
+      "nodeId" : 82108199,
+      "street" : "Elm Street",
+      "time" : "2026-01-06T15:01:43.626Z",
+      "type" : "crossing",
+      "wayId" : 866244140
+    },
+    {
+      "applies" : true,
+      "lat" : 32.780652,
+      "lon" : -96.8029946,
+      "nodeId" : 5827965998,
+      "street" : "Elm Street",
+      "time" : "2026-01-06T15:01:49.291Z",
+      "type" : "crossing",
+      "wayId" : 866244140
+    },
+    {
+      "applies" : true,
+      "lat" : 32.7806355,
+      "lon" : -96.8030697,
+      "nodeId" : 81545649,
+      "siteId" : 81545649,
+      "skewed" : false,
+      "street" : "Elm Street",
+      "time" : "2026-01-06T15:01:49.656Z",
+      "type" : "traffic_signals",
+      "wayId" : 866244140
+    },
+    {
+      "applies" : true,
+      "lat" : 32.7806026,
+      "lon" : -96.8032183,
+      "nodeId" : 81753668,
+      "siteId" : 81545649,
+      "skewed" : false,
+      "street" : "Elm Street",
+      "time" : "2026-01-06T15:01:51.756Z",
+      "type" : "traffic_signals",
+      "wayId" : 1032000266
+    },
+    {
+      "applies" : true,
+      "lat" : 32.7805124,
+      "lon" : -96.8031857,
+      "nodeId" : 5827965995,
+      "street" : "North Griffin Street",
+      "time" : "2026-01-06T15:01:52.816Z",
+      "type" : "crossing",
+      "wayId" : 599564470
+    },
+    {
+      "applies" : true,
+      "lat" : 32.7799423,
+      "lon" : -96.8030153,
+      "nodeId" : 5825966811,
+      "street" : "North Griffin Street",
+      "time" : "2026-01-06T15:02:00.391Z",
+      "type" : "crossing",
+      "wayId" : 599564470
+    },
+    {
+      "applies" : true,
+      "lat" : 32.7798533,
+      "lon" : -96.8029906,
+      "nodeId" : 81753666,
+      "siteId" : 81545654,
+      "skewed" : false,
+      "street" : "North Griffin Street",
+      "time" : "2026-01-06T15:02:01.240Z",
+      "type" : "traffic_signals",
+      "wayId" : 599564470
+    },
+    {
+      "applies" : true,
+      "lat" : 32.7797696,
+      "lon" : -96.8029809,
+      "nodeId" : 5825966815,
+      "street" : "South Griffin Street",
+      "time" : "2026-01-06T15:02:01.905Z",
+      "type" : "crossing",
+      "wayId" : 419045310
+    },
+    {
+      "applies" : true,
+      "lat" : 32.7791752,
+      "lon" : -96.8029135,
+      "nodeId" : 5825966821,
+      "street" : "South Griffin Street",
+      "time" : "2026-01-06T15:02:07.859Z",
+      "type" : "crossing",
+      "wayId" : 419045311
+    },
+    {
+      "applies" : true,
+      "lat" : 32.77908,
+      "lon" : -96.802903,
+      "nodeId" : 81881635,
+      "siteId" : 81881635,
+      "skewed" : false,
+      "street" : "South Griffin Street",
+      "time" : "2026-01-06T15:02:10.000Z",
+      "type" : "traffic_signals",
+      "wayId" : 419045311
+    },
+    {
+      "applies" : true,
+      "lat" : 32.7791117,
+      "lon" : -96.8027601,
+      "nodeId" : 82043800,
+      "siteId" : 81881635,
+      "skewed" : false,
+      "street" : "Commerce Street",
+      "time" : "2026-01-06T15:02:13.000Z",
+      "type" : "traffic_signals",
+      "wayId" : 866244138
+    },
+    {
+      "applies" : true,
+      "lat" : 32.7791283,
+      "lon" : -96.8026799,
+      "nodeId" : 5825966817,
+      "street" : "Commerce Street",
+      "time" : "2026-01-06T15:02:13.403Z",
+      "type" : "crossing",
+      "wayId" : 866244138
+    },
+    {
+      "applies" : true,
+      "lat" : 32.7793481,
+      "lon" : -96.8016325,
+      "nodeId" : 12022098871,
+      "siteId" : 12022098871,
+      "street" : "Commerce Street",
+      "time" : "2026-01-06T15:02:22.730Z",
+      "type" : "traffic_signals",
+      "wayId" : 866244138
+    },
+    {
+      "applies" : true,
+      "lat" : 32.7793643,
+      "lon" : -96.8015511,
+      "nodeId" : 12022098870,
+      "street" : "Commerce Street",
+      "time" : "2026-01-06T15:02:23.254Z",
+      "type" : "crossing",
+      "wayId" : 866244138
+    },
+    {
+      "applies" : true,
+      "lat" : 32.7794212,
+      "lon" : -96.8012734,
+      "nodeId" : 12513604632,
+      "skewed" : false,
+      "street" : "Commerce Street",
+      "time" : "2026-01-06T15:02:26.369Z",
+      "type" : "junction",
+      "wayId" : 866244138
+    },
+    {
+      "applies" : true,
+      "lat" : 32.7794394,
+      "lon" : -96.8011852,
+      "nodeId" : 12513604638,
+      "skewed" : false,
+      "street" : "Commerce Street",
+      "time" : "2026-01-06T15:02:27.240Z",
+      "type" : "junction",
+      "wayId" : 866244138
+    },
+    {
+      "applies" : true,
+      "lat" : 32.7794618,
+      "lon" : -96.8010768,
+      "nodeId" : 12513604628,
+      "skewed" : false,
+      "street" : "Commerce Street",
+      "time" : "2026-01-06T15:02:27.838Z",
+      "type" : "junction",
+      "wayId" : 866244138
+    },
+    {
+      "applies" : true,
+      "lat" : 32.7795178,
+      "lon" : -96.8008029,
+      "nodeId" : 5825966801,
+      "street" : "Commerce Street",
+      "time" : "2026-01-06T15:02:30.278Z",
+      "type" : "crossing",
+      "wayId" : 1100990140
+    },
+    {
+      "applies" : true,
+      "lat" : 32.7795356,
+      "lon" : -96.8007171,
+      "nodeId" : 82059941,
+      "siteId" : 82059941,
+      "skewed" : false,
+      "street" : "Commerce Street",
+      "time" : "2026-01-06T15:02:31.000Z",
+      "type" : "traffic_signals",
+      "wayId" : 1100990140
+    },
+    {
+      "applies" : true,
+      "lat" : 32.7795514,
+      "lon" : -96.8006427,
+      "nodeId" : 5825966802,
+      "street" : "Commerce Street",
+      "time" : "2026-01-06T15:02:31.837Z",
+      "type" : "crossing",
+      "wayId" : 90990726
+    }
+  ],
+  "roadDataAttribution" : "Road data (c) OpenStreetMap contributors, ODbL",
+  "roads" : {
+    "analyzedAt" : "2026-11-11T18:00:00.000Z",
+    "categories" : [
+      {
+        "category" : "arterial",
+        "distance" : 921.1298557736076,
+        "time" : 87
+      }
+    ],
+    "counts" : {
+      "allWayStops" : 0,
+      "giveWay" : 0,
+      "levelCrossings" : 0,
+      "motorwayJunctions" : 0,
+      "roundabouts" : 0,
+      "signalSites" : 7,
+      "skewedJunctions" : 1,
+      "stopSigns" : 0
+    },
+    "coverage" : 0.9827074385412805,
+    "manySignals" : [
+      {
+        "count" : 3,
+        "drivenMeters" : 504.4609136407389,
+        "name" : "Elm Street",
+        "perKm" : 5.946942406991923
+      }
+    ],
+    "manyStopSigns" : [
+
+    ],
+    "matchedDistance" : 921.1298557736076,
+    "speedLimitKnownShare" : 0,
+    "stops" : {
+      "other" : 0,
+      "signal" : 1,
+      "stopSign" : 0
+    },
+    "tilesFromCache" : 0,
+    "tilesFromLive" : 0,
+    "tilesFromPack" : 0,
+    "version" : 1
+  },
+  "statistics" : {
+    "dayNight" : {
+      "daySeconds" : 93,
+      "nightSeconds" : 0
+    },
+    "distance" : 1199.50452800934,
+    "dynamics" : {
+      "hardAccelerations" : 0,
+      "hardBrakings" : 1,
+      "maxAcceleration" : 2.307307510323776,
+      "maxDeceleration" : -3.12082107818542
+    },
+    "gps" : {
+      "accessoryCount" : 0,
+      "fixCount" : 155,
+      "gapCount" : 0,
+      "gapTotal" : 0,
+      "meanRateHz" : 1,
+      "medianAccuracy" : 5,
+      "p95Accuracy" : 5,
+      "percentAbove30" : 0,
+      "percentPrecise" : 100,
+      "percentWithin10" : 100,
+      "simulatedCount" : 0,
+      "unknownAccuracyCount" : 0
+    },
+    "places" : {
+      "localities" : [
+
+      ],
+      "streets" : [
+
+      ]
+    },
+    "roadType" : {
+      "autobahn" : {
+        "distance" : 0,
+        "time" : 0
+      },
+      "land" : {
+        "distance" : 0,
+        "time" : 0
+      },
+      "stadt" : {
+        "distance" : 1199.50452800934,
+        "time" : 154
+      }
+    },
+    "segmentCount" : 1,
+    "speed" : {
+      "average" : 7.788990441619091,
+      "histogram" : [
+        {
+          "lowerKmh" : 0,
+          "seconds" : 1
+        },
+        {
+          "lowerKmh" : 10,
+          "seconds" : 8
+        },
+        {
+          "lowerKmh" : 20,
+          "seconds" : 8
+        },
+        {
+          "lowerKmh" : 30,
+          "seconds" : 48
+        },
+        {
+          "lowerKmh" : 40,
+          "seconds" : 28
+        }
+      ],
+      "max" : 11.628395192315551,
+      "movingAverage" : 12.897898150638065,
+      "p85" : 11.238678434761036
+    },
+    "stops" : {
+      "count" : 1,
+      "longest" : 61,
+      "startStopEvents" : 1,
+      "startStopPerKm" : 0.8336775532307232,
+      "totalTime" : 61
+    },
+    "time" : {
+      "gapTime" : 0,
+      "movingTime" : 93,
+      "stoppedTime" : 61,
+      "totalDuration" : 154
+    }
+  },
+  "trip" : {
+    "context" : {
+
+    },
+    "endedAt" : "2026-01-06T15:02:34.000Z",
+    "gaps" : [
+
+    ],
+    "id" : "6F1B2D3C-0000-4000-8000-000000000011",
+    "isRecording" : false,
+    "places" : [
+
+    ],
+    "roads" : {
+      "analyzedAt" : "2026-11-11T18:00:00.000Z",
+      "categories" : [
+        {
+          "category" : "arterial",
+          "distance" : 921.1298557736076,
+          "time" : 87
+        }
+      ],
+      "counts" : {
+        "allWayStops" : 0,
+        "giveWay" : 0,
+        "levelCrossings" : 0,
+        "motorwayJunctions" : 0,
+        "roundabouts" : 0,
+        "signalSites" : 7,
+        "skewedJunctions" : 1,
+        "stopSigns" : 0
+      },
+      "coverage" : 0.9827074385412805,
+      "manySignals" : [
+        {
+          "count" : 3,
+          "drivenMeters" : 504.4609136407389,
+          "name" : "Elm Street",
+          "perKm" : 5.946942406991923
+        }
+      ],
+      "manyStopSigns" : [
+
+      ],
+      "matchedDistance" : 921.1298557736076,
+      "speedLimitKnownShare" : 0,
+      "stops" : {
+        "other" : 0,
+        "signal" : 1,
+        "stopSign" : 0
+      },
+      "tilesFromCache" : 0,
+      "tilesFromLive" : 0,
+      "tilesFromPack" : 0,
+      "version" : 1
+    },
+    "schema" : 1,
+    "startedAt" : "2026-01-06T15:00:00.000Z"
+  },
+  "version" : 1
+}
