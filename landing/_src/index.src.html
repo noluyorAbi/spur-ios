@@ -1,0 +1,525 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Spur, know which roads you have already driven</title>
+  <meta name="description" content="An iPhone app that records every drive in full GPS and motion detail, shows the roads and directions you have covered, and plans routes over the ones you have not. Everything stays on the phone.">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#0a0c0f" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f2f4f7" media="(prefers-color-scheme: light)">
+  <link rel="canonical" href="https://spur-ios.vercel.app">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Spur">
+  <meta property="og:title" content="Spur, know which roads you have already driven">
+  <meta property="og:description" content="An iPhone app that records every drive in full GPS and motion detail, shows the roads and directions you have covered, and plans routes over the ones you have not. Everything stays on the phone.">
+  <meta property="og:url" content="https://spur-ios.vercel.app">
+  <meta property="og:image" content="https://spur-ios.vercel.app/assets/social-card.png">
+  <meta property="og:image:alt" content="Spur on an iPhone: every road you have driven, amber one way, green both ways">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Spur, know which roads you have already driven">
+  <meta name="twitter:description" content="An iPhone app that records every drive in full GPS and motion detail, shows the roads and directions you have covered, and plans routes over the ones you have not. Everything stays on the phone.">
+  <meta name="twitter:image" content="https://spur-ios.vercel.app/assets/social-card.png">
+  <meta name="twitter:image:alt" content="Spur on an iPhone: every road you have driven, amber one way, green both ways">
+
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  {{DEFS}}
+
+  <svg class="map-defs" width="0" height="0" aria-hidden="true" focusable="false">
+    <defs>
+      <symbol id="i-record" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.6" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="3.9" fill="currentColor"/></symbol>
+      <symbol id="i-fahrt" viewBox="0 0 24 24"><path d="M12 2.6 L17.2 15.4 L12 12.9 L6.8 15.4 Z" fill="currentColor"/><path d="M12 15.6 V21.4" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></symbol>
+      <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.4" cy="10.4" r="6.4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15.2 15.2 L20.6 20.6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+      <symbol id="i-history" viewBox="0 0 24 24"><path d="M4.6 12 A7.6 7.6 0 1 0 6.9 6.6" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><path d="M3.4 5.4 L6.9 6.6 L7.6 3" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 7.8 V12.2 L14.9 14" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M3.5 6.5 H20.5 M3.5 12 H20.5 M3.5 17.5 H20.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="15" cy="6.5" r="2.3" class="knob" stroke="currentColor" stroke-width="1.6"/><circle cx="8.5" cy="12" r="2.3" class="knob" stroke="currentColor" stroke-width="1.6"/><circle cx="13" cy="17.5" r="2.3" class="knob" stroke="currentColor" stroke-width="1.6"/></symbol>
+      <symbol id="i-map" viewBox="0 0 24 24"><path d="M3.8 6.2 L9 4.2 L15 6.2 L20.2 4.2 V17.8 L15 19.8 L9 17.8 L3.8 19.8 Z M9 4.2 V17.8 M15 6.2 V19.8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+      <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 3.6 L20.4 8.2 L12 12.8 L3.6 8.2 Z" fill="currentColor"/><path d="M5.2 11.9 L3.6 12.8 L12 17.4 L20.4 12.8 L18.8 11.9 M5.2 16.4 L3.6 17.3 L12 21.9 L20.4 17.3 L18.8 16.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+      <symbol id="i-sign" viewBox="0 0 24 24"><path d="M12 2.8 V21.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M6.4 5.2 H16.8 L19.4 7.7 L16.8 10.2 H6.4 Z M17.6 12.4 H7.2 L4.6 14.9 L7.2 17.4 H17.6 Z" fill="currentColor"/></symbol>
+      <symbol id="i-road" viewBox="0 0 24 24"><path d="M9.6 4 L4 20 M14.4 4 L20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M12 5 V7.6 M12 10.6 V13.4 M12 16.4 V19.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+      <symbol id="i-radio" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2.2" fill="currentColor"/><path d="M8.2 8.2 A5.4 5.4 0 0 0 8.2 15.8 M15.8 8.2 A5.4 5.4 0 0 1 15.8 15.8 M5.2 5.2 A9.6 9.6 0 0 0 5.2 18.8 M18.8 5.2 A9.6 9.6 0 0 1 18.8 18.8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+      <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5.6 21 V3.8 M5.6 4.4 C 9 2.4 12 6.6 18.4 4.6 V13 C 12 15 9 10.8 5.6 12.8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-pause" viewBox="0 0 24 24"><rect x="6.6" y="4.8" width="3.8" height="14.4" rx="1.2" fill="currentColor"/><rect x="13.6" y="4.8" width="3.8" height="14.4" rx="1.2" fill="currentColor"/></symbol>
+      <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 4.6 L19.4 11.3 Q20.4 12 19.4 12.7 L8 19.4 Q6.8 20 6.8 18.7 V5.3 Q6.8 4 8 4.6 Z" fill="currentColor"/></symbol>
+      <symbol id="i-x" viewBox="0 0 24 24"><path d="M6.5 6.5 L17.5 17.5 M17.5 6.5 L6.5 17.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></symbol>
+      <symbol id="i-xfill" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="currentColor"/><path d="M8.9 8.9 L15.1 15.1 M15.1 8.9 L8.9 15.1" fill="none" class="knob-s" stroke-width="1.9" stroke-linecap="round"/></symbol>
+      <symbol id="i-up" viewBox="0 0 24 24"><path d="M6 14.6 L12 8.6 L18 14.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-right" viewBox="0 0 24 24"><path d="M9.4 5.6 L15.8 12 L9.4 18.4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-left" viewBox="0 0 24 24"><path d="M14.6 5.6 L8.2 12 L14.6 18.4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 11 V16.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="7.9" r="1.15" fill="currentColor"/></symbol>
+      <symbol id="i-resume" viewBox="0 0 24 24"><path d="M19 12 A7 7 0 1 1 16.6 6.7" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><path d="M17.6 2.8 L17 7 L12.8 6.4" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-pausecircle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4" fill="currentColor"/><rect x="8.6" y="7.6" width="2.4" height="8.8" rx=".8" class="knob"/><rect x="13" y="7.6" width="2.4" height="8.8" rx=".8" class="knob"/></symbol>
+      <symbol id="i-route" viewBox="0 0 24 24"><path d="M12 2.6 L21.4 12 L12 21.4 L2.6 12 Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M8.6 14.8 V11.6 Q8.6 10.4 9.8 10.4 H14.6 M12.8 8.4 L14.8 10.4 L12.8 12.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-share" viewBox="0 0 24 24"><path d="M8.4 8.8 H6.8 Q5.4 8.8 5.4 10.2 V19.2 Q5.4 20.6 6.8 20.6 H17.2 Q18.6 20.6 18.6 19.2 V10.2 Q18.6 8.8 17.2 8.8 H15.6 M12 14.4 V3 M8.6 6.2 L12 2.8 L15.4 6.2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8.2 12.2 L10.9 14.9 L15.9 9.3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-code" viewBox="0 0 24 24"><path d="M8.4 7 L3.4 12 L8.4 17 M15.6 7 L20.6 12 L15.6 17" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-phone" viewBox="0 0 24 24"><rect x="6.4" y="2.6" width="11.2" height="18.8" rx="2.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10.4 5.2 H13.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+      <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7.2 18.4 H17 A4 4 0 0 0 17.4 10.4 A5.6 5.6 0 0 0 6.6 9.6 A4.4 4.4 0 0 0 7.2 18.4 Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+      <symbol id="i-doc" viewBox="0 0 24 24"><path d="M6.4 2.8 H13.6 L18.6 7.8 V19.8 Q18.6 21.2 17.2 21.2 H6.8 Q5.4 21.2 5.4 19.8 V4.2 Q5.4 2.8 6.8 2.8 Z M13.4 3 V8 H18.4 M8.6 12.4 H15.4 M8.6 15.8 H15.4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+      <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8.4" y="8.4" width="11.8" height="11.8" rx="2.4" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M15.4 5.6 V5.2 Q15.4 3.8 14 3.8 H5.2 Q3.8 3.8 3.8 5.2 V14 Q3.8 15.4 5.2 15.4 H5.6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+      <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.4" width="14" height="10.4" rx="2.4" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M8.2 10.4 V7.6 A3.8 3.8 0 0 1 15.8 7.6 V10.4" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
+    </defs>
+  </svg>
+
+  <main id="main">
+
+    <!-- ============================================================ hero -->
+    <section class="hero" id="fahrt" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="brand"><img class="brand-icon" src="assets/favicon.svg" width="32" height="32" alt=""><span>Spur</span></p>
+        <p class="eyebrow hero-eyebrow">iPhone app <span aria-hidden="true">&middot;</span> iOS 26 <span aria-hidden="true">&middot;</span> source published to read</p>
+        <h1 class="display" id="hero-title">Know which roads you have already driven.</h1>
+        <p class="lede">Spur records every drive in full GPS and motion detail. Afterwards each road on the map shows whether you drove it one way or both, and the planner sends you down the ones you have not.</p>
+        <p class="cta-row">
+          <a class="glass-btn" href="https://github.com/noluyorAbi/spur-ios?utm_source=landing&amp;utm_medium=hero-primary&amp;utm_campaign=spur-ios" data-utm-slot="hero-primary" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-code"/></svg><span>Read the source</span></a>
+          <a class="glass-btn glass-btn-quiet" href="#demo"><svg class="i" aria-hidden="true"><use href="#i-play"/></svg><span>Watch the demo</span><span class="btn-meta">63 s</span></a>
+        </p>
+        <p class="hero-note">There is no store release. The code is public to read; all rights reserved.</p>
+      </div>
+
+      <figure class="live" data-state="idle" aria-labelledby="live-cap">
+        <div class="stage">{{HERO_MAP}}</div>
+        <div class="hero-scrim" aria-hidden="true"></div>
+        <div class="hud">
+          <div class="hud-top" aria-hidden="true">
+            <div class="pill rec-pill">
+              <span class="pill-face face-idle"><i class="dot"></i><span class="pill-label" lang="de">Bereit</span></span>
+              <span class="pill-face face-rec"><i class="dot dot-rec"></i><span class="pill-time" lang="de" data-clock>0 s</span></span>
+              <span class="pill-face face-save"><i class="dot"></i><span class="pill-label" lang="de">Speichert</span></span>
+            </div>
+            <div class="pill gps-chip"><svg class="i i-good"><use href="#i-radio"/></svg><span lang="de">&plusmn; 5 m</span></div>
+          </div>
+          <div class="map-btns" aria-hidden="true">
+            <span class="glass-circle"><svg class="i"><use href="#i-map"/></svg></span>
+            <span class="glass-circle"><svg class="i"><use href="#i-layers"/></svg></span>
+            <span class="glass-circle"><svg class="i"><use href="#i-sign"/></svg></span>
+            <span class="glass-circle"><svg class="i i-accent"><use href="#i-fahrt"/></svg></span>
+          </div>
+          <div class="glass hud-card">
+            <div class="hud-row" aria-hidden="true">
+              <div class="speed">
+                <span class="eyebrow">km/h</span>
+                <span class="speed-num" data-speed>0</span>
+              </div>
+              <div class="hud-metrics">
+                <div class="metric metric-r">
+                  <span class="eyebrow" lang="de">Strecke</span>
+                  <span class="metric-v"><span class="num" data-dist>0,00</span><span class="unit">km</span></span>
+                </div>
+                <div class="metric metric-r">
+                  <span class="eyebrow" lang="de">Dauer</span>
+                  <span class="metric-v"><span class="num" data-dur>0 s</span></span>
+                </div>
+              </div>
+            </div>
+            <div class="hud-controls">
+              <button class="start-btn" type="button" data-start tabindex="-1" aria-hidden="true">
+                <svg class="i" aria-hidden="true"><use href="#i-record"/></svg><span lang="de">Start</span>
+              </button>
+              <div class="rec-controls">
+                <span class="round-btn" aria-hidden="true"><svg class="i"><use href="#i-flag"/></svg></span>
+                <button class="round-btn" type="button" data-pause tabindex="-1" aria-label="Pause the simulated drive">
+                  <svg class="i i-pause" aria-hidden="true"><use href="#i-pause"/></svg><svg class="i i-play" aria-hidden="true"><use href="#i-play"/></svg>
+                </button>
+                <span class="hold-label eyebrow" lang="de" aria-hidden="true">Halten zum Beenden</span>
+                <button class="hold-btn" type="button" data-stop tabindex="-1" aria-label="Stop the simulated drive. With a pointer, press and hold.">
+                  <svg viewBox="0 0 72 72" aria-hidden="true"><circle class="hold-bg" cx="36" cy="36" r="34"/><circle class="hold-track" cx="36" cy="36" r="32"/><circle class="hold-prog" cx="36" cy="36" r="32" pathLength="100" transform="rotate(-90 36 36)"/><rect class="hold-sq" x="25" y="25" width="22" height="22" rx="5"/></svg>
+                </button>
+              </div>
+            </div>
+            <p class="hud-foot" aria-hidden="true"><span class="rec-line" lang="de" data-recline>&Oslash; 0 km/h in Fahrt</span><span lang="de">Bedienung nur durch Beifahrer</span></p>
+          </div>
+        </div>
+        <figcaption class="live-cap" id="live-cap">A simulated drive on an invented street grid, drawn the way Spur draws it: a blue trail while it records, then amber for roads driven one way and green for roads driven both ways.<span class="live-cap-hint" data-hint hidden> Press START to drive it again.</span></figcaption>
+      </figure>
+    </section>
+
+    <!-- ============================================================ demo -->
+    <section class="section" id="demo" aria-labelledby="demo-title">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Recorded, not mocked up</p>
+          <h2 class="title" id="demo-title">Sixty-three seconds in the simulator</h2>
+          <p class="body-text">The recording comes from the app running in the iOS simulator with a simulated drive. You see the live motion panel, the heatmap, an automatic pause, a planned discovery loop, a filled GPS gap and the street search.</p>
+        </div>
+        <figure class="demo">
+          <video class="demo-video" src="assets/demo.mp4" poster="assets/demo-poster.jpg" width="1920" height="1080" controls muted loop playsinline preload="none" aria-label="Spur recording a drive, the live motion panel, the heatmap, an automatic pause, a planned discovery loop, a filled GPS gap and the street search">
+            <p>Your browser cannot play this video. <a href="assets/demo.mp4">Download the recording</a> instead.</p>
+          </video>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============================================================ group: Fahrt -->
+    <div class="group" id="group-fahrt">
+      <div class="wrap group-head">
+        <span class="group-icon" aria-hidden="true"><svg class="i"><use href="#i-fahrt"/></svg></span>
+        <h2 class="group-title"><span lang="de">Fahrt</span><span class="group-sub">While you drive</span></h2>
+      </div>
+
+      <section class="section feature" aria-labelledby="roads-title">
+        <div class="wrap feature-grid">
+          <div class="feature-copy">
+            <p class="eyebrow">Roads by direction</p>
+            <h3 class="title" id="roads-title">Amber one way, green both ways</h3>
+            <p class="body-text">After every drive Spur matches the trip to the road network and colours each road by direction: amber where you drove it one way, green once you have driven it both ways. Arrows along the line show the direction. Green roads also carry a dark centre stripe, so the two differ in shape and not only in colour.</p>
+            <p class="body-text">The two carriageways of a divided road, frontage roads included, count as one road. Drive out on one and back on the other and both turn green, each with its own arrow.</p>
+            <p class="body-text">Switch the layer to <span lang="de">H&auml;ufigkeit</span> and the same roads show how often you drove them, from once to ten times or more.</p>
+          </div>
+          <div class="feature-visual">
+            <div class="map-tile roads-tile" data-mode="dir">
+              {{ROADS_MAP}}
+              <div class="seg glass" role="group" aria-label="Coverage layer">
+                <button type="button" class="seg-btn" data-mode-btn="dir" aria-pressed="true"><span lang="de">Richtung</span><span class="sr-only">, by direction</span></button>
+                <button type="button" class="seg-btn" data-mode-btn="heat" aria-pressed="false"><span lang="de">H&auml;ufigkeit</span><span class="sr-only">, by frequency</span></button>
+                <span class="seg-thumb" aria-hidden="true"></span>
+              </div>
+              <div class="tile-foot">
+                <p class="toast glass legend-dir" lang="de" aria-hidden="true">Gelb: in einer Richtung gefahren &middot; Gr&uuml;n mit Mittelstreifen: in beiden Richtungen &middot; Pfeile zeigen die Richtung</p>
+                <div class="heat-legend glass legend-heat" aria-hidden="true">
+                  <span class="hl"><i class="h1"></i>1&times;</span><span class="hl"><i class="h2"></i>2&times;</span><span class="hl"><i class="h3"></i>3-4&times;</span><span class="hl"><i class="h4 tall"></i>5-9&times;</span><span class="hl"><i class="h5 tall"></i>10&times;+</span>
+                </div>
+              </div>
+            </div>
+            <p class="visual-note">The layer switch works. In the app it sits in the map menu, next to the map type.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section feature feature-flip" aria-labelledby="motion-title">
+        <div class="wrap feature-grid">
+          <div class="feature-copy">
+            <p class="eyebrow">Motion sensing</p>
+            <h3 class="title" id="motion-title">Braking, cornering and bumps</h3>
+            <p class="body-text">The motion sensors measure braking, acceleration, cornering, bumps and the road surface. Spur works out by itself how the phone sits in the car, shows the values live and keeps them with each trip.</p>
+            <p class="body-text">Traffic signals, stop signs, skewed junctions and speed limits come from OpenStreetMap and are counted along every trip.</p>
+          </div>
+          <div class="feature-visual">
+            <div class="sheet" aria-hidden="true">
+              <span class="grabber"></span>
+              <div class="sheet-head">
+                <span class="sheet-icon"><svg class="i"><use href="#i-up"/></svg></span>
+                <span class="sheet-title" lang="de">Live-Details</span>
+                <span class="sheet-icon"><svg class="i"><use href="#i-x"/></svg></span>
+              </div>
+              <div class="card gcard">
+                <div class="gcircle-wrap" lang="de">
+                  <span class="axis axis-t">Beschleunigen</span>
+                  <span class="axis axis-b">Bremsen</span>
+                  <span class="axis axis-l">links</span>
+                  <span class="axis axis-r">rechts</span>
+                  <svg class="gcircle" viewBox="-80 -80 160 160">
+                    <circle class="g-ring" r="24.7"/><circle class="g-ring" r="49.3"/><circle class="g-ring g-outer" r="74"/>
+                    <path class="g-ring" d="M -74 0 H 74 M 0 -74 V 74"/>
+                    <path class="g-peak" d="M -7 -32 H 7 M -7 40 H 7 M -46 -7 V 7"/>
+                    <polyline class="g-trail" points="0,0"/>
+                    <circle class="g-dot" cx="0" cy="24.6" r="7"/>
+                  </svg>
+                </div>
+                <div class="gvalues" lang="de">
+                  <div class="metric">
+                    <span class="eyebrow">L&auml;ngs</span>
+                    <span class="metric-v"><span class="num" data-glong>2,0</span><span class="unit">m/s&sup2;</span></span>
+                    <span class="gsub" data-glong-sub>0,20 g &middot; Bremsen</span>
+                  </div>
+                  <div class="metric">
+                    <span class="eyebrow">Quer</span>
+                    <span class="metric-v"><span class="num" data-glat>0,1</span><span class="unit">m/s&sup2;</span></span>
+                    <span class="gsub" data-glat-sub>0,01 g &middot; unsicher</span>
+                  </div>
+                </div>
+                <p class="gstatus" lang="de"><i class="dot dot-good"></i>Ausrichtung gut &middot; r = 1,00 (l&auml;ngs und quer)<svg class="i i-dim"><use href="#i-info"/></svg></p>
+              </div>
+              <p class="sheet-line" lang="de">&Oslash; 47 km/h in Fahrt &middot; 1 Ampel &middot; 1 Stopp &middot; 0 schr&auml;g</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section feature" aria-labelledby="gap-title">
+        <div class="wrap feature-grid">
+          <div class="feature-copy">
+            <p class="eyebrow">GPS gaps</p>
+            <h3 class="title" id="gap-title">A gap stays a gap</h3>
+            <p class="body-text">When the signal drops in a tunnel or a dead zone, the trip shows the gap as a gap: a faint dashed line, not an invented road. Spur suggests the road you most likely took, drawn as dots, and you accept or reject each suggestion.</p>
+            <p class="body-text">Raw fixes are stored exactly as the phone reports them and are never thinned. Accepting a suggestion adds to the trip; it does not change what was recorded.</p>
+          </div>
+          <div class="feature-visual">
+            <div class="map-tile gap-tile" data-gap="open">
+              {{GAP_MAP}}
+            </div>
+            <div class="card gap-card">
+              <p class="gap-text" lang="de">L&uuml;cke 47 s, 0,5 km, vermutlich &uuml;ber Mill Street</p>
+              <div class="gap-actions gap-open">
+                <button type="button" class="cap-btn cap-accent" data-gap-btn="accepted"><span lang="de">&Uuml;bernehmen</span><span class="sr-only">, accept the suggestion</span></button>
+                <button type="button" class="cap-btn cap-quiet" data-gap-btn="rejected"><span lang="de">Verwerfen</span><span class="sr-only">, reject the suggestion</span></button>
+              </div>
+              <div class="gap-actions gap-accepted">
+                <span class="gap-state good" lang="de"><svg class="i"><use href="#i-check"/></svg>Erg&auml;nzt</span>
+                <button type="button" class="link-btn" data-gap-btn="open"><span lang="de">Erg&auml;nzung entfernen</span><span class="sr-only">, undo</span></button>
+              </div>
+              <div class="gap-actions gap-rejected">
+                <span class="gap-state" lang="de">Verworfen</span>
+                <button type="button" class="link-btn" data-gap-btn="open"><span lang="de">Doch vorschlagen</span><span class="sr-only">, undo</span></button>
+              </div>
+            </div>
+            <p class="visual-note" role="status" data-gap-status>Both buttons work. The street name is made up, like the map.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section feature feature-flip" aria-labelledby="pause-title">
+        <div class="wrap feature-grid">
+          <div class="feature-copy">
+            <p class="eyebrow">Automatic pause</p>
+            <h3 class="title" id="pause-title">Parked is a pause, a jam is not</h3>
+            <p class="body-text">A long stop in a car park or on a side street becomes a pause on its own, and the trip carries on when you drive off. A long stop on a highway or a main road is traffic, so the recording keeps going.</p>
+            <p class="body-text">Spur decides from the location and the road data on the phone. Pause time counts neither as driving time nor as standing time.</p>
+          </div>
+          <div class="feature-visual">
+            <ol class="pause-list">
+              <li class="pause-row">
+                <p class="pause-when"><span class="eyebrow">Car park, 6 min</span>Off the road: paused from the start of the stop</p>
+                <div class="pause-strip"><svg class="map mini-map" viewBox="440 640 300 120" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><use href="#city"/></svg><p class="banner glass" lang="de"><svg class="i i-warn" aria-hidden="true"><use href="#i-pausecircle"/></svg><span>Automatisch pausiert (abseits der Stra&szlig;e), geht beim Losfahren weiter</span></p></div>
+              </li>
+              <li class="pause-row">
+                <p class="pause-when"><span class="eyebrow">Driving off</span>The trip continues by itself</p>
+                <div class="pause-strip"><svg class="map mini-map" viewBox="560 760 300 120" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><use href="#city"/></svg><p class="banner glass" lang="de"><svg class="i i-accent" aria-hidden="true"><use href="#i-resume"/></svg><span>Fahrt fortgesetzt nach 6 min Pause</span></p></div>
+              </li>
+              <li class="pause-row">
+                <p class="pause-when"><span class="eyebrow">Highway jam, 6 min</span>A main road: still recording</p>
+                <div class="pause-strip"><svg class="map mini-map" viewBox="1180 560 300 120" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><use href="#city"/></svg><p class="pill glass pause-pill" lang="de"><i class="dot dot-rec dot-still"></i><span>18 min 40 s</span></p></div>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ============================================================ group: Planen -->
+    <div class="group" id="group-planen">
+      <div class="wrap group-head">
+        <span class="group-icon" aria-hidden="true"><svg class="i"><use href="#i-search"/></svg></span>
+        <h2 class="group-title"><span lang="de">Planen</span><span class="group-sub">Before you drive</span></h2>
+      </div>
+
+      <section class="section feature" aria-labelledby="plan-title">
+        <div class="wrap feature-grid">
+          <div class="feature-copy">
+            <p class="eyebrow">Discovery routes</p>
+            <h3 class="title" id="plan-title">Routes over roads you have not driven</h3>
+            <p class="body-text">In the <span lang="de">Planen</span> tab you search a place or a street and plan a loop, or a route to a goal, that favours roads you have not driven yet. The numbered points are its waypoints, in order.</p>
+            <p class="body-text">The route shows on the live map while you drive it. It also opens in a maps app or leaves as a GPX file.</p>
+          </div>
+          <div class="feature-visual">
+            <div class="map-tile plan-tile">
+              {{PLAN_MAP}}
+              <p class="banner glass plan-banner" lang="de" aria-hidden="true"><svg class="i i-accent"><use href="#i-route"/></svg><span>Entdeckerroute: 31,5 km, etwa 39 min</span><svg class="i i-dim"><use href="#i-x"/></svg></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section feature feature-flip" aria-labelledby="street-title">
+        <div class="wrap feature-grid">
+          <div class="feature-copy">
+            <p class="eyebrow">Street search</p>
+            <h3 class="title" id="street-title">How much of a street is left</h3>
+            <p class="body-text">Search a street by name and Spur shows how long it is, how much of it you have driven and how much is still open. One button takes you to the nearest part you have not driven.</p>
+          </div>
+          <div class="feature-visual">
+            <div class="map-tile street-tile" aria-hidden="true">
+              {{STREET_MAP}}
+              <p class="search glass"><svg class="i i-dim"><use href="#i-search"/></svg><span class="search-q">cedar</span><svg class="i i-dim i-clear"><use href="#i-xfill"/></svg></p>
+              <div class="glass street-card" lang="de">
+                <p class="street-head"><span class="street-name">Cedar Street</span><svg class="i i-dim"><use href="#i-x"/></svg></p>
+                <p class="street-text">4,8 km lang, 1,2 km gefahren (25 %), 3,6 km offen</p>
+                <p class="street-legend"><span><i class="lg lg-done"></i>gefahren</span><span><i class="lg lg-open"></i>unbefahren</span></p>
+                <p class="cap-btn cap-accent cap-wide"><svg class="i"><use href="#i-route"/></svg><span>Zum unbefahrenen Teil</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ============================================================ group: Historie -->
+    <div class="group" id="group-historie">
+      <div class="wrap group-head">
+        <span class="group-icon" aria-hidden="true"><svg class="i"><use href="#i-history"/></svg></span>
+        <h2 class="group-title"><span lang="de">Historie</span><span class="group-sub">After you drive</span></h2>
+      </div>
+
+      <section class="section feature" aria-labelledby="history-title">
+        <div class="wrap feature-grid">
+          <div class="feature-copy">
+            <p class="eyebrow">History and exports</p>
+            <h3 class="title" id="history-title">Every trip stays, and every trip exports</h3>
+            <p class="body-text">The history keeps each trip with its distance, time, estimated road types, traffic signals and stop signs, and adds them up across all trips.</p>
+            <p class="body-text">A trip exports as GPX, CSV, GeoJSON or JSON. The raw motion samples export on their own, and all trips go out together as one ZIP.</p>
+          </div>
+          <div class="feature-visual">
+            <div class="card hist-card" lang="de" aria-hidden="true">
+              <div class="hist-metrics">
+                <div class="metric"><span class="eyebrow">Gesamt</span><span class="metric-v"><span class="num num-lg">71,4</span><span class="unit">km</span></span></div>
+                <div class="metric"><span class="eyebrow">Fahrten</span><span class="metric-v"><span class="num num-lg">4</span></span></div>
+                <div class="metric"><span class="eyebrow">Fahrzeit <svg class="i i-dim i-xs"><use href="#i-info"/></svg></span><span class="metric-v"><span class="num">1 h 00 min</span></span></div>
+              </div>
+              <div class="share-bar"><i class="rc-stadt"></i><i class="rc-land"></i><i class="rc-bahn"></i></div>
+              <p class="eyebrow">Streckenart (gesch&auml;tzt) <svg class="i i-dim i-xs"><use href="#i-info"/></svg></p>
+              <p class="road-legend"><span><i class="rc-stadt"></i>Stadt 22 %</span><span><i class="rc-land"></i>Land 31 %</span><span><i class="rc-bahn"></i>Autobahn 47 %</span></p>
+              <hr class="hairline">
+              <div class="hist-metrics hist-metrics-2">
+                <div class="metric"><span class="eyebrow">Ampeln</span><span class="metric-v"><span class="num">7</span></span></div>
+                <div class="metric"><span class="eyebrow">Stoppschilder</span><span class="metric-v"><span class="num">4</span></span></div>
+              </div>
+              <p class="osm-note">Stra&szlig;endaten &copy; OpenStreetMap-Mitwirkende (ODbL)</p>
+            </div>
+            <div class="card export-card" lang="de" aria-hidden="true">
+              <p class="export-row"><svg class="i i-accent"><use href="#i-share"/></svg><span>Alle Fahrten exportieren</span><svg class="i i-dim"><use href="#i-right"/></svg></p>
+              <p class="chips"><span class="chip">GPX</span><span class="chip">CSV</span><span class="chip">GeoJSON</span><span class="chip">JSON</span><span class="chip">Sensordaten</span><span class="chip">ZIP</span></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section screens-section" aria-labelledby="screens-title">
+        <div class="wrap section-head screens-head">
+          <div>
+            <p class="eyebrow">From the simulator</p>
+            <h3 class="title" id="screens-title">Screens from the app</h3>
+            <p class="body-text">Unframed captures of the app. Where a dark capture exists, it follows your system appearance, the way the app follows its map style. The interface is in German.</p>
+          </div>
+          <div class="scroller-btns">
+            <button type="button" class="glass-circle" data-scroll="-1" aria-label="Previous screens"><svg class="i" aria-hidden="true"><use href="#i-left"/></svg></button>
+            <button type="button" class="glass-circle" data-scroll="1" aria-label="Next screens"><svg class="i" aria-hidden="true"><use href="#i-right"/></svg></button>
+          </div>
+        </div>
+        <ul class="screens" data-scroller>
+          <li class="shot"><picture><source srcset="assets/screens/live-dark.jpg" media="(prefers-color-scheme: dark)"><img src="assets/screens/live-light.jpg" width="600" height="1304" loading="lazy" decoding="async" alt="The live map in Spur with roads driven in one direction in amber, the BEREIT pill, the GPS chip and the START button"></picture><p class="shot-cap">Roads driven, by direction</p></li>
+          <li class="shot"><picture><source srcset="assets/screens/heat-dark.jpg" media="(prefers-color-scheme: dark)"><img src="assets/screens/heat-light.jpg" width="600" height="1304" loading="lazy" decoding="async" alt="The frequency layer: driven roads in a violet ramp with the legend from once to ten times or more"></picture><p class="shot-cap">How often you drove each road</p></li>
+          <li class="shot"><img src="assets/screens/panel-light.jpg" width="600" height="1304" loading="lazy" decoding="async" alt="A running trip at 58 km/h with the Live-Details panel showing the friction circle and the longitudinal and lateral values"><p class="shot-cap">Live motion while recording</p></li>
+          <li class="shot"><picture><source srcset="assets/screens/route-dark.jpg" media="(prefers-color-scheme: dark)"><img src="assets/screens/route-light.jpg" width="600" height="1304" loading="lazy" decoding="async" alt="A discovery route of 31.5 km drawn as a dashed line on the live map"></picture><p class="shot-cap">A discovery loop on the live map</p></li>
+          <li class="shot"><img src="assets/screens/street-light.jpg" width="600" height="1304" loading="lazy" decoding="async" alt="Street search for elm with a card showing 5.2 km long, 170 m driven and 5.1 km open"><p class="shot-cap">Street search with the driven share</p></li>
+          <li class="shot"><picture><source srcset="assets/screens/history-dark.jpg" media="(prefers-color-scheme: dark)"><img src="assets/screens/history-light.jpg" width="600" height="1304" loading="lazy" decoding="async" alt="The Historie tab with totals across four trips and the list of trips"></picture><p class="shot-cap">Trip history</p></li>
+          <li class="shot"><picture><source srcset="assets/screens/detail-dark.jpg" media="(prefers-color-scheme: dark)"><img src="assets/screens/detail-light.jpg" width="600" height="1304" loading="lazy" decoding="async" alt="One trip in detail with its map coloured by speed, traffic signs and the overview figures"></picture><p class="shot-cap">One trip in detail</p></li>
+          <li class="shot"><img src="assets/screens/gap-light.jpg" width="600" height="1304" loading="lazy" decoding="async" alt="A trip with a GPS gap of 47 seconds and an accepted suggestion for the street taken across it"><p class="shot-cap">A GPS gap with its suggestion</p></li>
+        </ul>
+      </section>
+    </div>
+
+    <!-- ============================================================ group: Einstellungen -->
+    <div class="group" id="group-einstellungen">
+      <div class="wrap group-head">
+        <span class="group-icon" aria-hidden="true"><svg class="i"><use href="#i-sliders"/></svg></span>
+        <h2 class="group-title"><span lang="de">Einstellungen</span><span class="group-sub">Privacy, code and license</span></h2>
+      </div>
+
+      <section class="section feature" aria-labelledby="privacy-title">
+        <div class="wrap feature-grid">
+          <div class="feature-copy">
+            <p class="eyebrow">Privacy</p>
+            <h3 class="title" id="privacy-title">Your trips stay on the phone</h3>
+            <p class="body-text">There is no account, no server, no analytics and no third-party code. Two kinds of request leave the device, and neither carries your trips.</p>
+          </div>
+          <div class="feature-visual">
+            <p class="list-head eyebrow" id="stays">Stays on the phone</p>
+            <ul class="list card" aria-labelledby="stays">
+              <li class="row"><span class="row-icon"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg></span><span class="row-text">Every trip, with its raw GPS fixes and motion samples</span></li>
+              <li class="row"><span class="row-icon"><svg class="i" aria-hidden="true"><use href="#i-lock"/></svg></span><span class="row-text">The history and the roads you have driven</span></li>
+            </ul>
+            <p class="list-head eyebrow" id="leaves">Leaves the device</p>
+            <ul class="list card" aria-labelledby="leaves">
+              <li class="row"><span class="row-icon"><svg class="i" aria-hidden="true"><use href="#i-cloud"/></svg></span><span class="row-text">Map tiles, place search, driving times and street names, requested through MapKit from the map service built into the phone</span></li>
+              <li class="row"><span class="row-icon"><svg class="i" aria-hidden="true"><use href="#i-cloud"/></svg></span><span class="row-text">Road data for the map tiles you drive in, from public OpenStreetMap (Overpass) servers. A request carries only the tile's bounding box, never your fixes or your track.</span></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section feature feature-flip" aria-labelledby="built-title">
+        <div class="wrap feature-grid">
+          <div class="feature-copy">
+            <p class="eyebrow">How it is built</p>
+            <h3 class="title" id="built-title">Platform frameworks, pure logic, many tests</h3>
+            <p class="body-text">Swift 6 with strict concurrency, SwiftUI, MapKit, CoreLocation, CoreMotion, ActivityKit and WidgetKit. There are no packages.</p>
+            <p class="body-text">The domain logic is pure: statistics, map matching, road coverage, the route planner and the exports. A physics suite must give identical results in debug and optimized builds, and UI tests drive the real app through a full recording, export, planning and pause flow.</p>
+          </div>
+          <div class="feature-visual">
+            <div class="card build-card">
+              <div class="build-metrics">
+                <div class="metric"><span class="eyebrow">Unit tests</span><span class="metric-v"><span class="num num-lg">370+</span></span></div>
+                <div class="metric"><span class="eyebrow">Packages</span><span class="metric-v"><span class="num num-lg">0</span></span></div>
+                <div class="metric"><span class="eyebrow">Swift</span><span class="metric-v"><span class="num num-lg">6</span></span></div>
+              </div>
+              <hr class="hairline">
+              <p class="eyebrow">Build and test</p>
+              <div class="code">
+                <pre id="build-cmd"><code>xcodegen generate
+xcodebuild -project Spur.xcodeproj -scheme Spur \
+  -destination 'platform=iOS Simulator,name=iPhone 17 Pro' build test</code></pre>
+                <button type="button" class="copy-btn" data-copy-target="build-cmd" aria-label="Copy the build commands"><svg class="i" aria-hidden="true"><use href="#i-copy"/></svg><span class="copy-label">Copy</span></button>
+              </div>
+              <p class="small-text">Needs Xcode 26 with an iOS 26 simulator and XcodeGen. Without the optional offline road pack, road data loads live from OpenStreetMap.</p>
+            </div>
+            <ul class="list card doc-list">
+              <li><a class="row row-link" href="https://github.com/noluyorAbi/spur-ios/blob/main/AGENTS.md?utm_source=landing&amp;utm_medium=docs-agents&amp;utm_campaign=spur-ios" data-utm-slot="docs-agents" rel="noopener"><span class="row-icon"><svg class="i" aria-hidden="true"><use href="#i-doc"/></svg></span><span class="row-text"><span class="row-title">AGENTS.md</span><span class="row-sub">Guide for working on the code, for people and coding agents</span></span><svg class="i i-dim" aria-hidden="true"><use href="#i-right"/></svg></a></li>
+              <li><a class="row row-link" href="https://github.com/noluyorAbi/spur-ios/blob/main/SPEC.md?utm_source=landing&amp;utm_medium=docs-spec&amp;utm_campaign=spur-ios" data-utm-slot="docs-spec" rel="noopener"><span class="row-icon"><svg class="i" aria-hidden="true"><use href="#i-doc"/></svg></span><span class="row-text"><span class="row-title">SPEC.md</span><span class="row-sub">The specification the code cites section by section</span></span><svg class="i i-dim" aria-hidden="true"><use href="#i-right"/></svg></a></li>
+              <li><a class="row row-link" href="https://github.com/noluyorAbi/spur-ios/blob/main/docs/ANLEITUNG.md?utm_source=landing&amp;utm_medium=docs-manual&amp;utm_campaign=spur-ios" data-utm-slot="docs-manual" rel="noopener"><span class="row-icon"><svg class="i" aria-hidden="true"><use href="#i-doc"/></svg></span><span class="row-text"><span class="row-title">ANLEITUNG.md</span><span class="row-sub">The user manual, in German</span></span><svg class="i i-dim" aria-hidden="true"><use href="#i-right"/></svg></a></li>
+              <li><a class="row row-link" href="https://github.com/noluyorAbi/spur-ios/blob/main/docs/MOTION-FORMAT.md?utm_source=landing&amp;utm_medium=docs-motion&amp;utm_campaign=spur-ios" data-utm-slot="docs-motion" rel="noopener"><span class="row-icon"><svg class="i" aria-hidden="true"><use href="#i-doc"/></svg></span><span class="row-text"><span class="row-title">MOTION-FORMAT.md</span><span class="row-sub">The motion file format</span></span><svg class="i i-dim" aria-hidden="true"><use href="#i-right"/></svg></a></li>
+              <li><a class="row row-link" href="https://github.com/noluyorAbi/spur-ios/blob/main/ROADMAP.md?utm_source=landing&amp;utm_medium=docs-roadmap&amp;utm_campaign=spur-ios" data-utm-slot="docs-roadmap" rel="noopener"><span class="row-icon"><svg class="i" aria-hidden="true"><use href="#i-doc"/></svg></span><span class="row-text"><span class="row-title">ROADMAP.md</span><span class="row-sub">What comes next, including giving data back to OpenStreetMap</span></span><svg class="i i-dim" aria-hidden="true"><use href="#i-right"/></svg></a></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section license" aria-labelledby="license-title">
+        <div class="wrap license-wrap">
+          <p class="eyebrow">License</p>
+          <h3 class="title" id="license-title">All rights reserved</h3>
+          <p class="body-text">The source is published to be read. It is not licensed for use, copying or redistribution. Issues are welcome; pull requests are not accepted.</p>
+          <p class="cta-row">
+            <a class="glass-btn" href="https://github.com/noluyorAbi/spur-ios?utm_source=landing&amp;utm_medium=license-repo&amp;utm_campaign=spur-ios" data-utm-slot="license-repo" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-code"/></svg><span>Read the source</span></a>
+            <a class="glass-btn glass-btn-quiet" href="https://github.com/noluyorAbi/spur-ios/blob/main/LICENSE?utm_source=landing&amp;utm_medium=license-file&amp;utm_campaign=spur-ios" data-utm-slot="license-file" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-doc"/></svg><span>LICENSE</span></a>
+          </p>
+          <p class="small-text">Road data &copy; <a href="https://www.openstreetmap.org/copyright" rel="noopener">OpenStreetMap contributors</a>, available under the Open Database License.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-wrap">
+      <p class="brand brand-sm"><img class="brand-icon" src="assets/favicon.svg" width="24" height="24" alt=""><span>Spur</span></p>
+      <nav class="footer-links" aria-label="Elsewhere">
+        <a href="https://github.com/noluyorAbi/spur-ios?utm_source=landing&amp;utm_medium=footer-repo&amp;utm_campaign=spur-ios" data-utm-slot="footer-repo" rel="noopener">Source</a>
+        <a href="https://github.com/noluyorAbi/spur-ios/blob/main/CHANGELOG.md?utm_source=landing&amp;utm_medium=footer-changelog&amp;utm_campaign=spur-ios" data-utm-slot="footer-changelog" rel="noopener">Changelog</a>
+        <a href="https://github.com/noluyorAbi/spur-ios/security/policy?utm_source=landing&amp;utm_medium=footer-security&amp;utm_campaign=spur-ios" data-utm-slot="footer-security" rel="noopener">Security</a>
+        <a href="llms.txt">llms.txt</a>
+      </nav>
+      <p class="footer-copy">Copyright 2026 noluyorAbi. The map on this page is invented.</p>
+    </div>
+  </footer>
+
+  <nav class="tabbar glass" aria-label="Sections">
+    <span class="tab-thumb" aria-hidden="true"></span>
+    <a class="tab" href="#fahrt" data-tab="group-fahrt" aria-current="true"><svg class="i" aria-hidden="true"><use href="#i-fahrt"/></svg><span lang="de">Fahrt</span><span class="sr-only">: while you drive</span></a>
+    <a class="tab" href="#group-planen" data-tab="group-planen"><svg class="i" aria-hidden="true"><use href="#i-search"/></svg><span lang="de">Planen</span><span class="sr-only">: before you drive</span></a>
+    <a class="tab" href="#group-historie" data-tab="group-historie"><svg class="i" aria-hidden="true"><use href="#i-history"/></svg><span lang="de">Historie</span><span class="sr-only">: after you drive</span></a>
+    <a class="tab" href="#group-einstellungen" data-tab="group-einstellungen"><svg class="i" aria-hidden="true"><use href="#i-sliders"/></svg><span lang="de">Einstellungen</span><span class="sr-only">: privacy, code and license</span></a>
+  </nav>
+
+  <div class="toast-live glass" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

@@ -2,17 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!--
-    Everything between launch:head:start and launch:head:end is generated from
-    content.json by sync.mjs. Do not hand edit it; edit content.json and run
-    "node sync.mjs".
-  -->
-  <!-- launch:head:start -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Spur, know which roads you have already driven</title>
   <meta name="description" content="An iPhone app that records every drive in full GPS and motion detail, shows the roads and directions you have covered, and plans routes over the ones you have not. Everything stays on the phone.">
-  <meta name="theme-color" content="#0e1220">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#0a0c0f" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f2f4f7" media="(prefers-color-scheme: light)">
   <link rel="canonical" href="https://spur-ios.vercel.app">
 
   <meta property="og:type" content="website">
@@ -30,9 +25,9 @@
   <meta name="twitter:description" content="An iPhone app that records every drive in full GPS and motion detail, shows the roads and directions you have covered, and plans routes over the ones you have not. Everything stays on the phone.">
   <meta name="twitter:image" content="https://spur-ios.vercel.app/assets/social-card.png">
   <meta name="twitter:image:alt" content="Spur on an iPhone: every road you have driven, amber one way, green both ways">
-  <!-- launch:head:end -->
 
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
   <link rel="stylesheet" href="styles.css">
   <script src="app.js" defer></script>
 </head>
@@ -40,160 +35,557 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
+  <svg class="map-defs" width="0" height="0" aria-hidden="true" focusable="false">
+  <defs>
+    <clipPath id="clip-left"><path d="M -560 -420 L 640 -420 C 520 120 420 560 150 1040 S -120 1380 -260 1460 L -560 1460 Z"/></clipPath>
+    <clipPath id="clip-right"><path d="M 640 -420 L 2260 -420 L 2260 1460 L -260 1460 S -120 1380 150 1040 C 420 560 520 120 640 -420 Z"/></clipPath>
+    <g id="chev"><path class="ch-u" d="M -6 -6.6 L 6 0 L -6 6.6"/><path class="ch-o" d="M -6 -6.6 L 6 0 L -6 6.6"/></g>
+    <g id="city">
+  <rect class="m-land" x="-600" y="-460" width="2900" height="1960"/>
+  <path class="m-park-band" d="M 640 -420 C 520 120 420 560 150 1040 S -120 1380 -260 1460"/>
+  <rect class="m-park" x="1116" y="416" width="73" height="78" rx="4"/>
+  <rect class="m-park" x="486" y="680" width="84" height="84" rx="4"/>
+  <path class="m-park" d="M 170 300 L 262 242 L 300 302 L 208 360 Z"/>
+  <rect class="m-park" x="1660" y="420" width="160" height="164" rx="4"/>
+  <rect class="m-park" x="1110" y="-112" width="80" height="76" rx="4"/>
+  <g clip-path="url(#clip-left)"><path class="m-road" d="M -2054.8 388.4 L 998.2 -1519.4 M -1889.4 -328.2 L 18.4 2724.8 M -2020.9 442.6 L 1032.1 -1465.1 M -1835.1 -362.1 L 72.6 2690.9 M -1987 496.9 L 1066 -1410.8 M -1780.8 -396 L 126.9 2657 M -1953 551.2 L 1099.9 -1356.5 M -1726.5 -429.9 L 181.2 2623 M -1919.1 605.5 L 1133.8 -1302.3 M -1672.3 -463.8 L 235.5 2589.1 M -1885.2 659.7 L 1167.8 -1248 M -1618 -497.8 L 289.7 2555.2 M -1851.3 714 L 1201.7 -1193.7 M -1563.7 -531.7 L 344 2521.3 M -1817.4 768.3 L 1235.6 -1139.4 M -1509.4 -565.6 L 398.3 2487.4 M -1783.5 822.6 L 1269.5 -1085.2 M -1455.2 -599.5 L 452.6 2453.5 M -1749.5 876.8 L 1303.4 -1030.9 M -1400.9 -633.4 L 506.8 2419.5 M -1715.6 931.1 L 1337.3 -976.6 M -1346.6 -667.3 L 561.1 2385.6 M -1681.7 985.4 L 1371.3 -922.3 M -1292.3 -701.3 L 615.4 2351.7 M -1647.8 1039.7 L 1405.2 -868.1 M -1238.1 -735.2 L 669.7 2317.8 M -1613.9 1093.9 L 1439.1 -813.8 M -1183.8 -769.1 L 723.9 2283.9 M -1580 1148.2 L 1473 -759.5 M -1129.5 -803 L 778.2 2250 M -1546.1 1202.5 L 1506.9 -705.2 M -1075.2 -836.9 L 832.5 2216.1 M -1512.1 1256.8 L 1540.8 -651 M -1021 -870.8 L 886.8 2182.1 M -1478.2 1311 L 1574.7 -596.7 M -966.7 -904.7 L 941 2148.2 M -1444.3 1365.3 L 1608.7 -542.4 M -912.4 -938.7 L 995.3 2114.3 M -1410.4 1419.6 L 1642.6 -488.1 M -858.1 -972.6 L 1049.6 2080.4 M -1376.5 1473.9 L 1676.5 -433.9 M -803.9 -1006.5 L 1103.9 2046.5 M -1342.6 1528.1 L 1710.4 -379.6 M -749.6 -1040.4 L 1158.1 2012.6 M -1308.7 1582.4 L 1744.3 -325.3 M -695.3 -1074.3 L 1212.4 1978.7 M -1274.7 1636.7 L 1778.2 -271 M -641 -1108.2 L 1266.7 1944.7 M -1240.8 1691 L 1812.1 -216.8 M -586.8 -1142.1 L 1321 1910.8 M -1206.9 1745.2 L 1846.1 -162.5 M -532.5 -1176.1 L 1375.2 1876.9 M -1173 1799.5 L 1880 -108.2 M -478.2 -1210 L 1429.5 1843 M -1139.1 1853.8 L 1913.9 -53.9 M -423.9 -1243.9 L 1483.8 1809.1 M -1105.2 1908.1 L 1947.8 0.3 M -369.7 -1277.8 L 1538.1 1775.2 M -1071.3 1962.3 L 1981.7 54.6 M -315.4 -1311.7 L 1592.3 1741.3 M -1037.3 2016.6 L 2015.6 108.9 M -261.1 -1345.6 L 1646.6 1707.3 M -1003.4 2070.9 L 2049.5 163.2 M -206.8 -1379.5 L 1700.9 1673.4 M -969.5 2125.2 L 2083.5 217.4 M -152.6 -1413.5 L 1755.2 1639.5 M -935.6 2179.4 L 2117.4 271.7 M -98.3 -1447.4 L 1809.4 1605.6 M -901.7 2233.7 L 2151.3 326 M -44 -1481.3 L 1863.7 1571.7 M -867.8 2288 L 2185.2 380.3 M 10.3 -1515.2 L 1918 1537.8 M -833.8 2342.3 L 2219.1 434.5 M 64.5 -1549.1 L 1972.3 1503.8 M -799.9 2396.5 L 2253 488.8 M 118.8 -1583 L 2026.5 1469.9 M -766 2450.8 L 2287 543.1 M 173.1 -1617 L 2080.8 1436 M -732.1 2505.1 L 2320.9 597.4 M 227.4 -1650.9 L 2135.1 1402.1 M -698.2 2559.4 L 2354.8 651.6 M 281.6 -1684.8 L 2189.4 1368.2"/></g>
+  <g clip-path="url(#clip-right)"><path class="m-road" d="M 40 -420 V 1460 M 130 -420 V 1460 M 215 -420 V 1460 M 310 -420 V 1460 M 400 -420 V 1460 M 480 -420 V 1460 M 575 -420 V 1460 M 750 -420 V 1460 M 845 -420 V 1460 M 930 -420 V 1460 M 1110 -420 V 1460 M 1195 -420 V 1460 M 1290 -420 V 1460 M 1470 -420 V 1460 M 1560 -420 V 1460 M 1650 -420 V 1460 M 1745 -420 V 1460 M 1925 -420 V 1460 M 2015 -420 V 1460 M 2110 -420 V 1460 M 2200 -420 V 1460 M -560 -300 H 2260 M -560 -210 H 2260 M -560 -30 H 2260 M -560 60 H 2260 M -560 150 H 2260 M -560 235 H 2260 M -560 410 H 2260 M -560 500 H 2260 M -560 675 H 2260 M -560 770 H 2260 M -560 950 H 2260 M -560 1040 H 2260 M -560 1130 H 2260 M -560 1310 H 2260 M -560 1400 H 2260"/></g>
+  <path class="m-water" d="M 640 -420 C 520 120 420 560 150 1040 S -120 1380 -260 1460"/>
+  <path class="m-major-case" d="M 660 -420 V 1460 M 1020 -420 V 1460 M 1380 -420 V 1460 M 1830 -420 V 1460 M -560 -120 H 2260 M -560 330 H 2260 M -560 590 H 2260 M -560 860 H 2260 M -560 1225 H 2260 M -100 1180 L 2260 104"/>
+  <path class="m-major" d="M 660 -420 V 1460 M 1020 -420 V 1460 M 1380 -420 V 1460 M 1830 -420 V 1460 M -560 -120 H 2260 M -560 330 H 2260 M -560 590 H 2260 M -560 860 H 2260 M -560 1225 H 2260 M -100 1180 L 2260 104"/>
+  <path class="m-fwy-case" d="M 1994.3 -265.6 L 1987.2 -258.5 L 1978.6 -249.8 L 1968.5 -239.7 L 1957.2 -228.3 L 1944.9 -215.9 L 1931.8 -202.6 L 1918 -188.8 L 1903.7 -174.4 L 1889.1 -159.8 L 1874.5 -145 L 1859.9 -130.4 L 1845.5 -116.1 L 1831.6 -102.3 L 1818.4 -89.2 L 1805.9 -76.9 L 1794.4 -65.7 L 1783.7 -55.3 L 1773.4 -45.3 L 1763.4 -35.6 L 1753.7 -26.2 L 1744.2 -17.1 L 1735 -8.2 L 1725.9 0.4 L 1717 8.9 L 1708.2 17.2 L 1699.4 25.4 L 1690.5 33.5 L 1681.7 41.5 L 1672.7 49.6 L 1663.6 57.6 L 1654.3 65.7 L 1644.8 73.9 L 1635.2 81.9 L 1625.4 89.7 L 1615.4 97.3 L 1605.3 104.8 L 1595.1 112.2 L 1584.8 119.5 L 1574.5 126.8 L 1564.1 134.1 L 1553.8 141.5 L 1543.5 149.1 L 1533.2 156.8 L 1523.1 164.7 L 1513.1 172.9 L 1503.3 181.3 L 1493.7 190.2 L 1484.3 199.4 L 1475.1 208.8 L 1466 218.6 L 1456.9 228.5 L 1447.9 238.7 L 1439 249.1 L 1430.1 259.7 L 1421.5 270.5 L 1412.9 281.4 L 1404.6 292.4 L 1396.4 303.5 L 1388.5 314.7 L 1380.8 325.9 L 1373.4 337.2 L 1366.3 348.5 L 1359.5 359.8 L 1353 371.1 L 1346.9 382.3 L 1340.9 393.6 L 1335.1 405 L 1329.5 416.4 L 1324.2 427.9 L 1319.1 439.5 L 1314.2 451.1 L 1309.6 462.8 L 1305.3 474.5 L 1301.2 486.4 L 1297.5 498.3 L 1294.1 510.3 L 1291.1 522.3 L 1288.4 534.4 L 1286 546.6 L 1284.1 558.9 L 1282.5 571.3 L 1281.4 583.8 L 1280.7 596.5 L 1280.3 609.3 L 1280.3 622.2 L 1280.6 635.1 L 1281.2 648 L 1282.1 660.9 L 1283.3 673.9 L 1284.7 686.7 L 1286.3 699.6 L 1288.1 712.3 L 1290.2 724.9 L 1292.4 737.3 L 1294.7 749.6 L 1297.2 761.7 L 1300 773.7 L 1303.2 785.5 L 1306.7 797 L 1310.6 808.4 L 1314.8 819.6 L 1319.1 830.6 L 1323.7 841.6 L 1328.3 852.5 L 1333.1 863.4 L 1337.8 874.4 L 1342.6 885.3 L 1347.2 896.4 L 1351.8 907.6 L 1356.2 919 L 1360.4 930.6 L 1364.4 942.5 L 1368.3 954.6 L 1372.2 966.6 L 1376.1 978.6 L 1379.9 990.5 L 1383.8 1002.5 L 1387.6 1014.5 L 1391.3 1026.7 L 1395 1039.1 L 1398.7 1051.8 L 1402.2 1064.7 L 1405.8 1078 L 1409.2 1091.7 L 1412.6 1105.8 L 1415.9 1120.5 L 1419 1135.7 L 1422.1 1151.5 L 1425.2 1168.5 L 1428.2 1187.3 L 1431.3 1207.5 L 1434.3 1228.8 L 1437.2 1250.9 L 1440.1 1273.5 L 1443 1296.4 L 1445.7 1319.1 L 1448.3 1341.4 L 1450.8 1363 L 1453.1 1383.6 L 1455.3 1402.9 L 1457.3 1420.5 L 1459.1 1436.3 L 1460.7 1449.9 L 1462.1 1461 M 1477.9 1459 L 1476.6 1448 L 1475 1434.5 L 1473.2 1418.7 L 1471.2 1401.1 L 1469 1381.8 L 1466.7 1361.2 L 1464.2 1339.5 L 1461.6 1317.2 L 1458.8 1294.4 L 1456 1271.5 L 1453.1 1248.9 L 1450.1 1226.6 L 1447.1 1205.2 L 1444 1184.8 L 1441 1165.9 L 1437.9 1148.5 L 1434.7 1132.5 L 1431.5 1117.1 L 1428.2 1102.2 L 1424.7 1087.9 L 1421.3 1074 L 1417.7 1060.5 L 1414.1 1047.4 L 1410.4 1034.6 L 1406.6 1022.1 L 1402.8 1009.8 L 1399 997.6 L 1395.2 985.6 L 1391.3 973.6 L 1387.4 961.7 L 1383.5 949.7 L 1379.6 937.5 L 1375.5 925.3 L 1371.2 913.4 L 1366.7 901.7 L 1362 890.3 L 1357.3 879.1 L 1352.5 868 L 1347.7 857.1 L 1343 846.2 L 1338.4 835.4 L 1334 824.6 L 1329.7 813.9 L 1325.7 803 L 1322 792.1 L 1318.5 781 L 1315.5 769.8 L 1312.8 758.3 L 1310.4 746.5 L 1308.1 734.4 L 1306 722.2 L 1304 709.8 L 1302.2 697.4 L 1300.6 684.9 L 1299.2 672.3 L 1298 659.7 L 1297.2 647.1 L 1296.6 634.5 L 1296.3 622 L 1296.3 609.5 L 1296.6 597.2 L 1297.4 585 L 1298.4 573 L 1299.9 561.1 L 1301.8 549.4 L 1304 537.7 L 1306.6 526 L 1309.6 514.4 L 1312.9 502.9 L 1316.4 491.3 L 1320.3 479.9 L 1324.5 468.5 L 1329 457.1 L 1333.7 445.8 L 1338.7 434.5 L 1344 423.3 L 1349.4 412.1 L 1355.1 401 L 1360.9 389.9 L 1367 378.9 L 1373.3 367.9 L 1379.9 356.9 L 1386.8 345.9 L 1394.1 334.8 L 1401.6 323.8 L 1409.4 312.9 L 1417.4 301.9 L 1425.6 291.1 L 1434 280.4 L 1442.5 269.9 L 1451.2 259.5 L 1460 249.2 L 1468.8 239.2 L 1477.8 229.4 L 1486.7 219.9 L 1495.7 210.6 L 1504.7 201.8 L 1514 193.3 L 1523.4 185.1 L 1533.1 177.2 L 1543 169.5 L 1553 161.9 L 1563.2 154.5 L 1573.4 147.1 L 1583.7 139.8 L 1594 132.5 L 1604.4 125.2 L 1614.7 117.7 L 1625 110.1 L 1635.2 102.3 L 1645.3 94.3 L 1655.2 86.1 L 1664.8 77.8 L 1674.2 69.6 L 1683.4 61.5 L 1692.4 53.4 L 1701.3 45.3 L 1710.2 37.1 L 1719.1 28.9 L 1728 20.5 L 1737 12 L 1746.1 3.3 L 1755.3 -5.6 L 1764.8 -14.7 L 1774.5 -24.1 L 1784.5 -33.8 L 1794.8 -43.8 L 1805.6 -54.3 L 1817.1 -65.5 L 1829.6 -77.8 L 1842.9 -91 L 1856.8 -104.8 L 1871.2 -119.1 L 1885.8 -133.7 L 1900.5 -148.5 L 1915 -163.1 L 1929.3 -177.5 L 1943.1 -191.4 L 1956.3 -204.6 L 1968.6 -217 L 1979.8 -228.4 L 1989.9 -238.5 L 1998.6 -247.2 L 2005.7 -254.4"/>
+  <path class="m-fwy" d="M 1994.3 -265.6 L 1987.2 -258.5 L 1978.6 -249.8 L 1968.5 -239.7 L 1957.2 -228.3 L 1944.9 -215.9 L 1931.8 -202.6 L 1918 -188.8 L 1903.7 -174.4 L 1889.1 -159.8 L 1874.5 -145 L 1859.9 -130.4 L 1845.5 -116.1 L 1831.6 -102.3 L 1818.4 -89.2 L 1805.9 -76.9 L 1794.4 -65.7 L 1783.7 -55.3 L 1773.4 -45.3 L 1763.4 -35.6 L 1753.7 -26.2 L 1744.2 -17.1 L 1735 -8.2 L 1725.9 0.4 L 1717 8.9 L 1708.2 17.2 L 1699.4 25.4 L 1690.5 33.5 L 1681.7 41.5 L 1672.7 49.6 L 1663.6 57.6 L 1654.3 65.7 L 1644.8 73.9 L 1635.2 81.9 L 1625.4 89.7 L 1615.4 97.3 L 1605.3 104.8 L 1595.1 112.2 L 1584.8 119.5 L 1574.5 126.8 L 1564.1 134.1 L 1553.8 141.5 L 1543.5 149.1 L 1533.2 156.8 L 1523.1 164.7 L 1513.1 172.9 L 1503.3 181.3 L 1493.7 190.2 L 1484.3 199.4 L 1475.1 208.8 L 1466 218.6 L 1456.9 228.5 L 1447.9 238.7 L 1439 249.1 L 1430.1 259.7 L 1421.5 270.5 L 1412.9 281.4 L 1404.6 292.4 L 1396.4 303.5 L 1388.5 314.7 L 1380.8 325.9 L 1373.4 337.2 L 1366.3 348.5 L 1359.5 359.8 L 1353 371.1 L 1346.9 382.3 L 1340.9 393.6 L 1335.1 405 L 1329.5 416.4 L 1324.2 427.9 L 1319.1 439.5 L 1314.2 451.1 L 1309.6 462.8 L 1305.3 474.5 L 1301.2 486.4 L 1297.5 498.3 L 1294.1 510.3 L 1291.1 522.3 L 1288.4 534.4 L 1286 546.6 L 1284.1 558.9 L 1282.5 571.3 L 1281.4 583.8 L 1280.7 596.5 L 1280.3 609.3 L 1280.3 622.2 L 1280.6 635.1 L 1281.2 648 L 1282.1 660.9 L 1283.3 673.9 L 1284.7 686.7 L 1286.3 699.6 L 1288.1 712.3 L 1290.2 724.9 L 1292.4 737.3 L 1294.7 749.6 L 1297.2 761.7 L 1300 773.7 L 1303.2 785.5 L 1306.7 797 L 1310.6 808.4 L 1314.8 819.6 L 1319.1 830.6 L 1323.7 841.6 L 1328.3 852.5 L 1333.1 863.4 L 1337.8 874.4 L 1342.6 885.3 L 1347.2 896.4 L 1351.8 907.6 L 1356.2 919 L 1360.4 930.6 L 1364.4 942.5 L 1368.3 954.6 L 1372.2 966.6 L 1376.1 978.6 L 1379.9 990.5 L 1383.8 1002.5 L 1387.6 1014.5 L 1391.3 1026.7 L 1395 1039.1 L 1398.7 1051.8 L 1402.2 1064.7 L 1405.8 1078 L 1409.2 1091.7 L 1412.6 1105.8 L 1415.9 1120.5 L 1419 1135.7 L 1422.1 1151.5 L 1425.2 1168.5 L 1428.2 1187.3 L 1431.3 1207.5 L 1434.3 1228.8 L 1437.2 1250.9 L 1440.1 1273.5 L 1443 1296.4 L 1445.7 1319.1 L 1448.3 1341.4 L 1450.8 1363 L 1453.1 1383.6 L 1455.3 1402.9 L 1457.3 1420.5 L 1459.1 1436.3 L 1460.7 1449.9 L 1462.1 1461 M 1477.9 1459 L 1476.6 1448 L 1475 1434.5 L 1473.2 1418.7 L 1471.2 1401.1 L 1469 1381.8 L 1466.7 1361.2 L 1464.2 1339.5 L 1461.6 1317.2 L 1458.8 1294.4 L 1456 1271.5 L 1453.1 1248.9 L 1450.1 1226.6 L 1447.1 1205.2 L 1444 1184.8 L 1441 1165.9 L 1437.9 1148.5 L 1434.7 1132.5 L 1431.5 1117.1 L 1428.2 1102.2 L 1424.7 1087.9 L 1421.3 1074 L 1417.7 1060.5 L 1414.1 1047.4 L 1410.4 1034.6 L 1406.6 1022.1 L 1402.8 1009.8 L 1399 997.6 L 1395.2 985.6 L 1391.3 973.6 L 1387.4 961.7 L 1383.5 949.7 L 1379.6 937.5 L 1375.5 925.3 L 1371.2 913.4 L 1366.7 901.7 L 1362 890.3 L 1357.3 879.1 L 1352.5 868 L 1347.7 857.1 L 1343 846.2 L 1338.4 835.4 L 1334 824.6 L 1329.7 813.9 L 1325.7 803 L 1322 792.1 L 1318.5 781 L 1315.5 769.8 L 1312.8 758.3 L 1310.4 746.5 L 1308.1 734.4 L 1306 722.2 L 1304 709.8 L 1302.2 697.4 L 1300.6 684.9 L 1299.2 672.3 L 1298 659.7 L 1297.2 647.1 L 1296.6 634.5 L 1296.3 622 L 1296.3 609.5 L 1296.6 597.2 L 1297.4 585 L 1298.4 573 L 1299.9 561.1 L 1301.8 549.4 L 1304 537.7 L 1306.6 526 L 1309.6 514.4 L 1312.9 502.9 L 1316.4 491.3 L 1320.3 479.9 L 1324.5 468.5 L 1329 457.1 L 1333.7 445.8 L 1338.7 434.5 L 1344 423.3 L 1349.4 412.1 L 1355.1 401 L 1360.9 389.9 L 1367 378.9 L 1373.3 367.9 L 1379.9 356.9 L 1386.8 345.9 L 1394.1 334.8 L 1401.6 323.8 L 1409.4 312.9 L 1417.4 301.9 L 1425.6 291.1 L 1434 280.4 L 1442.5 269.9 L 1451.2 259.5 L 1460 249.2 L 1468.8 239.2 L 1477.8 229.4 L 1486.7 219.9 L 1495.7 210.6 L 1504.7 201.8 L 1514 193.3 L 1523.4 185.1 L 1533.1 177.2 L 1543 169.5 L 1553 161.9 L 1563.2 154.5 L 1573.4 147.1 L 1583.7 139.8 L 1594 132.5 L 1604.4 125.2 L 1614.7 117.7 L 1625 110.1 L 1635.2 102.3 L 1645.3 94.3 L 1655.2 86.1 L 1664.8 77.8 L 1674.2 69.6 L 1683.4 61.5 L 1692.4 53.4 L 1701.3 45.3 L 1710.2 37.1 L 1719.1 28.9 L 1728 20.5 L 1737 12 L 1746.1 3.3 L 1755.3 -5.6 L 1764.8 -14.7 L 1774.5 -24.1 L 1784.5 -33.8 L 1794.8 -43.8 L 1805.6 -54.3 L 1817.1 -65.5 L 1829.6 -77.8 L 1842.9 -91 L 1856.8 -104.8 L 1871.2 -119.1 L 1885.8 -133.7 L 1900.5 -148.5 L 1915 -163.1 L 1929.3 -177.5 L 1943.1 -191.4 L 1956.3 -204.6 L 1968.6 -217 L 1979.8 -228.4 L 1989.9 -238.5 L 1998.6 -247.2 L 2005.7 -254.4"/>
+  <text class="m-label" x="190" y="600" transform="rotate(-32 190 600)">OLD TOWN</text>
+  <text class="m-label" x="1150" y="132">MILL DISTRICT</text>
+  <text class="m-label" x="-60" y="1250" transform="rotate(-52 -60 1250)">RIVERSIDE</text>
+  <text class="m-label m-label-s" x="1153" y="459" text-anchor="middle">PARK</text>
+</g>
+  </defs>
+</svg>
+
+  <svg class="map-defs" width="0" height="0" aria-hidden="true" focusable="false">
+    <defs>
+      <symbol id="i-record" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.6" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="3.9" fill="currentColor"/></symbol>
+      <symbol id="i-fahrt" viewBox="0 0 24 24"><path d="M12 2.6 L17.2 15.4 L12 12.9 L6.8 15.4 Z" fill="currentColor"/><path d="M12 15.6 V21.4" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></symbol>
+      <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.4" cy="10.4" r="6.4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15.2 15.2 L20.6 20.6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+      <symbol id="i-history" viewBox="0 0 24 24"><path d="M4.6 12 A7.6 7.6 0 1 0 6.9 6.6" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><path d="M3.4 5.4 L6.9 6.6 L7.6 3" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 7.8 V12.2 L14.9 14" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M3.5 6.5 H20.5 M3.5 12 H20.5 M3.5 17.5 H20.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="15" cy="6.5" r="2.3" class="knob" stroke="currentColor" stroke-width="1.6"/><circle cx="8.5" cy="12" r="2.3" class="knob" stroke="currentColor" stroke-width="1.6"/><circle cx="13" cy="17.5" r="2.3" class="knob" stroke="currentColor" stroke-width="1.6"/></symbol>
+      <symbol id="i-map" viewBox="0 0 24 24"><path d="M3.8 6.2 L9 4.2 L15 6.2 L20.2 4.2 V17.8 L15 19.8 L9 17.8 L3.8 19.8 Z M9 4.2 V17.8 M15 6.2 V19.8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+      <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 3.6 L20.4 8.2 L12 12.8 L3.6 8.2 Z" fill="currentColor"/><path d="M5.2 11.9 L3.6 12.8 L12 17.4 L20.4 12.8 L18.8 11.9 M5.2 16.4 L3.6 17.3 L12 21.9 L20.4 17.3 L18.8 16.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+      <symbol id="i-sign" viewBox="0 0 24 24"><path d="M12 2.8 V21.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M6.4 5.2 H16.8 L19.4 7.7 L16.8 10.2 H6.4 Z M17.6 12.4 H7.2 L4.6 14.9 L7.2 17.4 H17.6 Z" fill="currentColor"/></symbol>
+      <symbol id="i-road" viewBox="0 0 24 24"><path d="M9.6 4 L4 20 M14.4 4 L20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M12 5 V7.6 M12 10.6 V13.4 M12 16.4 V19.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+      <symbol id="i-radio" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2.2" fill="currentColor"/><path d="M8.2 8.2 A5.4 5.4 0 0 0 8.2 15.8 M15.8 8.2 A5.4 5.4 0 0 1 15.8 15.8 M5.2 5.2 A9.6 9.6 0 0 0 5.2 18.8 M18.8 5.2 A9.6 9.6 0 0 1 18.8 18.8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+      <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5.6 21 V3.8 M5.6 4.4 C 9 2.4 12 6.6 18.4 4.6 V13 C 12 15 9 10.8 5.6 12.8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-pause" viewBox="0 0 24 24"><rect x="6.6" y="4.8" width="3.8" height="14.4" rx="1.2" fill="currentColor"/><rect x="13.6" y="4.8" width="3.8" height="14.4" rx="1.2" fill="currentColor"/></symbol>
+      <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 4.6 L19.4 11.3 Q20.4 12 19.4 12.7 L8 19.4 Q6.8 20 6.8 18.7 V5.3 Q6.8 4 8 4.6 Z" fill="currentColor"/></symbol>
+      <symbol id="i-x" viewBox="0 0 24 24"><path d="M6.5 6.5 L17.5 17.5 M17.5 6.5 L6.5 17.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></symbol>
+      <symbol id="i-xfill" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="currentColor"/><path d="M8.9 8.9 L15.1 15.1 M15.1 8.9 L8.9 15.1" fill="none" class="knob-s" stroke-width="1.9" stroke-linecap="round"/></symbol>
+      <symbol id="i-up" viewBox="0 0 24 24"><path d="M6 14.6 L12 8.6 L18 14.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-right" viewBox="0 0 24 24"><path d="M9.4 5.6 L15.8 12 L9.4 18.4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-left" viewBox="0 0 24 24"><path d="M14.6 5.6 L8.2 12 L14.6 18.4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 11 V16.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="7.9" r="1.15" fill="currentColor"/></symbol>
+      <symbol id="i-resume" viewBox="0 0 24 24"><path d="M19 12 A7 7 0 1 1 16.6 6.7" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><path d="M17.6 2.8 L17 7 L12.8 6.4" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-pausecircle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.4" fill="currentColor"/><rect x="8.6" y="7.6" width="2.4" height="8.8" rx=".8" class="knob"/><rect x="13" y="7.6" width="2.4" height="8.8" rx=".8" class="knob"/></symbol>
+      <symbol id="i-route" viewBox="0 0 24 24"><path d="M12 2.6 L21.4 12 L12 21.4 L2.6 12 Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M8.6 14.8 V11.6 Q8.6 10.4 9.8 10.4 H14.6 M12.8 8.4 L14.8 10.4 L12.8 12.4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-share" viewBox="0 0 24 24"><path d="M8.4 8.8 H6.8 Q5.4 8.8 5.4 10.2 V19.2 Q5.4 20.6 6.8 20.6 H17.2 Q18.6 20.6 18.6 19.2 V10.2 Q18.6 8.8 17.2 8.8 H15.6 M12 14.4 V3 M8.6 6.2 L12 2.8 L15.4 6.2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8.2 12.2 L10.9 14.9 L15.9 9.3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-code" viewBox="0 0 24 24"><path d="M8.4 7 L3.4 12 L8.4 17 M15.6 7 L20.6 12 L15.6 17" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+      <symbol id="i-phone" viewBox="0 0 24 24"><rect x="6.4" y="2.6" width="11.2" height="18.8" rx="2.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10.4 5.2 H13.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+      <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7.2 18.4 H17 A4 4 0 0 0 17.4 10.4 A5.6 5.6 0 0 0 6.6 9.6 A4.4 4.4 0 0 0 7.2 18.4 Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+      <symbol id="i-doc" viewBox="0 0 24 24"><path d="M6.4 2.8 H13.6 L18.6 7.8 V19.8 Q18.6 21.2 17.2 21.2 H6.8 Q5.4 21.2 5.4 19.8 V4.2 Q5.4 2.8 6.8 2.8 Z M13.4 3 V8 H18.4 M8.6 12.4 H15.4 M8.6 15.8 H15.4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+      <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8.4" y="8.4" width="11.8" height="11.8" rx="2.4" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M15.4 5.6 V5.2 Q15.4 3.8 14 3.8 H5.2 Q3.8 3.8 3.8 5.2 V14 Q3.8 15.4 5.2 15.4 H5.6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+      <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.4" width="14" height="10.4" rx="2.4" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M8.2 10.4 V7.6 A3.8 3.8 0 0 1 15.8 7.6 V10.4" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
+    </defs>
+  </svg>
+
   <main id="main">
 
-    <!-- Hero -->
-    <section class="section hero" aria-labelledby="hero-heading">
-      <!-- launch:hero:start -->
-      <p class="wordmark">Spur</p>
-      <p class="eyebrow">iPhone app, everything stays on the phone</p>
-      <h1 class="hero-title" id="hero-heading">Know which roads you have already driven.</h1>
-      <p class="hero-sub">Spur records every drive in full GPS and motion detail, draws the roads and directions you have covered, and plans routes over the ones you have not.</p>
-
-      <div class="install-strip">
-        <p class="install-label" id="hero-install-label">Source</p>
-        <div class="copy">
-          <pre class="copy-code" id="hero-install"><code>git clone https://github.com/noluyorAbi/spur-ios</code></pre>
-          <button class="copy-btn" type="button" data-copy-target="hero-install" aria-label="Copy the command git clone https://github.com/noluyorAbi/spur-ios to the clipboard">
-            <span class="copy-btn-label" aria-hidden="true">Copy</span>
-          </button>
-        </div>
-        <p class="install-then">published to be read, all rights reserved</p>
+    <!-- ============================================================ hero -->
+    <section class="hero" id="fahrt" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="brand"><img class="brand-icon" src="assets/favicon.svg" width="32" height="32" alt=""><span>Spur</span></p>
+        <p class="eyebrow hero-eyebrow">iPhone app <span aria-hidden="true">&middot;</span> iOS 26 <span aria-hidden="true">&middot;</span> source published to read</p>
+        <h1 class="display" id="hero-title">Know which roads you have already driven.</h1>
+        <p class="lede">Spur records every drive in full GPS and motion detail. Afterwards each road on the map shows whether you drove it one way or both, and the planner sends you down the ones you have not.</p>
+        <p class="cta-row">
+          <a class="glass-btn" href="https://github.com/noluyorAbi/spur-ios?utm_source=landing&amp;utm_medium=hero-primary&amp;utm_campaign=spur-ios" data-utm-slot="hero-primary" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-code"/></svg><span>Read the source</span></a>
+          <a class="glass-btn glass-btn-quiet" href="#demo"><svg class="i" aria-hidden="true"><use href="#i-play"/></svg><span>Watch the demo</span><span class="btn-meta">63 s</span></a>
+        </p>
+        <p class="hero-note">There is no store release. The code is public to read; all rights reserved.</p>
       </div>
 
-      <p class="cta-row">
-        <a class="btn btn-primary" href="https://github.com/noluyorAbi/spur-ios?utm_source=landing&amp;utm_medium=hero-primary&amp;utm_campaign=spur-ios" data-utm-slot="hero-primary" rel="noopener">View on GitHub</a>
-        <a class="btn btn-secondary" href="#demo" data-utm-slot="hero-secondary">Watch the demo</a>
-      </p>
-      <!-- launch:hero:end -->
-    </section>
-
-    <!-- Demo -->
-    <section class="section section-demo" aria-labelledby="demo-heading">
-      <!-- launch:demo:start -->
-      <h2 class="section-title" id="demo-heading"><svg class="icon section-icon" viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M10 2.2 l1.9 4.6 l4.6 1.9 l-4.6 1.9 l-1.9 4.6 l-1.9-4.6 l-4.6-1.9 l4.6-1.9 z"/><line x1="15.8" y1="14.2" x2="15.8" y2="17.8"/><line x1="14" y1="16" x2="17.6" y2="16"/></svg><span>See it run</span></h2>
-      <figure class="demo">
-        <video
-          class="demo-video"
-          src="assets/demo.mp4"
-          poster="assets/demo-poster.jpg"
-          width="1920"
-          height="1080"
-          controls
-         
-          loop
-          playsinline
-          preload="none"
-          aria-label="Spur recording a drive, the live motion panel, the heatmap, an automatic pause, a planned discovery loop, a filled GPS gap and the street search">
-          <p>Your browser cannot play this video. <a href="assets/demo.mp4">Download the recording</a> instead.</p>
-        </video>
-        <figcaption class="demo-caption">
-          <p class="demo-alt">Spur recording a drive, the live motion panel, the heatmap, an automatic pause, a planned discovery loop, a filled GPS gap and the street search</p>
-          <p class="caption">63 seconds, recorded from the app in the iOS simulator with a simulated drive. Nothing in it is mocked up.</p>
-        </figcaption>
+      <figure class="live" data-state="idle" aria-labelledby="live-cap">
+        <div class="stage"><svg class="map hero-map" viewBox="-500 -350 2700 1750" preserveAspectRatio="xMinYMin meet" aria-hidden="true" focusable="false">
+  <use href="#city"/>
+  <g class="cv-old"><g class="cv-layer"><path class="cv-case e-o0 s-one" d="M 1110 330 L 1020 330"/><path class="cv-case e-o1 s-both" d="M 750 235 L 845 235"/><path class="cv-case e-o2 s-both" d="M 845 235 L 930 235"/><path class="cv-case e-o3 s-both" d="M 930 235 L 1020 235"/><path class="cv-case e-o4 s-both" d="M 1020 235 L 1110 235"/><path class="cv-case e-o5 s-one" d="M 1110 675 L 1110 590"/><path class="cv-case e-o6 s-one" d="M 1110 590 L 1110 500"/><path class="cv-case e-o7 s-one" d="M 1110 500 L 1110 410"/><path class="cv-case e-o8 s-one" d="M 1020 675 L 1110 675"/><path class="cv-case e-o9 s-one" d="M 1110 675 L 1195 675"/><path class="cv-case e-o10 s-one" d="M 1195 150 L 1195 235"/><path class="cv-case e-o11 s-one" d="M 1195 235 L 1195 330"/><path class="cv-case e-o12 s-pair" d="M 1366.3 348.5 L 1359.5 359.8 L 1353 371.1 L 1346.9 382.3 L 1340.9 393.6 L 1335.1 405 L 1329.5 416.4 L 1324.2 427.9 L 1319.1 439.5 L 1314.2 451.1 L 1309.6 462.8 L 1305.3 474.5 L 1301.2 486.4 L 1297.5 498.3 L 1294.1 510.3 L 1291.1 522.3 L 1288.4 534.4 L 1286 546.6 L 1284.1 558.9 L 1282.5 571.3 L 1281.4 583.8 L 1280.7 596.5 L 1280.3 609.3 L 1280.3 622.2"/><path class="cv-case e-o13 s-pair" d="M 1296.3 622 L 1296.3 609.5 L 1296.6 597.2 L 1297.4 585 L 1298.4 573 L 1299.9 561.1 L 1301.8 549.4 L 1304 537.7 L 1306.6 526 L 1309.6 514.4 L 1312.9 502.9 L 1316.4 491.3 L 1320.3 479.9 L 1324.5 468.5 L 1329 457.1 L 1333.7 445.8 L 1338.7 434.5 L 1344 423.3 L 1349.4 412.1 L 1355.1 401 L 1360.9 389.9 L 1367 378.9 L 1373.3 367.9 L 1379.9 356.9"/></g><g class="cv-layer"><path class="cv-line e-o0 s-one" d="M 1110 330 L 1020 330"/><path class="cv-line e-o1 s-both" d="M 750 235 L 845 235"/><path class="cv-line e-o2 s-both" d="M 845 235 L 930 235"/><path class="cv-line e-o3 s-both" d="M 930 235 L 1020 235"/><path class="cv-line e-o4 s-both" d="M 1020 235 L 1110 235"/><path class="cv-line e-o5 s-one" d="M 1110 675 L 1110 590"/><path class="cv-line e-o6 s-one" d="M 1110 590 L 1110 500"/><path class="cv-line e-o7 s-one" d="M 1110 500 L 1110 410"/><path class="cv-line e-o8 s-one" d="M 1020 675 L 1110 675"/><path class="cv-line e-o9 s-one" d="M 1110 675 L 1195 675"/><path class="cv-line e-o10 s-one" d="M 1195 150 L 1195 235"/><path class="cv-line e-o11 s-one" d="M 1195 235 L 1195 330"/><path class="cv-line e-o12 s-pair" d="M 1366.3 348.5 L 1359.5 359.8 L 1353 371.1 L 1346.9 382.3 L 1340.9 393.6 L 1335.1 405 L 1329.5 416.4 L 1324.2 427.9 L 1319.1 439.5 L 1314.2 451.1 L 1309.6 462.8 L 1305.3 474.5 L 1301.2 486.4 L 1297.5 498.3 L 1294.1 510.3 L 1291.1 522.3 L 1288.4 534.4 L 1286 546.6 L 1284.1 558.9 L 1282.5 571.3 L 1281.4 583.8 L 1280.7 596.5 L 1280.3 609.3 L 1280.3 622.2"/><path class="cv-line e-o13 s-pair" d="M 1296.3 622 L 1296.3 609.5 L 1296.6 597.2 L 1297.4 585 L 1298.4 573 L 1299.9 561.1 L 1301.8 549.4 L 1304 537.7 L 1306.6 526 L 1309.6 514.4 L 1312.9 502.9 L 1316.4 491.3 L 1320.3 479.9 L 1324.5 468.5 L 1329 457.1 L 1333.7 445.8 L 1338.7 434.5 L 1344 423.3 L 1349.4 412.1 L 1355.1 401 L 1360.9 389.9 L 1367 378.9 L 1373.3 367.9 L 1379.9 356.9"/></g><g class="cv-layer"><path class="cv-stripe e-o0 s-one" d="M 1110 330 L 1020 330"/><path class="cv-stripe e-o1 s-both" d="M 750 235 L 845 235"/><path class="cv-stripe e-o2 s-both" d="M 845 235 L 930 235"/><path class="cv-stripe e-o3 s-both" d="M 930 235 L 1020 235"/><path class="cv-stripe e-o4 s-both" d="M 1020 235 L 1110 235"/><path class="cv-stripe e-o5 s-one" d="M 1110 675 L 1110 590"/><path class="cv-stripe e-o6 s-one" d="M 1110 590 L 1110 500"/><path class="cv-stripe e-o7 s-one" d="M 1110 500 L 1110 410"/><path class="cv-stripe e-o8 s-one" d="M 1020 675 L 1110 675"/><path class="cv-stripe e-o9 s-one" d="M 1110 675 L 1195 675"/><path class="cv-stripe e-o10 s-one" d="M 1195 150 L 1195 235"/><path class="cv-stripe e-o11 s-one" d="M 1195 235 L 1195 330"/><path class="cv-stripe e-o12 s-pair" d="M 1366.3 348.5 L 1359.5 359.8 L 1353 371.1 L 1346.9 382.3 L 1340.9 393.6 L 1335.1 405 L 1329.5 416.4 L 1324.2 427.9 L 1319.1 439.5 L 1314.2 451.1 L 1309.6 462.8 L 1305.3 474.5 L 1301.2 486.4 L 1297.5 498.3 L 1294.1 510.3 L 1291.1 522.3 L 1288.4 534.4 L 1286 546.6 L 1284.1 558.9 L 1282.5 571.3 L 1281.4 583.8 L 1280.7 596.5 L 1280.3 609.3 L 1280.3 622.2"/><path class="cv-stripe e-o13 s-pair" d="M 1296.3 622 L 1296.3 609.5 L 1296.6 597.2 L 1297.4 585 L 1298.4 573 L 1299.9 561.1 L 1301.8 549.4 L 1304 537.7 L 1306.6 526 L 1309.6 514.4 L 1312.9 502.9 L 1316.4 491.3 L 1320.3 479.9 L 1324.5 468.5 L 1329 457.1 L 1333.7 445.8 L 1338.7 434.5 L 1344 423.3 L 1349.4 412.1 L 1355.1 401 L 1360.9 389.9 L 1367 378.9 L 1373.3 367.9 L 1379.9 356.9"/></g><g class="cv-layer cv-marks"><g class="ch s-one e-o0 c-one" transform="translate(1065 330) rotate(180)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-o0 c-both" transform="translate(1053.6 330) rotate(180)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-o0 c-both" transform="translate(1076.4 330) rotate(360)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-both e-o1 c-one" transform="translate(797.5 235) rotate(0)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-both e-o1 c-both" transform="translate(808.9 235) rotate(0)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-both e-o1 c-both" transform="translate(786.1 235) rotate(180)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-both e-o2 c-one" transform="translate(887.5 235) rotate(0)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-both e-o2 c-both" transform="translate(898.9 235) rotate(0)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-both e-o2 c-both" transform="translate(876.1 235) rotate(180)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-both e-o3 c-one" transform="translate(975 235) rotate(0)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-both e-o3 c-both" transform="translate(986.4 235) rotate(0)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-both e-o3 c-both" transform="translate(963.6 235) rotate(180)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-both e-o4 c-one" transform="translate(1065 235) rotate(0)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-both e-o4 c-both" transform="translate(1076.4 235) rotate(0)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-both e-o4 c-both" transform="translate(1053.6 235) rotate(180)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-o5 c-one" transform="translate(1110 632.5) rotate(-90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-o5 c-both" transform="translate(1110 621.1) rotate(-90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-o5 c-both" transform="translate(1110 643.9) rotate(90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-o6 c-one" transform="translate(1110 545) rotate(-90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-o6 c-both" transform="translate(1110 533.6) rotate(-90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-o6 c-both" transform="translate(1110 556.4) rotate(90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-o7 c-one" transform="translate(1110 455) rotate(-90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-o7 c-both" transform="translate(1110 443.6) rotate(-90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-o7 c-both" transform="translate(1110 466.4) rotate(90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-o8 c-one" transform="translate(1065 675) rotate(0)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-o8 c-both" transform="translate(1076.4 675) rotate(0)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-o8 c-both" transform="translate(1053.6 675) rotate(180)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-o9 c-one" transform="translate(1152.5 675) rotate(0)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-o9 c-both" transform="translate(1163.9 675) rotate(0)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-o9 c-both" transform="translate(1141.1 675) rotate(180)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-o10 c-one" transform="translate(1195 192.5) rotate(90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-o10 c-both" transform="translate(1195 203.9) rotate(90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-o10 c-both" transform="translate(1195 181.1) rotate(270)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-o11 c-one" transform="translate(1195 282.5) rotate(90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-o11 c-both" transform="translate(1195 293.9) rotate(90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-o11 c-both" transform="translate(1195 271.1) rotate(270)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-pair e-o12 c-one" transform="translate(1303.6 479.4) rotate(121)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-pair e-o12 c-both" transform="translate(1299.9 490.2) rotate(108.8)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-pair e-o12 c-both" transform="translate(1307.3 468.6) rotate(288.8)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-pair e-o13 c-one" transform="translate(1319 483.7) rotate(-89.9)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-pair e-o13 c-both" transform="translate(1322.7 472.9) rotate(-71.2)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-pair e-o13 c-both" transform="translate(1315.4 494.5) rotate(108.8)"><g class="ch-s"><use href="#chev"/></g></g></g></g>
+  <g class="cv-new"><g class="cv-layer"><path class="cv-case e-n0 s-one is-new" d="M 750 675 L 750 590" data-k="n0" data-before="none" data-after="one" data-order="0"/><path class="cv-case e-n1 s-one is-new" d="M 750 590 L 750 500" data-k="n1" data-before="none" data-after="one" data-order="1"/><path class="cv-case e-n2 s-one is-new" d="M 750 500 L 845 500" data-k="n2" data-before="none" data-after="one" data-order="2"/><path class="cv-case e-n3 s-both is-new" d="M 845 500 L 930 500" data-k="n3" data-before="none" data-after="both" data-order="3"/><path class="cv-case e-n4 s-both is-new" d="M 930 500 L 930 410" data-k="n4" data-before="none" data-after="both" data-order="4"/><path class="cv-case e-n5 s-one is-new" d="M 930 410 L 930 330" data-k="n5" data-before="none" data-after="one" data-order="5"/><path class="cv-case e-n6 s-both is-new" d="M 930 330 L 1020 330" data-k="n6" data-before="one" data-after="both" data-order="6"/><path class="cv-case e-n7 s-one is-new" d="M 1020 330 L 1020 410" data-k="n7" data-before="none" data-after="one" data-order="7"/><path class="cv-case e-n8 s-one is-new" d="M 1020 410 L 930 410" data-k="n8" data-before="none" data-after="one" data-order="8"/><path class="cv-case e-n9 s-one is-new" d="M 845 500 L 845 590" data-k="n9" data-before="none" data-after="one" data-order="9"/><path class="cv-case e-n10 s-one is-new" d="M 845 590 L 845 675" data-k="n10" data-before="none" data-after="one" data-order="10"/></g><g class="cv-layer"><path class="cv-line e-n0 s-one is-new" d="M 750 675 L 750 590"/><path class="cv-line e-n1 s-one is-new" d="M 750 590 L 750 500"/><path class="cv-line e-n2 s-one is-new" d="M 750 500 L 845 500"/><path class="cv-line e-n3 s-both is-new" d="M 845 500 L 930 500"/><path class="cv-line e-n4 s-both is-new" d="M 930 500 L 930 410"/><path class="cv-line e-n5 s-one is-new" d="M 930 410 L 930 330"/><path class="cv-line e-n6 s-both is-new" d="M 930 330 L 1020 330"/><path class="cv-line e-n7 s-one is-new" d="M 1020 330 L 1020 410"/><path class="cv-line e-n8 s-one is-new" d="M 1020 410 L 930 410"/><path class="cv-line e-n9 s-one is-new" d="M 845 500 L 845 590"/><path class="cv-line e-n10 s-one is-new" d="M 845 590 L 845 675"/></g><g class="cv-layer"><path class="cv-stripe e-n0 s-one is-new" d="M 750 675 L 750 590"/><path class="cv-stripe e-n1 s-one is-new" d="M 750 590 L 750 500"/><path class="cv-stripe e-n2 s-one is-new" d="M 750 500 L 845 500"/><path class="cv-stripe e-n3 s-both is-new" d="M 845 500 L 930 500"/><path class="cv-stripe e-n4 s-both is-new" d="M 930 500 L 930 410"/><path class="cv-stripe e-n5 s-one is-new" d="M 930 410 L 930 330"/><path class="cv-stripe e-n6 s-both is-new" d="M 930 330 L 1020 330"/><path class="cv-stripe e-n7 s-one is-new" d="M 1020 330 L 1020 410"/><path class="cv-stripe e-n8 s-one is-new" d="M 1020 410 L 930 410"/><path class="cv-stripe e-n9 s-one is-new" d="M 845 500 L 845 590"/><path class="cv-stripe e-n10 s-one is-new" d="M 845 590 L 845 675"/></g><g class="cv-layer cv-marks"><g class="ch s-one e-n0 c-one is-new" transform="translate(750 632.5) rotate(-90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-n0 c-both is-new" transform="translate(750 621.1) rotate(-90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-n0 c-both is-new" transform="translate(750 643.9) rotate(90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-n1 c-one is-new" transform="translate(750 545) rotate(-90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-n1 c-both is-new" transform="translate(750 533.6) rotate(-90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-n1 c-both is-new" transform="translate(750 556.4) rotate(90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-n2 c-one is-new" transform="translate(797.5 500) rotate(0)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-n2 c-both is-new" transform="translate(808.9 500) rotate(0)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-n2 c-both is-new" transform="translate(786.1 500) rotate(180)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-both e-n3 c-one is-new" transform="translate(887.5 500) rotate(0)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-both e-n3 c-both is-new" transform="translate(898.9 500) rotate(0)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-both e-n3 c-both is-new" transform="translate(876.1 500) rotate(180)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-both e-n4 c-one is-new" transform="translate(930 455) rotate(-90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-both e-n4 c-both is-new" transform="translate(930 443.6) rotate(-90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-both e-n4 c-both is-new" transform="translate(930 466.4) rotate(90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-n5 c-one is-new" transform="translate(930 370) rotate(-90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-n5 c-both is-new" transform="translate(930 358.6) rotate(-90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-n5 c-both is-new" transform="translate(930 381.4) rotate(90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-both e-n6 c-one is-new" transform="translate(975 330) rotate(180)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-both e-n6 c-both is-new" transform="translate(986.4 330) rotate(0)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-both e-n6 c-both is-new" transform="translate(963.6 330) rotate(180)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-n7 c-one is-new" transform="translate(1020 370) rotate(90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-n7 c-both is-new" transform="translate(1020 381.4) rotate(90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-n7 c-both is-new" transform="translate(1020 358.6) rotate(270)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-n8 c-one is-new" transform="translate(975 410) rotate(180)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-n8 c-both is-new" transform="translate(963.6 410) rotate(180)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-n8 c-both is-new" transform="translate(986.4 410) rotate(360)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-n9 c-one is-new" transform="translate(845 545) rotate(90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-n9 c-both is-new" transform="translate(845 556.4) rotate(90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-n9 c-both is-new" transform="translate(845 533.6) rotate(270)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-n10 c-one is-new" transform="translate(845 632.5) rotate(90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-n10 c-both is-new" transform="translate(845 643.9) rotate(90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-n10 c-both is-new" transform="translate(845 621.1) rotate(270)"><g class="ch-s"><use href="#chev"/></g></g></g></g>
+  <g class="trail">
+    <path class="tr-glow" d="M 750 675 L 750 500 L 930 500 L 930 330 L 1020 330 L 1020 410 L 930 410 L 930 500 L 845 500 L 845 675"/>
+    <path class="tr-case" d="M 750 675 L 750 500 L 930 500 L 930 330 L 1020 330 L 1020 410 L 930 410 L 930 500 L 845 500 L 845 675"/>
+    <path class="tr-line" id="route" d="M 750 675 L 750 500 L 930 500 L 930 330 L 1020 330 L 1020 410 L 930 410 L 930 500 L 845 500 L 845 675" data-length="1135"/>
+    <g class="tr-marks"><g class="tm" data-at="48" transform="translate(750 627) rotate(-90)"><g class="ch-s"><use href="#chev"/></g></g><g class="tm" data-at="112" transform="translate(750 563) rotate(-90)"><g class="ch-s"><use href="#chev"/></g></g><g class="tm" data-at="176" transform="translate(751 500) rotate(0)"><g class="ch-s"><use href="#chev"/></g></g><g class="tm" data-at="240" transform="translate(815 500) rotate(0)"><g class="ch-s"><use href="#chev"/></g></g><g class="tm" data-at="304" transform="translate(879 500) rotate(0)"><g class="ch-s"><use href="#chev"/></g></g><g class="tm" data-at="368" transform="translate(930 487) rotate(-90)"><g class="ch-s"><use href="#chev"/></g></g><g class="tm" data-at="432" transform="translate(930 423) rotate(-90)"><g class="ch-s"><use href="#chev"/></g></g><g class="tm" data-at="496" transform="translate(930 359) rotate(-90)"><g class="ch-s"><use href="#chev"/></g></g><g class="tm" data-at="560" transform="translate(965 330) rotate(0)"><g class="ch-s"><use href="#chev"/></g></g><g class="tm" data-at="624" transform="translate(1020 339) rotate(90)"><g class="ch-s"><use href="#chev"/></g></g><g class="tm" data-at="688" transform="translate(1020 403) rotate(90)"><g class="ch-s"><use href="#chev"/></g></g><g class="tm" data-at="752" transform="translate(963 410) rotate(180)"><g class="ch-s"><use href="#chev"/></g></g><g class="tm" data-at="816" transform="translate(930 441) rotate(90)"><g class="ch-s"><use href="#chev"/></g></g><g class="tm" data-at="880" transform="translate(925 500) rotate(180)"><g class="ch-s"><use href="#chev"/></g></g><g class="tm" data-at="944" transform="translate(861 500) rotate(180)"><g class="ch-s"><use href="#chev"/></g></g><g class="tm" data-at="1008" transform="translate(845 548) rotate(90)"><g class="ch-s"><use href="#chev"/></g></g><g class="tm" data-at="1072" transform="translate(845 612) rotate(90)"><g class="ch-s"><use href="#chev"/></g></g></g>
+  </g>
+  <g class="puck" transform="translate(845 675)">
+    <g class="puck-s">
+      <circle class="puck-acc" r="24"/>
+      <circle class="puck-ring" r="11"/>
+      <circle class="puck-dot" r="7.5"/>
+      <g class="puck-head"><path class="puck-arrow" d="M 0 -7.5 L 5.6 5.6 L 0 2.6 L -5.6 5.6 Z"/></g>
+    </g>
+  </g>
+</svg></div>
+        <div class="hero-scrim" aria-hidden="true"></div>
+        <div class="hud">
+          <div class="hud-top" aria-hidden="true">
+            <div class="pill rec-pill">
+              <span class="pill-face face-idle"><i class="dot"></i><span class="pill-label" lang="de">Bereit</span></span>
+              <span class="pill-face face-rec"><i class="dot dot-rec"></i><span class="pill-time" lang="de" data-clock>0 s</span></span>
+              <span class="pill-face face-save"><i class="dot"></i><span class="pill-label" lang="de">Speichert</span></span>
+            </div>
+            <div class="pill gps-chip"><svg class="i i-good"><use href="#i-radio"/></svg><span lang="de">&plusmn; 5 m</span></div>
+          </div>
+          <div class="map-btns" aria-hidden="true">
+            <span class="glass-circle"><svg class="i"><use href="#i-map"/></svg></span>
+            <span class="glass-circle"><svg class="i"><use href="#i-layers"/></svg></span>
+            <span class="glass-circle"><svg class="i"><use href="#i-sign"/></svg></span>
+            <span class="glass-circle"><svg class="i i-accent"><use href="#i-fahrt"/></svg></span>
+          </div>
+          <div class="glass hud-card">
+            <div class="hud-row" aria-hidden="true">
+              <div class="speed">
+                <span class="eyebrow">km/h</span>
+                <span class="speed-num" data-speed>0</span>
+              </div>
+              <div class="hud-metrics">
+                <div class="metric metric-r">
+                  <span class="eyebrow" lang="de">Strecke</span>
+                  <span class="metric-v"><span class="num" data-dist>0,00</span><span class="unit">km</span></span>
+                </div>
+                <div class="metric metric-r">
+                  <span class="eyebrow" lang="de">Dauer</span>
+                  <span class="metric-v"><span class="num" data-dur>0 s</span></span>
+                </div>
+              </div>
+            </div>
+            <div class="hud-controls">
+              <button class="start-btn" type="button" data-start tabindex="-1" aria-hidden="true">
+                <svg class="i" aria-hidden="true"><use href="#i-record"/></svg><span lang="de">Start</span>
+              </button>
+              <div class="rec-controls">
+                <span class="round-btn" aria-hidden="true"><svg class="i"><use href="#i-flag"/></svg></span>
+                <button class="round-btn" type="button" data-pause tabindex="-1" aria-label="Pause the simulated drive">
+                  <svg class="i i-pause" aria-hidden="true"><use href="#i-pause"/></svg><svg class="i i-play" aria-hidden="true"><use href="#i-play"/></svg>
+                </button>
+                <span class="hold-label eyebrow" lang="de" aria-hidden="true">Halten zum Beenden</span>
+                <button class="hold-btn" type="button" data-stop tabindex="-1" aria-label="Stop the simulated drive. With a pointer, press and hold.">
+                  <svg viewBox="0 0 72 72" aria-hidden="true"><circle class="hold-bg" cx="36" cy="36" r="34"/><circle class="hold-track" cx="36" cy="36" r="32"/><circle class="hold-prog" cx="36" cy="36" r="32" pathLength="100" transform="rotate(-90 36 36)"/><rect class="hold-sq" x="25" y="25" width="22" height="22" rx="5"/></svg>
+                </button>
+              </div>
+            </div>
+            <p class="hud-foot" aria-hidden="true"><span class="rec-line" lang="de" data-recline>&Oslash; 0 km/h in Fahrt</span><span lang="de">Bedienung nur durch Beifahrer</span></p>
+          </div>
+        </div>
+        <figcaption class="live-cap" id="live-cap">A simulated drive on an invented street grid, drawn the way Spur draws it: a blue trail while it records, then amber for roads driven one way and green for roads driven both ways.<span class="live-cap-hint" data-hint hidden> Press START to drive it again.</span></figcaption>
       </figure>
-      <!-- launch:demo:end -->
     </section>
 
-    <!-- Why this exists -->
-    <section class="section section-why" aria-labelledby="why-heading">
-      <!-- launch:why:start -->
-      <h2 class="section-title" id="why-heading"><svg class="icon section-icon" viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M10 2.2 l1.9 4.6 l4.6 1.9 l-4.6 1.9 l-1.9 4.6 l-1.9-4.6 l-4.6-1.9 l4.6-1.9 z"/><line x1="15.8" y1="14.2" x2="15.8" y2="17.8"/><line x1="14" y1="16" x2="17.6" y2="16"/></svg><span>Why it exists</span></h2>
-      <p class="prose">If you drive to cover roads, the question after a few weeks is always the same: which streets have I already driven, in which direction, and what is still missing nearby. A trip log does not answer it, and a map app forgets every drive.</p>
-      <p class="prose">Spur keeps every drive on the phone, matches it to the road network, and turns the result into a map of what you covered and routes over what you did not.</p>
-      <p class="highlight">No account, no server, no analytics.</p>
-      <!-- launch:why:end -->
-    </section>
-
-    <!-- Features -->
-    <section class="section section-features" aria-labelledby="features-heading">
-      <!-- launch:features:start -->
-      <h2 class="section-title" id="features-heading"><svg class="icon section-icon" viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M11.2 2.2 L4.5 11 h4.6 l-.3 6.8 L15.5 9 h-4.6 z"/></svg><span>What it does</span></h2>
-      <ul class="grid">
-        <li class="card">
-          <h3 class="card-title"><svg class="icon card-icon" viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="8"/><polyline points="10 5 10 10 13.4 11.7"/></svg><span>Records every drive</span></h3>
-          <p class="card-body">High-accuracy GPS in the background and with the screen locked. Raw fixes are kept exactly as recorded.</p>
-        </li>
-        <li class="card">
-          <h3 class="card-title"><svg class="icon card-icon" viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><line x1="5" y1="2.5" x2="5" y2="12.5"/><circle cx="15" cy="5" r="2.5"/><circle cx="5" cy="15" r="2.5"/><path d="M15 7.5 a7.5 7.5 0 0 1-7.5 7.5"/></svg><span>Roads by direction</span></h3>
-          <p class="card-body">Amber for one direction, green for both, divided and frontage roads counted as one road, plus a heatmap of every pass.</p>
-        </li>
-        <li class="card">
-          <h3 class="card-title"><svg class="icon card-icon" viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4.2 3.6 H7.3 a1.6 1.6 0 0 1 1.28 .64 l.86 1.15 a1.6 1.6 0 0 0 1.28 .64 H15.8 a1.6 1.6 0 0 1 1.6 1.6 v7.2 a1.6 1.6 0 0 1-1.6 1.6 H4.2 a1.6 1.6 0 0 1-1.6-1.6 V5.2 a1.6 1.6 0 0 1 1.6-1.6 z"/></svg><span>Plans what is left</span></h3>
-          <p class="card-body">Search streets and places, see how much you drove, and plan loops or routes to a goal over roads you have not driven.</p>
-        </li>
-        <li class="card">
-          <h3 class="card-title"><svg class="icon card-icon" viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><line x1="2.9" y1="17.1" x2="17.1" y2="17.1"/><line x1="6" y1="17.1" x2="6" y2="10.5"/><line x1="10" y1="17.1" x2="10" y2="5.5"/><line x1="14" y1="17.1" x2="14" y2="8.2"/></svg><span>Measures the drive</span></h3>
-          <p class="card-body">Braking, acceleration, cornering, bumps and road surface from the motion sensors, live and per trip.</p>
-        </li>
-        <li class="card">
-          <h3 class="card-title"><svg class="icon card-icon" viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M10 2.2 l6 2.2 v5.1 c0 3.9-2.6 6.5-6 8.3 c-3.4-1.8-6-4.4-6-8.3 V4.4 z"/></svg><span>Honest about gaps</span></h3>
-          <p class="card-body">A GPS gap stays a gap. The likely road across it is a suggestion you accept or reject, and the recording never changes.</p>
-        </li>
-        <li class="card">
-          <h3 class="card-title"><svg class="icon card-icon" viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M17.5 12.5 v3.3 a1.7 1.7 0 0 1-1.7 1.7 H4.2 a1.7 1.7 0 0 1-1.7-1.7 v-3.3"/><polyline points="5.8 8.3 10 12.5 14.2 8.3"/><line x1="10" y1="12.5" x2="10" y2="2.5"/></svg><span>Exports everything</span></h3>
-          <p class="card-body">GPX, CSV, GeoJSON, JSON, the raw motion samples, or every trip as one ZIP.</p>
-        </li>
-      </ul>
-      <!-- launch:features:end -->
-    </section>
-
-    <!-- Install and usage -->
-    <section class="section section-install" aria-labelledby="install-heading">
-      <!-- launch:install:start -->
-      <h2 class="section-title" id="install-heading"><svg class="icon section-icon" viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><polyline points="6.2 6.5 2.7 10 6.2 13.5"/><polyline points="13.8 6.5 17.3 10 13.8 13.5"/><line x1="11.4" y1="3.8" x2="8.6" y2="16.2"/></svg><span>Read the source</span></h2>
-      <p class="prose">Spur is not on the App Store. The source is public to be read; it is not licensed for use.</p>
-      <ol class="steps">
-        <li class="step">
-          <h3 class="step-title">Clone</h3>
-          <p class="step-body">Swift 6 and SwiftUI, Apple frameworks only, no packages.</p>
-          <div class="copy">
-          <pre class="copy-code" id="install-step-1"><code>git clone https://github.com/noluyorAbi/spur-ios</code></pre>
-          <button class="copy-btn" type="button" data-copy-target="install-step-1" aria-label="Copy the command git clone https://github.com/noluyorAbi/spur-ios to the clipboard">
-            <span class="copy-btn-label" aria-hidden="true">Copy</span>
-          </button>
+    <!-- ============================================================ demo -->
+    <section class="section" id="demo" aria-labelledby="demo-title">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Recorded, not mocked up</p>
+          <h2 class="title" id="demo-title">Sixty-three seconds in the simulator</h2>
+          <p class="body-text">The recording comes from the app running in the iOS simulator with a simulated drive. You see the live motion panel, the heatmap, an automatic pause, a planned discovery loop, a filled GPS gap and the street search.</p>
         </div>
-        </li>
-        <li class="step">
-          <h3 class="step-title">Generate the project</h3>
-          <p class="step-body">The Xcode project is generated from project.yml with XcodeGen.</p>
-          <div class="copy">
-          <pre class="copy-code" id="install-step-2"><code>xcodegen generate</code></pre>
-          <button class="copy-btn" type="button" data-copy-target="install-step-2" aria-label="Copy the command xcodegen generate to the clipboard">
-            <span class="copy-btn-label" aria-hidden="true">Copy</span>
-          </button>
-        </div>
-        </li>
-        <li class="step">
-          <h3 class="step-title">Run the tests</h3>
-          <p class="step-body">More than 370 unit tests on an iOS 26 simulator.</p>
-          <div class="copy">
-          <pre class="copy-code" id="install-step-3"><code>xcodebuild -project Spur.xcodeproj -scheme Spur -destination 'platform=iOS Simulator,name=iPhone 17 Pro' test</code></pre>
-          <button class="copy-btn" type="button" data-copy-target="install-step-3" aria-label="Copy the command xcodebuild -project Spur.xcodeproj -scheme Spur -destination 'platform=iOS Simulator,name=iPhone 17 Pro' test to the clipboard">
-            <span class="copy-btn-label" aria-hidden="true">Copy</span>
-          </button>
-        </div>
-        </li>
-      </ol>
-      <p class="note">AGENTS.md in the repository explains the layout, the scripts and the rules the code follows.</p>
-      <!-- launch:install:end -->
+        <figure class="demo">
+          <video class="demo-video" src="assets/demo.mp4" poster="assets/demo-poster.jpg" width="1920" height="1080" controls muted loop playsinline preload="none" aria-label="Spur recording a drive, the live motion panel, the heatmap, an automatic pause, a planned discovery loop, a filled GPS gap and the street search">
+            <p>Your browser cannot play this video. <a href="assets/demo.mp4">Download the recording</a> instead.</p>
+          </video>
+        </figure>
+      </div>
     </section>
 
+    <!-- ============================================================ group: Fahrt -->
+    <div class="group" id="group-fahrt">
+      <div class="wrap group-head">
+        <span class="group-icon" aria-hidden="true"><svg class="i"><use href="#i-fahrt"/></svg></span>
+        <h2 class="group-title"><span lang="de">Fahrt</span><span class="group-sub">While you drive</span></h2>
+      </div>
+
+      <section class="section feature" aria-labelledby="roads-title">
+        <div class="wrap feature-grid">
+          <div class="feature-copy">
+            <p class="eyebrow">Roads by direction</p>
+            <h3 class="title" id="roads-title">Amber one way, green both ways</h3>
+            <p class="body-text">After every drive Spur matches the trip to the road network and colours each road by direction: amber where you drove it one way, green once you have driven it both ways. Arrows along the line show the direction. Green roads also carry a dark centre stripe, so the two differ in shape and not only in colour.</p>
+            <p class="body-text">The two carriageways of a divided road, frontage roads included, count as one road. Drive out on one and back on the other and both turn green, each with its own arrow.</p>
+            <p class="body-text">Switch the layer to <span lang="de">H&auml;ufigkeit</span> and the same roads show how often you drove them, from once to ten times or more.</p>
+          </div>
+          <div class="feature-visual">
+            <div class="map-tile roads-tile" data-mode="dir">
+              <svg class="map mini-map roads-map" viewBox="960 150 600 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+  <use href="#city"/>
+  <g class="cv-layer"><path class="cv-case e-r0 s-both h3" d="M 1020 235 L 1110 235"/><path class="cv-case e-r1 s-both h3" d="M 1110 235 L 1195 235"/><path class="cv-case e-r2 s-one h1" d="M 1110 235 L 1110 330"/><path class="cv-case e-r3 s-one h1" d="M 1110 330 L 1110 410"/><path class="cv-case e-r4 s-one h1" d="M 1110 410 L 1195 410"/><path class="cv-case e-r5 s-one h1" d="M 1195 410 L 1290 410"/><path class="cv-case e-r6 s-one h2" d="M 1195 410 L 1195 500"/><path class="cv-case e-r7 s-one h2" d="M 1195 500 L 1195 590"/><path class="cv-case e-r8 s-both h2" d="M 1020 500 L 1110 500"/><path class="cv-case e-r9 s-one h1" d="M 1020 235 L 1020 330"/><path class="cv-case e-r10 s-one h1" d="M 1020 330 L 1020 410"/><path class="cv-case e-r11 s-one h1" d="M 1020 410 L 1020 500"/><path class="cv-case e-r12 s-pair h5" d="M 1396.4 303.5 L 1388.5 314.7 L 1380.8 325.9 L 1373.4 337.2 L 1366.3 348.5 L 1359.5 359.8 L 1353 371.1 L 1346.9 382.3 L 1340.9 393.6 L 1335.1 405 L 1329.5 416.4 L 1324.2 427.9 L 1319.1 439.5 L 1314.2 451.1 L 1309.6 462.8 L 1305.3 474.5 L 1301.2 486.4 L 1297.5 498.3 L 1294.1 510.3 L 1291.1 522.3 L 1288.4 534.4 L 1286 546.6 L 1284.1 558.9 L 1282.5 571.3 L 1281.4 583.8 L 1280.7 596.5 L 1280.3 609.3 L 1280.3 622.2 L 1280.6 635.1 L 1281.2 648"/><path class="cv-case e-r13 s-pair h4" d="M 1297.2 647.1 L 1296.6 634.5 L 1296.3 622 L 1296.3 609.5 L 1296.6 597.2 L 1297.4 585 L 1298.4 573 L 1299.9 561.1 L 1301.8 549.4 L 1304 537.7 L 1306.6 526 L 1309.6 514.4 L 1312.9 502.9 L 1316.4 491.3 L 1320.3 479.9 L 1324.5 468.5 L 1329 457.1 L 1333.7 445.8 L 1338.7 434.5 L 1344 423.3 L 1349.4 412.1 L 1355.1 401 L 1360.9 389.9 L 1367 378.9 L 1373.3 367.9 L 1379.9 356.9 L 1386.8 345.9 L 1394.1 334.8 L 1401.6 323.8 L 1409.4 312.9"/></g><g class="cv-layer"><path class="cv-line e-r0 s-both h3" d="M 1020 235 L 1110 235"/><path class="cv-line e-r1 s-both h3" d="M 1110 235 L 1195 235"/><path class="cv-line e-r2 s-one h1" d="M 1110 235 L 1110 330"/><path class="cv-line e-r3 s-one h1" d="M 1110 330 L 1110 410"/><path class="cv-line e-r4 s-one h1" d="M 1110 410 L 1195 410"/><path class="cv-line e-r5 s-one h1" d="M 1195 410 L 1290 410"/><path class="cv-line e-r6 s-one h2" d="M 1195 410 L 1195 500"/><path class="cv-line e-r7 s-one h2" d="M 1195 500 L 1195 590"/><path class="cv-line e-r8 s-both h2" d="M 1020 500 L 1110 500"/><path class="cv-line e-r9 s-one h1" d="M 1020 235 L 1020 330"/><path class="cv-line e-r10 s-one h1" d="M 1020 330 L 1020 410"/><path class="cv-line e-r11 s-one h1" d="M 1020 410 L 1020 500"/><path class="cv-line e-r12 s-pair h5" d="M 1396.4 303.5 L 1388.5 314.7 L 1380.8 325.9 L 1373.4 337.2 L 1366.3 348.5 L 1359.5 359.8 L 1353 371.1 L 1346.9 382.3 L 1340.9 393.6 L 1335.1 405 L 1329.5 416.4 L 1324.2 427.9 L 1319.1 439.5 L 1314.2 451.1 L 1309.6 462.8 L 1305.3 474.5 L 1301.2 486.4 L 1297.5 498.3 L 1294.1 510.3 L 1291.1 522.3 L 1288.4 534.4 L 1286 546.6 L 1284.1 558.9 L 1282.5 571.3 L 1281.4 583.8 L 1280.7 596.5 L 1280.3 609.3 L 1280.3 622.2 L 1280.6 635.1 L 1281.2 648"/><path class="cv-line e-r13 s-pair h4" d="M 1297.2 647.1 L 1296.6 634.5 L 1296.3 622 L 1296.3 609.5 L 1296.6 597.2 L 1297.4 585 L 1298.4 573 L 1299.9 561.1 L 1301.8 549.4 L 1304 537.7 L 1306.6 526 L 1309.6 514.4 L 1312.9 502.9 L 1316.4 491.3 L 1320.3 479.9 L 1324.5 468.5 L 1329 457.1 L 1333.7 445.8 L 1338.7 434.5 L 1344 423.3 L 1349.4 412.1 L 1355.1 401 L 1360.9 389.9 L 1367 378.9 L 1373.3 367.9 L 1379.9 356.9 L 1386.8 345.9 L 1394.1 334.8 L 1401.6 323.8 L 1409.4 312.9"/></g><g class="cv-layer"><path class="cv-stripe e-r0 s-both h3" d="M 1020 235 L 1110 235"/><path class="cv-stripe e-r1 s-both h3" d="M 1110 235 L 1195 235"/><path class="cv-stripe e-r2 s-one h1" d="M 1110 235 L 1110 330"/><path class="cv-stripe e-r3 s-one h1" d="M 1110 330 L 1110 410"/><path class="cv-stripe e-r4 s-one h1" d="M 1110 410 L 1195 410"/><path class="cv-stripe e-r5 s-one h1" d="M 1195 410 L 1290 410"/><path class="cv-stripe e-r6 s-one h2" d="M 1195 410 L 1195 500"/><path class="cv-stripe e-r7 s-one h2" d="M 1195 500 L 1195 590"/><path class="cv-stripe e-r8 s-both h2" d="M 1020 500 L 1110 500"/><path class="cv-stripe e-r9 s-one h1" d="M 1020 235 L 1020 330"/><path class="cv-stripe e-r10 s-one h1" d="M 1020 330 L 1020 410"/><path class="cv-stripe e-r11 s-one h1" d="M 1020 410 L 1020 500"/><path class="cv-stripe e-r12 s-pair h5" d="M 1396.4 303.5 L 1388.5 314.7 L 1380.8 325.9 L 1373.4 337.2 L 1366.3 348.5 L 1359.5 359.8 L 1353 371.1 L 1346.9 382.3 L 1340.9 393.6 L 1335.1 405 L 1329.5 416.4 L 1324.2 427.9 L 1319.1 439.5 L 1314.2 451.1 L 1309.6 462.8 L 1305.3 474.5 L 1301.2 486.4 L 1297.5 498.3 L 1294.1 510.3 L 1291.1 522.3 L 1288.4 534.4 L 1286 546.6 L 1284.1 558.9 L 1282.5 571.3 L 1281.4 583.8 L 1280.7 596.5 L 1280.3 609.3 L 1280.3 622.2 L 1280.6 635.1 L 1281.2 648"/><path class="cv-stripe e-r13 s-pair h4" d="M 1297.2 647.1 L 1296.6 634.5 L 1296.3 622 L 1296.3 609.5 L 1296.6 597.2 L 1297.4 585 L 1298.4 573 L 1299.9 561.1 L 1301.8 549.4 L 1304 537.7 L 1306.6 526 L 1309.6 514.4 L 1312.9 502.9 L 1316.4 491.3 L 1320.3 479.9 L 1324.5 468.5 L 1329 457.1 L 1333.7 445.8 L 1338.7 434.5 L 1344 423.3 L 1349.4 412.1 L 1355.1 401 L 1360.9 389.9 L 1367 378.9 L 1373.3 367.9 L 1379.9 356.9 L 1386.8 345.9 L 1394.1 334.8 L 1401.6 323.8 L 1409.4 312.9"/></g><g class="cv-layer cv-marks"><g class="ch s-both e-r0 c-one" transform="translate(1065 235) rotate(0)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-both e-r0 c-both" transform="translate(1076.4 235) rotate(0)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-both e-r0 c-both" transform="translate(1053.6 235) rotate(180)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-both e-r1 c-one" transform="translate(1152.5 235) rotate(0)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-both e-r1 c-both" transform="translate(1163.9 235) rotate(0)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-both e-r1 c-both" transform="translate(1141.1 235) rotate(180)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-r2 c-one" transform="translate(1110 282.5) rotate(90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-r2 c-both" transform="translate(1110 293.9) rotate(90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-r2 c-both" transform="translate(1110 271.1) rotate(270)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-r3 c-one" transform="translate(1110 370) rotate(90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-r3 c-both" transform="translate(1110 381.4) rotate(90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-r3 c-both" transform="translate(1110 358.6) rotate(270)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-r4 c-one" transform="translate(1152.5 410) rotate(0)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-r4 c-both" transform="translate(1163.9 410) rotate(0)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-r4 c-both" transform="translate(1141.1 410) rotate(180)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-r5 c-one" transform="translate(1242.5 410) rotate(0)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-r5 c-both" transform="translate(1253.9 410) rotate(0)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-r5 c-both" transform="translate(1231.1 410) rotate(180)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-r6 c-one" transform="translate(1195 455) rotate(90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-r6 c-both" transform="translate(1195 466.4) rotate(90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-r6 c-both" transform="translate(1195 443.6) rotate(270)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-r7 c-one" transform="translate(1195 545) rotate(90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-r7 c-both" transform="translate(1195 556.4) rotate(90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-r7 c-both" transform="translate(1195 533.6) rotate(270)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-both e-r8 c-one" transform="translate(1065 500) rotate(0)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-both e-r8 c-both" transform="translate(1076.4 500) rotate(0)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-both e-r8 c-both" transform="translate(1053.6 500) rotate(180)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-r9 c-one" transform="translate(1020 282.5) rotate(90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-r9 c-both" transform="translate(1020 293.9) rotate(90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-r9 c-both" transform="translate(1020 271.1) rotate(270)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-r10 c-one" transform="translate(1020 370) rotate(90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-r10 c-both" transform="translate(1020 381.4) rotate(90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-r10 c-both" transform="translate(1020 358.6) rotate(270)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-r11 c-one" transform="translate(1020 455) rotate(90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-r11 c-both" transform="translate(1020 466.4) rotate(90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-r11 c-both" transform="translate(1020 443.6) rotate(270)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-pair e-r12 c-one" transform="translate(1308.4 466.1) rotate(125.3)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-pair e-r12 c-both" transform="translate(1304.4 476.8) rotate(110.2)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-pair e-r12 c-both" transform="translate(1312.3 455.4) rotate(290.2)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-pair e-r13 c-one" transform="translate(1323.8 470.6) rotate(-92.7)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-pair e-r13 c-both" transform="translate(1327.7 459.9) rotate(-69.8)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-pair e-r13 c-both" transform="translate(1319.8 481.3) rotate(110.2)"><g class="ch-s"><use href="#chev"/></g></g></g>
+</svg>
+              <div class="seg glass" role="group" aria-label="Coverage layer">
+                <button type="button" class="seg-btn" data-mode-btn="dir" aria-pressed="true"><span lang="de">Richtung</span><span class="sr-only">, by direction</span></button>
+                <button type="button" class="seg-btn" data-mode-btn="heat" aria-pressed="false"><span lang="de">H&auml;ufigkeit</span><span class="sr-only">, by frequency</span></button>
+                <span class="seg-thumb" aria-hidden="true"></span>
+              </div>
+              <div class="tile-foot">
+                <p class="toast glass legend-dir" lang="de" aria-hidden="true">Gelb: in einer Richtung gefahren &middot; Gr&uuml;n mit Mittelstreifen: in beiden Richtungen &middot; Pfeile zeigen die Richtung</p>
+                <div class="heat-legend glass legend-heat" aria-hidden="true">
+                  <span class="hl"><i class="h1"></i>1&times;</span><span class="hl"><i class="h2"></i>2&times;</span><span class="hl"><i class="h3"></i>3-4&times;</span><span class="hl"><i class="h4 tall"></i>5-9&times;</span><span class="hl"><i class="h5 tall"></i>10&times;+</span>
+                </div>
+              </div>
+            </div>
+            <p class="visual-note">The layer switch works. In the app it sits in the map menu, next to the map type.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section feature feature-flip" aria-labelledby="motion-title">
+        <div class="wrap feature-grid">
+          <div class="feature-copy">
+            <p class="eyebrow">Motion sensing</p>
+            <h3 class="title" id="motion-title">Braking, cornering and bumps</h3>
+            <p class="body-text">The motion sensors measure braking, acceleration, cornering, bumps and the road surface. Spur works out by itself how the phone sits in the car, shows the values live and keeps them with each trip.</p>
+            <p class="body-text">Traffic signals, stop signs, skewed junctions and speed limits come from OpenStreetMap and are counted along every trip.</p>
+          </div>
+          <div class="feature-visual">
+            <div class="sheet" aria-hidden="true">
+              <span class="grabber"></span>
+              <div class="sheet-head">
+                <span class="sheet-icon"><svg class="i"><use href="#i-up"/></svg></span>
+                <span class="sheet-title" lang="de">Live-Details</span>
+                <span class="sheet-icon"><svg class="i"><use href="#i-x"/></svg></span>
+              </div>
+              <div class="card gcard">
+                <div class="gcircle-wrap" lang="de">
+                  <span class="axis axis-t">Beschleunigen</span>
+                  <span class="axis axis-b">Bremsen</span>
+                  <span class="axis axis-l">links</span>
+                  <span class="axis axis-r">rechts</span>
+                  <svg class="gcircle" viewBox="-80 -80 160 160">
+                    <circle class="g-ring" r="24.7"/><circle class="g-ring" r="49.3"/><circle class="g-ring g-outer" r="74"/>
+                    <path class="g-ring" d="M -74 0 H 74 M 0 -74 V 74"/>
+                    <path class="g-peak" d="M -7 -32 H 7 M -7 40 H 7 M -46 -7 V 7"/>
+                    <polyline class="g-trail" points="0,0"/>
+                    <circle class="g-dot" cx="0" cy="24.6" r="7"/>
+                  </svg>
+                </div>
+                <div class="gvalues" lang="de">
+                  <div class="metric">
+                    <span class="eyebrow">L&auml;ngs</span>
+                    <span class="metric-v"><span class="num" data-glong>2,0</span><span class="unit">m/s&sup2;</span></span>
+                    <span class="gsub" data-glong-sub>0,20 g &middot; Bremsen</span>
+                  </div>
+                  <div class="metric">
+                    <span class="eyebrow">Quer</span>
+                    <span class="metric-v"><span class="num" data-glat>0,1</span><span class="unit">m/s&sup2;</span></span>
+                    <span class="gsub" data-glat-sub>0,01 g &middot; unsicher</span>
+                  </div>
+                </div>
+                <p class="gstatus" lang="de"><i class="dot dot-good"></i>Ausrichtung gut &middot; r = 1,00 (l&auml;ngs und quer)<svg class="i i-dim"><use href="#i-info"/></svg></p>
+              </div>
+              <p class="sheet-line" lang="de">&Oslash; 47 km/h in Fahrt &middot; 1 Ampel &middot; 1 Stopp &middot; 0 schr&auml;g</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section feature" aria-labelledby="gap-title">
+        <div class="wrap feature-grid">
+          <div class="feature-copy">
+            <p class="eyebrow">GPS gaps</p>
+            <h3 class="title" id="gap-title">A gap stays a gap</h3>
+            <p class="body-text">When the signal drops in a tunnel or a dead zone, the trip shows the gap as a gap: a faint dashed line, not an invented road. Spur suggests the road you most likely took, drawn as dots, and you accept or reject each suggestion.</p>
+            <p class="body-text">Raw fixes are stored exactly as the phone reports them and are never thinned. Accepting a suggestion adds to the trip; it does not change what was recorded.</p>
+          </div>
+          <div class="feature-visual">
+            <div class="map-tile gap-tile" data-gap="open">
+              <svg class="map mini-map gap-map" viewBox="560 520 700 420" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+  <use href="#city"/>
+  <path class="gap-line" d="M 750 860 L 1020 770"/>
+  <path class="gap-fill" d="M 750 860 L 845 860 L 845 770 L 1020 770"/>
+  <path class="run-case" d="M 400 860 L 575 860 L 750 860 M 1020 770 L 1195 770 L 1195 590"/>
+  <path class="run-line" d="M 400 860 L 575 860 L 750 860 M 1020 770 L 1195 770 L 1195 590"/>
+</svg>
+            </div>
+            <div class="card gap-card">
+              <p class="gap-text" lang="de">L&uuml;cke 47 s, 0,5 km, vermutlich &uuml;ber Mill Street</p>
+              <div class="gap-actions gap-open">
+                <button type="button" class="cap-btn cap-accent" data-gap-btn="accepted"><span lang="de">&Uuml;bernehmen</span><span class="sr-only">, accept the suggestion</span></button>
+                <button type="button" class="cap-btn cap-quiet" data-gap-btn="rejected"><span lang="de">Verwerfen</span><span class="sr-only">, reject the suggestion</span></button>
+              </div>
+              <div class="gap-actions gap-accepted">
+                <span class="gap-state good" lang="de"><svg class="i"><use href="#i-check"/></svg>Erg&auml;nzt</span>
+                <button type="button" class="link-btn" data-gap-btn="open"><span lang="de">Erg&auml;nzung entfernen</span><span class="sr-only">, undo</span></button>
+              </div>
+              <div class="gap-actions gap-rejected">
+                <span class="gap-state" lang="de">Verworfen</span>
+                <button type="button" class="link-btn" data-gap-btn="open"><span lang="de">Doch vorschlagen</span><span class="sr-only">, undo</span></button>
+              </div>
+            </div>
+            <p class="visual-note" role="status" data-gap-status>Both buttons work. The street name is made up, like the map.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section feature feature-flip" aria-labelledby="pause-title">
+        <div class="wrap feature-grid">
+          <div class="feature-copy">
+            <p class="eyebrow">Automatic pause</p>
+            <h3 class="title" id="pause-title">Parked is a pause, a jam is not</h3>
+            <p class="body-text">A long stop in a car park or on a side street becomes a pause on its own, and the trip carries on when you drive off. A long stop on a highway or a main road is traffic, so the recording keeps going.</p>
+            <p class="body-text">Spur decides from the location and the road data on the phone. Pause time counts neither as driving time nor as standing time.</p>
+          </div>
+          <div class="feature-visual">
+            <ol class="pause-list">
+              <li class="pause-row">
+                <p class="pause-when"><span class="eyebrow">Car park, 6 min</span>Off the road: paused from the start of the stop</p>
+                <div class="pause-strip"><svg class="map mini-map" viewBox="440 640 300 120" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><use href="#city"/></svg><p class="banner glass" lang="de"><svg class="i i-warn" aria-hidden="true"><use href="#i-pausecircle"/></svg><span>Automatisch pausiert (abseits der Stra&szlig;e), geht beim Losfahren weiter</span></p></div>
+              </li>
+              <li class="pause-row">
+                <p class="pause-when"><span class="eyebrow">Driving off</span>The trip continues by itself</p>
+                <div class="pause-strip"><svg class="map mini-map" viewBox="560 760 300 120" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><use href="#city"/></svg><p class="banner glass" lang="de"><svg class="i i-accent" aria-hidden="true"><use href="#i-resume"/></svg><span>Fahrt fortgesetzt nach 6 min Pause</span></p></div>
+              </li>
+              <li class="pause-row">
+                <p class="pause-when"><span class="eyebrow">Highway jam, 6 min</span>A main road: still recording</p>
+                <div class="pause-strip"><svg class="map mini-map" viewBox="1180 560 300 120" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><use href="#city"/></svg><p class="pill glass pause-pill" lang="de"><i class="dot dot-rec dot-still"></i><span>18 min 40 s</span></p></div>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ============================================================ group: Planen -->
+    <div class="group" id="group-planen">
+      <div class="wrap group-head">
+        <span class="group-icon" aria-hidden="true"><svg class="i"><use href="#i-search"/></svg></span>
+        <h2 class="group-title"><span lang="de">Planen</span><span class="group-sub">Before you drive</span></h2>
+      </div>
+
+      <section class="section feature" aria-labelledby="plan-title">
+        <div class="wrap feature-grid">
+          <div class="feature-copy">
+            <p class="eyebrow">Discovery routes</p>
+            <h3 class="title" id="plan-title">Routes over roads you have not driven</h3>
+            <p class="body-text">In the <span lang="de">Planen</span> tab you search a place or a street and plan a loop, or a route to a goal, that favours roads you have not driven yet. The numbered points are its waypoints, in order.</p>
+            <p class="body-text">The route shows on the live map while you drive it. It also opens in a maps app or leaves as a GPX file.</p>
+          </div>
+          <div class="feature-visual">
+            <div class="map-tile plan-tile">
+              <svg class="map mini-map plan-map" viewBox="600 60 560 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+  <use href="#city"/>
+  <g class="cv-layer"><path class="cv-case e-p0 s-both" d="M 660 235 L 750 235"/><path class="cv-case e-p1 s-both" d="M 750 235 L 845 235"/><path class="cv-case e-p2 s-both" d="M 845 235 L 930 235"/><path class="cv-case e-p3 s-both" d="M 930 235 L 1020 235"/><path class="cv-case e-p4 s-both" d="M 1020 235 L 1110 235"/><path class="cv-case e-p5 s-one" d="M 660 60 L 660 150"/><path class="cv-case e-p6 s-one" d="M 660 150 L 660 235"/><path class="cv-case e-p7 s-one" d="M 660 235 L 660 330"/><path class="cv-case e-p8 s-one" d="M 660 330 L 660 410"/><path class="cv-case e-p9 s-one" d="M 930 410 L 1020 410"/><path class="cv-case e-p10 s-one" d="M 1020 410 L 1110 410"/></g><g class="cv-layer"><path class="cv-line e-p0 s-both" d="M 660 235 L 750 235"/><path class="cv-line e-p1 s-both" d="M 750 235 L 845 235"/><path class="cv-line e-p2 s-both" d="M 845 235 L 930 235"/><path class="cv-line e-p3 s-both" d="M 930 235 L 1020 235"/><path class="cv-line e-p4 s-both" d="M 1020 235 L 1110 235"/><path class="cv-line e-p5 s-one" d="M 660 60 L 660 150"/><path class="cv-line e-p6 s-one" d="M 660 150 L 660 235"/><path class="cv-line e-p7 s-one" d="M 660 235 L 660 330"/><path class="cv-line e-p8 s-one" d="M 660 330 L 660 410"/><path class="cv-line e-p9 s-one" d="M 930 410 L 1020 410"/><path class="cv-line e-p10 s-one" d="M 1020 410 L 1110 410"/></g><g class="cv-layer"><path class="cv-stripe e-p0 s-both" d="M 660 235 L 750 235"/><path class="cv-stripe e-p1 s-both" d="M 750 235 L 845 235"/><path class="cv-stripe e-p2 s-both" d="M 845 235 L 930 235"/><path class="cv-stripe e-p3 s-both" d="M 930 235 L 1020 235"/><path class="cv-stripe e-p4 s-both" d="M 1020 235 L 1110 235"/><path class="cv-stripe e-p5 s-one" d="M 660 60 L 660 150"/><path class="cv-stripe e-p6 s-one" d="M 660 150 L 660 235"/><path class="cv-stripe e-p7 s-one" d="M 660 235 L 660 330"/><path class="cv-stripe e-p8 s-one" d="M 660 330 L 660 410"/><path class="cv-stripe e-p9 s-one" d="M 930 410 L 1020 410"/><path class="cv-stripe e-p10 s-one" d="M 1020 410 L 1110 410"/></g><g class="cv-layer cv-marks"><g class="ch s-both e-p0 c-one" transform="translate(705 235) rotate(0)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-both e-p0 c-both" transform="translate(716.4 235) rotate(0)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-both e-p0 c-both" transform="translate(693.6 235) rotate(180)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-both e-p1 c-one" transform="translate(797.5 235) rotate(0)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-both e-p1 c-both" transform="translate(808.9 235) rotate(0)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-both e-p1 c-both" transform="translate(786.1 235) rotate(180)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-both e-p2 c-one" transform="translate(887.5 235) rotate(0)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-both e-p2 c-both" transform="translate(898.9 235) rotate(0)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-both e-p2 c-both" transform="translate(876.1 235) rotate(180)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-both e-p3 c-one" transform="translate(975 235) rotate(0)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-both e-p3 c-both" transform="translate(986.4 235) rotate(0)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-both e-p3 c-both" transform="translate(963.6 235) rotate(180)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-both e-p4 c-one" transform="translate(1065 235) rotate(0)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-both e-p4 c-both" transform="translate(1076.4 235) rotate(0)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-both e-p4 c-both" transform="translate(1053.6 235) rotate(180)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-p5 c-one" transform="translate(660 105) rotate(90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-p5 c-both" transform="translate(660 116.4) rotate(90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-p5 c-both" transform="translate(660 93.6) rotate(270)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-p6 c-one" transform="translate(660 192.5) rotate(90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-p6 c-both" transform="translate(660 203.9) rotate(90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-p6 c-both" transform="translate(660 181.1) rotate(270)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-p7 c-one" transform="translate(660 282.5) rotate(90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-p7 c-both" transform="translate(660 293.9) rotate(90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-p7 c-both" transform="translate(660 271.1) rotate(270)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-p8 c-one" transform="translate(660 370) rotate(90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-p8 c-both" transform="translate(660 381.4) rotate(90)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-p8 c-both" transform="translate(660 358.6) rotate(270)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-p9 c-one" transform="translate(975 410) rotate(0)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-p9 c-both" transform="translate(986.4 410) rotate(0)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-p9 c-both" transform="translate(963.6 410) rotate(180)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-p10 c-one" transform="translate(1065 410) rotate(0)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-p10 c-both" transform="translate(1076.4 410) rotate(0)"><g class="ch-s"><use href="#chev"/></g></g><g class="ch s-one e-p10 c-both" transform="translate(1053.6 410) rotate(180)"><g class="ch-s"><use href="#chev"/></g></g></g>
+  <path class="rt-case" d="M 845 410 L 750 410 L 750 150 L 1020 150 L 1020 330 L 845 330 L 845 410"/>
+  <path class="rt-line" d="M 845 410 L 750 410 L 750 150 L 1020 150 L 1020 330 L 845 330 L 845 410"/>
+  <g class="wp" transform="translate(750 150)"><circle r="10"/><text y="4" text-anchor="middle">1</text></g><g class="wp" transform="translate(1020 150)"><circle r="10"/><text y="4" text-anchor="middle">2</text></g><g class="wp" transform="translate(1020 330)"><circle r="10"/><text y="4" text-anchor="middle">3</text></g>
+  <g class="puck puck-idle" transform="translate(845 410)"><g class="puck-s"><circle class="puck-ring" r="11"/><circle class="puck-dot" r="7.5"/></g></g>
+</svg>
+              <p class="banner glass plan-banner" lang="de" aria-hidden="true"><svg class="i i-accent"><use href="#i-route"/></svg><span>Entdeckerroute: 31,5 km, etwa 39 min</span><svg class="i i-dim"><use href="#i-x"/></svg></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section feature feature-flip" aria-labelledby="street-title">
+        <div class="wrap feature-grid">
+          <div class="feature-copy">
+            <p class="eyebrow">Street search</p>
+            <h3 class="title" id="street-title">How much of a street is left</h3>
+            <p class="body-text">Search a street by name and Spur shows how long it is, how much of it you have driven and how much is still open. One button takes you to the nearest part you have not driven.</p>
+          </div>
+          <div class="feature-visual">
+            <div class="map-tile street-tile" aria-hidden="true">
+              <svg class="map mini-map street-map" viewBox="700 440 600 480" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+  <use href="#city"/>
+  <path class="st-case" d="M 620 590 L 1560 590"/>
+  <path class="st-open" d="M 930 590 L 1290 590 L 1560 590"/>
+  <path class="st-done" d="M 620 590 L 930 590"/>
+  <g class="puck puck-idle" transform="translate(890 535)"><g class="puck-s"><circle class="puck-ring" r="11"/><circle class="puck-dot" r="7.5"/></g></g>
+</svg>
+              <p class="search glass"><svg class="i i-dim"><use href="#i-search"/></svg><span class="search-q">cedar</span><svg class="i i-dim i-clear"><use href="#i-xfill"/></svg></p>
+              <div class="glass street-card" lang="de">
+                <p class="street-head"><span class="street-name">Cedar Street</span><svg class="i i-dim"><use href="#i-x"/></svg></p>
+                <p class="street-text">4,8 km lang, 1,2 km gefahren (25 %), 3,6 km offen</p>
+                <p class="street-legend"><span><i class="lg lg-done"></i>gefahren</span><span><i class="lg lg-open"></i>unbefahren</span></p>
+                <p class="cap-btn cap-accent cap-wide"><svg class="i"><use href="#i-route"/></svg><span>Zum unbefahrenen Teil</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ============================================================ group: Historie -->
+    <div class="group" id="group-historie">
+      <div class="wrap group-head">
+        <span class="group-icon" aria-hidden="true"><svg class="i"><use href="#i-history"/></svg></span>
+        <h2 class="group-title"><span lang="de">Historie</span><span class="group-sub">After you drive</span></h2>
+      </div>
+
+      <section class="section feature" aria-labelledby="history-title">
+        <div class="wrap feature-grid">
+          <div class="feature-copy">
+            <p class="eyebrow">History and exports</p>
+            <h3 class="title" id="history-title">Every trip stays, and every trip exports</h3>
+            <p class="body-text">The history keeps each trip with its distance, time, estimated road types, traffic signals and stop signs, and adds them up across all trips.</p>
+            <p class="body-text">A trip exports as GPX, CSV, GeoJSON or JSON. The raw motion samples export on their own, and all trips go out together as one ZIP.</p>
+          </div>
+          <div class="feature-visual">
+            <div class="card hist-card" lang="de" aria-hidden="true">
+              <div class="hist-metrics">
+                <div class="metric"><span class="eyebrow">Gesamt</span><span class="metric-v"><span class="num num-lg">71,4</span><span class="unit">km</span></span></div>
+                <div class="metric"><span class="eyebrow">Fahrten</span><span class="metric-v"><span class="num num-lg">4</span></span></div>
+                <div class="metric"><span class="eyebrow">Fahrzeit <svg class="i i-dim i-xs"><use href="#i-info"/></svg></span><span class="metric-v"><span class="num">1 h 00 min</span></span></div>
+              </div>
+              <div class="share-bar"><i class="rc-stadt"></i><i class="rc-land"></i><i class="rc-bahn"></i></div>
+              <p class="eyebrow">Streckenart (gesch&auml;tzt) <svg class="i i-dim i-xs"><use href="#i-info"/></svg></p>
+              <p class="road-legend"><span><i class="rc-stadt"></i>Stadt 22 %</span><span><i class="rc-land"></i>Land 31 %</span><span><i class="rc-bahn"></i>Autobahn 47 %</span></p>
+              <hr class="hairline">
+              <div class="hist-metrics hist-metrics-2">
+                <div class="metric"><span class="eyebrow">Ampeln</span><span class="metric-v"><span class="num">7</span></span></div>
+                <div class="metric"><span class="eyebrow">Stoppschilder</span><span class="metric-v"><span class="num">4</span></span></div>
+              </div>
+              <p class="osm-note">Stra&szlig;endaten &copy; OpenStreetMap-Mitwirkende (ODbL)</p>
+            </div>
+            <div class="card export-card" lang="de" aria-hidden="true">
+              <p class="export-row"><svg class="i i-accent"><use href="#i-share"/></svg><span>Alle Fahrten exportieren</span><svg class="i i-dim"><use href="#i-right"/></svg></p>
+              <p class="chips"><span class="chip">GPX</span><span class="chip">CSV</span><span class="chip">GeoJSON</span><span class="chip">JSON</span><span class="chip">Sensordaten</span><span class="chip">ZIP</span></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section screens-section" aria-labelledby="screens-title">
+        <div class="wrap section-head screens-head">
+          <div>
+            <p class="eyebrow">From the simulator</p>
+            <h3 class="title" id="screens-title">Screens from the app</h3>
+            <p class="body-text">Unframed captures of the app. Where a dark capture exists, it follows your system appearance, the way the app follows its map style. The interface is in German.</p>
+          </div>
+          <div class="scroller-btns">
+            <button type="button" class="glass-circle" data-scroll="-1" aria-label="Previous screens"><svg class="i" aria-hidden="true"><use href="#i-left"/></svg></button>
+            <button type="button" class="glass-circle" data-scroll="1" aria-label="Next screens"><svg class="i" aria-hidden="true"><use href="#i-right"/></svg></button>
+          </div>
+        </div>
+        <ul class="screens" data-scroller>
+          <li class="shot"><picture><source srcset="assets/screens/live-dark.jpg" media="(prefers-color-scheme: dark)"><img src="assets/screens/live-light.jpg" width="600" height="1304" loading="lazy" decoding="async" alt="The live map in Spur with roads driven in one direction in amber, the BEREIT pill, the GPS chip and the START button"></picture><p class="shot-cap">Roads driven, by direction</p></li>
+          <li class="shot"><picture><source srcset="assets/screens/heat-dark.jpg" media="(prefers-color-scheme: dark)"><img src="assets/screens/heat-light.jpg" width="600" height="1304" loading="lazy" decoding="async" alt="The frequency layer: driven roads in a violet ramp with the legend from once to ten times or more"></picture><p class="shot-cap">How often you drove each road</p></li>
+          <li class="shot"><img src="assets/screens/panel-light.jpg" width="600" height="1304" loading="lazy" decoding="async" alt="A running trip at 58 km/h with the Live-Details panel showing the friction circle and the longitudinal and lateral values"><p class="shot-cap">Live motion while recording</p></li>
+          <li class="shot"><picture><source srcset="assets/screens/route-dark.jpg" media="(prefers-color-scheme: dark)"><img src="assets/screens/route-light.jpg" width="600" height="1304" loading="lazy" decoding="async" alt="A discovery route of 31.5 km drawn as a dashed line on the live map"></picture><p class="shot-cap">A discovery loop on the live map</p></li>
+          <li class="shot"><img src="assets/screens/street-light.jpg" width="600" height="1304" loading="lazy" decoding="async" alt="Street search for elm with a card showing 5.2 km long, 170 m driven and 5.1 km open"><p class="shot-cap">Street search with the driven share</p></li>
+          <li class="shot"><picture><source srcset="assets/screens/history-dark.jpg" media="(prefers-color-scheme: dark)"><img src="assets/screens/history-light.jpg" width="600" height="1304" loading="lazy" decoding="async" alt="The Historie tab with totals across four trips and the list of trips"></picture><p class="shot-cap">Trip history</p></li>
+          <li class="shot"><picture><source srcset="assets/screens/detail-dark.jpg" media="(prefers-color-scheme: dark)"><img src="assets/screens/detail-light.jpg" width="600" height="1304" loading="lazy" decoding="async" alt="One trip in detail with its map coloured by speed, traffic signs and the overview figures"></picture><p class="shot-cap">One trip in detail</p></li>
+          <li class="shot"><img src="assets/screens/gap-light.jpg" width="600" height="1304" loading="lazy" decoding="async" alt="A trip with a GPS gap of 47 seconds and an accepted suggestion for the street taken across it"><p class="shot-cap">A GPS gap with its suggestion</p></li>
+        </ul>
+      </section>
+    </div>
+
+    <!-- ============================================================ group: Einstellungen -->
+    <div class="group" id="group-einstellungen">
+      <div class="wrap group-head">
+        <span class="group-icon" aria-hidden="true"><svg class="i"><use href="#i-sliders"/></svg></span>
+        <h2 class="group-title"><span lang="de">Einstellungen</span><span class="group-sub">Privacy, code and license</span></h2>
+      </div>
+
+      <section class="section feature" aria-labelledby="privacy-title">
+        <div class="wrap feature-grid">
+          <div class="feature-copy">
+            <p class="eyebrow">Privacy</p>
+            <h3 class="title" id="privacy-title">Your trips stay on the phone</h3>
+            <p class="body-text">There is no account, no server, no analytics and no third-party code. Two kinds of request leave the device, and neither carries your trips.</p>
+          </div>
+          <div class="feature-visual">
+            <p class="list-head eyebrow" id="stays">Stays on the phone</p>
+            <ul class="list card" aria-labelledby="stays">
+              <li class="row"><span class="row-icon"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg></span><span class="row-text">Every trip, with its raw GPS fixes and motion samples</span></li>
+              <li class="row"><span class="row-icon"><svg class="i" aria-hidden="true"><use href="#i-lock"/></svg></span><span class="row-text">The history and the roads you have driven</span></li>
+            </ul>
+            <p class="list-head eyebrow" id="leaves">Leaves the device</p>
+            <ul class="list card" aria-labelledby="leaves">
+              <li class="row"><span class="row-icon"><svg class="i" aria-hidden="true"><use href="#i-cloud"/></svg></span><span class="row-text">Map tiles, place search, driving times and street names, requested through MapKit from the map service built into the phone</span></li>
+              <li class="row"><span class="row-icon"><svg class="i" aria-hidden="true"><use href="#i-cloud"/></svg></span><span class="row-text">Road data for the map tiles you drive in, from public OpenStreetMap (Overpass) servers. A request carries only the tile's bounding box, never your fixes or your track.</span></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section feature feature-flip" aria-labelledby="built-title">
+        <div class="wrap feature-grid">
+          <div class="feature-copy">
+            <p class="eyebrow">How it is built</p>
+            <h3 class="title" id="built-title">Platform frameworks, pure logic, many tests</h3>
+            <p class="body-text">Swift 6 with strict concurrency, SwiftUI, MapKit, CoreLocation, CoreMotion, ActivityKit and WidgetKit. There are no packages.</p>
+            <p class="body-text">The domain logic is pure: statistics, map matching, road coverage, the route planner and the exports. A physics suite must give identical results in debug and optimized builds, and UI tests drive the real app through a full recording, export, planning and pause flow.</p>
+          </div>
+          <div class="feature-visual">
+            <div class="card build-card">
+              <div class="build-metrics">
+                <div class="metric"><span class="eyebrow">Unit tests</span><span class="metric-v"><span class="num num-lg">370+</span></span></div>
+                <div class="metric"><span class="eyebrow">Packages</span><span class="metric-v"><span class="num num-lg">0</span></span></div>
+                <div class="metric"><span class="eyebrow">Swift</span><span class="metric-v"><span class="num num-lg">6</span></span></div>
+              </div>
+              <hr class="hairline">
+              <p class="eyebrow">Build and test</p>
+              <div class="code">
+                <pre id="build-cmd"><code>xcodegen generate
+xcodebuild -project Spur.xcodeproj -scheme Spur \
+  -destination 'platform=iOS Simulator,name=iPhone 17 Pro' build test</code></pre>
+                <button type="button" class="copy-btn" data-copy-target="build-cmd" aria-label="Copy the build commands"><svg class="i" aria-hidden="true"><use href="#i-copy"/></svg><span class="copy-label">Copy</span></button>
+              </div>
+              <p class="small-text">Needs Xcode 26 with an iOS 26 simulator and XcodeGen. Without the optional offline road pack, road data loads live from OpenStreetMap.</p>
+            </div>
+            <ul class="list card doc-list">
+              <li><a class="row row-link" href="https://github.com/noluyorAbi/spur-ios/blob/main/AGENTS.md?utm_source=landing&amp;utm_medium=docs-agents&amp;utm_campaign=spur-ios" data-utm-slot="docs-agents" rel="noopener"><span class="row-icon"><svg class="i" aria-hidden="true"><use href="#i-doc"/></svg></span><span class="row-text"><span class="row-title">AGENTS.md</span><span class="row-sub">Guide for working on the code, for people and coding agents</span></span><svg class="i i-dim" aria-hidden="true"><use href="#i-right"/></svg></a></li>
+              <li><a class="row row-link" href="https://github.com/noluyorAbi/spur-ios/blob/main/SPEC.md?utm_source=landing&amp;utm_medium=docs-spec&amp;utm_campaign=spur-ios" data-utm-slot="docs-spec" rel="noopener"><span class="row-icon"><svg class="i" aria-hidden="true"><use href="#i-doc"/></svg></span><span class="row-text"><span class="row-title">SPEC.md</span><span class="row-sub">The specification the code cites section by section</span></span><svg class="i i-dim" aria-hidden="true"><use href="#i-right"/></svg></a></li>
+              <li><a class="row row-link" href="https://github.com/noluyorAbi/spur-ios/blob/main/docs/ANLEITUNG.md?utm_source=landing&amp;utm_medium=docs-manual&amp;utm_campaign=spur-ios" data-utm-slot="docs-manual" rel="noopener"><span class="row-icon"><svg class="i" aria-hidden="true"><use href="#i-doc"/></svg></span><span class="row-text"><span class="row-title">ANLEITUNG.md</span><span class="row-sub">The user manual, in German</span></span><svg class="i i-dim" aria-hidden="true"><use href="#i-right"/></svg></a></li>
+              <li><a class="row row-link" href="https://github.com/noluyorAbi/spur-ios/blob/main/docs/MOTION-FORMAT.md?utm_source=landing&amp;utm_medium=docs-motion&amp;utm_campaign=spur-ios" data-utm-slot="docs-motion" rel="noopener"><span class="row-icon"><svg class="i" aria-hidden="true"><use href="#i-doc"/></svg></span><span class="row-text"><span class="row-title">MOTION-FORMAT.md</span><span class="row-sub">The motion file format</span></span><svg class="i i-dim" aria-hidden="true"><use href="#i-right"/></svg></a></li>
+              <li><a class="row row-link" href="https://github.com/noluyorAbi/spur-ios/blob/main/ROADMAP.md?utm_source=landing&amp;utm_medium=docs-roadmap&amp;utm_campaign=spur-ios" data-utm-slot="docs-roadmap" rel="noopener"><span class="row-icon"><svg class="i" aria-hidden="true"><use href="#i-doc"/></svg></span><span class="row-text"><span class="row-title">ROADMAP.md</span><span class="row-sub">What comes next, including giving data back to OpenStreetMap</span></span><svg class="i i-dim" aria-hidden="true"><use href="#i-right"/></svg></a></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section license" aria-labelledby="license-title">
+        <div class="wrap license-wrap">
+          <p class="eyebrow">License</p>
+          <h3 class="title" id="license-title">All rights reserved</h3>
+          <p class="body-text">The source is published to be read. It is not licensed for use, copying or redistribution. Issues are welcome; pull requests are not accepted.</p>
+          <p class="cta-row">
+            <a class="glass-btn" href="https://github.com/noluyorAbi/spur-ios?utm_source=landing&amp;utm_medium=license-repo&amp;utm_campaign=spur-ios" data-utm-slot="license-repo" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-code"/></svg><span>Read the source</span></a>
+            <a class="glass-btn glass-btn-quiet" href="https://github.com/noluyorAbi/spur-ios/blob/main/LICENSE?utm_source=landing&amp;utm_medium=license-file&amp;utm_campaign=spur-ios" data-utm-slot="license-file" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-doc"/></svg><span>LICENSE</span></a>
+          </p>
+          <p class="small-text">Road data &copy; <a href="https://www.openstreetmap.org/copyright" rel="noopener">OpenStreetMap contributors</a>, available under the Open Database License.</p>
+        </div>
+      </section>
+    </div>
   </main>
 
-  <footer class="section site-footer">
-    <!-- launch:footer:start -->
-      <p class="footer-license">All rights reserved. The source is published to be read, not licensed for use.</p>
-      
+  <footer class="site-footer">
+    <div class="wrap footer-wrap">
+      <p class="brand brand-sm"><img class="brand-icon" src="assets/favicon.svg" width="24" height="24" alt=""><span>Spur</span></p>
       <nav class="footer-links" aria-label="Elsewhere">
-        <a class="footer-link" href="https://github.com/noluyorAbi/spur-ios?utm_source=landing&amp;utm_medium=footer-repo&amp;utm_campaign=spur-ios" data-utm-slot="footer-repo" rel="noopener">GitHub</a>
-        <a class="footer-link" href="https://github.com/noluyorAbi/spur-ios/blob/main/CHANGELOG.md?utm_source=landing&amp;utm_medium=footer-changelog&amp;utm_campaign=spur-ios" data-utm-slot="footer-changelog" rel="noopener">Changelog</a>
-        <a class="footer-link" href="https://github.com/noluyorAbi/spur-ios/security/policy?utm_source=landing&amp;utm_medium=footer-security&amp;utm_campaign=spur-ios" data-utm-slot="footer-security" rel="noopener">Security</a>
+        <a href="https://github.com/noluyorAbi/spur-ios?utm_source=landing&amp;utm_medium=footer-repo&amp;utm_campaign=spur-ios" data-utm-slot="footer-repo" rel="noopener">Source</a>
+        <a href="https://github.com/noluyorAbi/spur-ios/blob/main/CHANGELOG.md?utm_source=landing&amp;utm_medium=footer-changelog&amp;utm_campaign=spur-ios" data-utm-slot="footer-changelog" rel="noopener">Changelog</a>
+        <a href="https://github.com/noluyorAbi/spur-ios/security/policy?utm_source=landing&amp;utm_medium=footer-security&amp;utm_campaign=spur-ios" data-utm-slot="footer-security" rel="noopener">Security</a>
+        <a href="llms.txt">llms.txt</a>
       </nav>
-      <p class="footer-copy">Copyright 2026 noluyorAbi. Road data (c) OpenStreetMap contributors, ODbL.</p>
-    <!-- launch:footer:end -->
+      <p class="footer-copy">Copyright 2026 noluyorAbi. The map on this page is invented.</p>
+    </div>
   </footer>
 
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <nav class="tabbar glass" aria-label="Sections">
+    <span class="tab-thumb" aria-hidden="true"></span>
+    <a class="tab" href="#fahrt" data-tab="group-fahrt" aria-current="true"><svg class="i" aria-hidden="true"><use href="#i-fahrt"/></svg><span lang="de">Fahrt</span><span class="sr-only">: while you drive</span></a>
+    <a class="tab" href="#group-planen" data-tab="group-planen"><svg class="i" aria-hidden="true"><use href="#i-search"/></svg><span lang="de">Planen</span><span class="sr-only">: before you drive</span></a>
+    <a class="tab" href="#group-historie" data-tab="group-historie"><svg class="i" aria-hidden="true"><use href="#i-history"/></svg><span lang="de">Historie</span><span class="sr-only">: after you drive</span></a>
+    <a class="tab" href="#group-einstellungen" data-tab="group-einstellungen"><svg class="i" aria-hidden="true"><use href="#i-sliders"/></svg><span lang="de">Einstellungen</span><span class="sr-only">: privacy, code and license</span></a>
+  </nav>
+
+  <div class="toast-live glass" id="toast" role="status" aria-live="polite"></div>
 </body>
 </html>
