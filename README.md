@@ -90,6 +90,8 @@ never your fixes or your track.
 alike. [`SPEC.md`](SPEC.md) is the specification the code cites section by section.
 [`docs/ANLEITUNG.md`](docs/ANLEITUNG.md) is the user manual (German), and
 [`docs/MOTION-FORMAT.md`](docs/MOTION-FORMAT.md) documents the motion file.
+[`ROADMAP.md`](ROADMAP.md) lists what comes next, including ideas for giving data back to
+OpenStreetMap and for opening parts of the code.
 
 ## Building it
 
