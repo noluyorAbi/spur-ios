@@ -23,10 +23,10 @@
 ## Demo
 
 <a href="https://github.com/noluyorAbi/spur-ios/blob/main/docs/media/spur-demo.mp4">
-  <img alt="Play the 67 second demo" src="https://raw.githubusercontent.com/noluyorAbi/spur-ios/main/docs/media/demo-poster.jpg" width="720">
+  <img alt="Play the 63 second demo" src="https://raw.githubusercontent.com/noluyorAbi/spur-ios/main/docs/media/demo-poster.jpg" width="720">
 </a>
 
-67 seconds, recorded from the app running in the iOS simulator with a simulated drive.
+63 seconds, recorded from the app running in the iOS simulator with a simulated drive.
 Nothing in it is mocked up.
 
 ## What it does

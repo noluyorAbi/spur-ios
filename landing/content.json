@@ -27,7 +27,7 @@
     "icon": "sparkle",
     "video": { "src": "assets/demo.mp4", "poster": "assets/demo-poster.jpg", "width": 1920, "height": 1080 },
     "alt": "Spur recording a drive, the live motion panel, the heatmap, an automatic pause, a planned discovery loop, a filled GPS gap and the street search",
-    "caption": "67 seconds, recorded from the app in the iOS simulator with a simulated drive. Nothing in it is mocked up."
+    "caption": "63 seconds, recorded from the app in the iOS simulator with a simulated drive. Nothing in it is mocked up."
   },
   "why": {
     "heading": "Why it exists",
