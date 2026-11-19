@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!--
+    Everything between launch:head:start and launch:head:end is generated from
+    content.json by sync.mjs. Do not hand edit it; edit content.json and run
+    "node sync.mjs".
+  -->
+  <!-- launch:head:start -->
+  <title>Spur, know which roads you have already driven</title>
+  <meta name="description" content="An iPhone app that records every drive in full GPS and motion detail, shows the roads and directions you have covered, and plans routes over the ones you have not. Everything stays on the phone.">
+  <meta name="theme-color" content="#0e1220">
+  <link rel="canonical" href="https://spur-ios.vercel.app">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Spur">
+  <meta property="og:title" content="Spur, know which roads you have already driven">
+  <meta property="og:description" content="An iPhone app that records every drive in full GPS and motion detail, shows the roads and directions you have covered, and plans routes over the ones you have not. Everything stays on the phone.">
+  <meta property="og:url" content="https://spur-ios.vercel.app">
+  <meta property="og:image" content="https://spur-ios.vercel.app/assets/social-card.png">
+  <meta property="og:image:alt" content="Spur on an iPhone: every road you have driven, amber one way, green both ways">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Spur, know which roads you have already driven">
+  <meta name="twitter:description" content="An iPhone app that records every drive in full GPS and motion detail, shows the roads and directions you have covered, and plans routes over the ones you have not. Everything stays on the phone.">
+  <meta name="twitter:image" content="https://spur-ios.vercel.app/assets/social-card.png">
+  <meta name="twitter:image:alt" content="Spur on an iPhone: every road you have driven, amber one way, green both ways">
+  <!-- launch:head:end -->
+
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <main id="main">
+
+    <!-- Hero -->
+    <section class="section hero" aria-labelledby="hero-heading">
+      <!-- launch:hero:start -->
+      <p class="wordmark">Spur</p>
+      <p class="eyebrow">iPhone app, everything stays on the phone</p>
+      <h1 class="hero-title" id="hero-heading">Know which roads you have already driven.</h1>
+      <p class="hero-sub">Spur records every drive in full GPS and motion detail, draws the roads and directions you have covered, and plans routes over the ones you have not.</p>
+
+      <div class="install-strip">
+        <p class="install-label" id="hero-install-label">Source</p>
+        <div class="copy">
+          <pre class="copy-code" id="hero-install"><code>git clone https://github.com/noluyorAbi/spur-ios</code></pre>
+          <button class="copy-btn" type="button" data-copy-target="hero-install" aria-label="Copy the command git clone https://github.com/noluyorAbi/spur-ios to the clipboard">
+            <span class="copy-btn-label" aria-hidden="true">Copy</span>
+          </button>
+        </div>
+        <p class="install-then">published to be read, all rights reserved</p>
+      </div>
+
+      <p class="cta-row">
+        <a class="btn btn-primary" href="https://github.com/noluyorAbi/spur-ios?utm_source=landing&amp;utm_medium=hero-primary&amp;utm_campaign=spur-ios" data-utm-slot="hero-primary" rel="noopener">View on GitHub</a>
+        <a class="btn btn-secondary" href="#demo" data-utm-slot="hero-secondary">Watch the demo</a>
+      </p>
+      <!-- launch:hero:end -->
+    </section>
+
+    <!-- Demo -->
+    <section class="section section-demo" aria-labelledby="demo-heading">
+      <!-- launch:demo:start -->
+      <h2 class="section-title" id="demo-heading"><svg class="icon section-icon" viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M10 2.2 l1.9 4.6 l4.6 1.9 l-4.6 1.9 l-1.9 4.6 l-1.9-4.6 l-4.6-1.9 l4.6-1.9 z"/><line x1="15.8" y1="14.2" x2="15.8" y2="17.8"/><line x1="14" y1="16" x2="17.6" y2="16"/></svg><span>See it run</span></h2>
+      <figure class="demo">
+        <video
+          class="demo-video"
+          src="assets/demo.mp4"
+          poster="assets/demo-poster.jpg"
+          width="1920"
+          height="1080"
+          controls
+         
+          loop
+          playsinline
+          preload="none"
+          aria-label="Spur recording a drive, the live motion panel, the heatmap, an automatic pause, a planned discovery loop, a filled GPS gap and the street search">
+          <p>Your browser cannot play this video. <a href="assets/demo.mp4">Download the recording</a> instead.</p>
+        </video>
+        <figcaption class="demo-caption">
+          <p class="demo-alt">Spur recording a drive, the live motion panel, the heatmap, an automatic pause, a planned discovery loop, a filled GPS gap and the street search</p>
+          <p class="caption">67 seconds, recorded from the app in the iOS simulator with a simulated drive. Nothing in it is mocked up.</p>
+        </figcaption>
+      </figure>
+      <!-- launch:demo:end -->
+    </section>
+
+    <!-- Why this exists -->
+    <section class="section section-why" aria-labelledby="why-heading">
+      <!-- launch:why:start -->
+      <h2 class="section-title" id="why-heading"><svg class="icon section-icon" viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M10 2.2 l1.9 4.6 l4.6 1.9 l-4.6 1.9 l-1.9 4.6 l-1.9-4.6 l-4.6-1.9 l4.6-1.9 z"/><line x1="15.8" y1="14.2" x2="15.8" y2="17.8"/><line x1="14" y1="16" x2="17.6" y2="16"/></svg><span>Why it exists</span></h2>
+      <p class="prose">If you drive to cover roads, the question after a few weeks is always the same: which streets have I already driven, in which direction, and what is still missing nearby. A trip log does not answer it, and a map app forgets every drive.</p>
+      <p class="prose">Spur keeps every drive on the phone, matches it to the road network, and turns the result into a map of what you covered and routes over what you did not.</p>
+      <p class="highlight">No account, no server, no analytics.</p>
+      <!-- launch:why:end -->
+    </section>
+
+    <!-- Features -->
+    <section class="section section-features" aria-labelledby="features-heading">
+      <!-- launch:features:start -->
+      <h2 class="section-title" id="features-heading"><svg class="icon section-icon" viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M11.2 2.2 L4.5 11 h4.6 l-.3 6.8 L15.5 9 h-4.6 z"/></svg><span>What it does</span></h2>
+      <ul class="grid">
+        <li class="card">
+          <h3 class="card-title"><svg class="icon card-icon" viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="8"/><polyline points="10 5 10 10 13.4 11.7"/></svg><span>Records every drive</span></h3>
+          <p class="card-body">High-accuracy GPS in the background and with the screen locked. Raw fixes are kept exactly as recorded.</p>
+        </li>
+        <li class="card">
+          <h3 class="card-title"><svg class="icon card-icon" viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><line x1="5" y1="2.5" x2="5" y2="12.5"/><circle cx="15" cy="5" r="2.5"/><circle cx="5" cy="15" r="2.5"/><path d="M15 7.5 a7.5 7.5 0 0 1-7.5 7.5"/></svg><span>Roads by direction</span></h3>
+          <p class="card-body">Amber for one direction, green for both, divided and frontage roads counted as one road, plus a heatmap of every pass.</p>
+        </li>
+        <li class="card">
+          <h3 class="card-title"><svg class="icon card-icon" viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4.2 3.6 H7.3 a1.6 1.6 0 0 1 1.28 .64 l.86 1.15 a1.6 1.6 0 0 0 1.28 .64 H15.8 a1.6 1.6 0 0 1 1.6 1.6 v7.2 a1.6 1.6 0 0 1-1.6 1.6 H4.2 a1.6 1.6 0 0 1-1.6-1.6 V5.2 a1.6 1.6 0 0 1 1.6-1.6 z"/></svg><span>Plans what is left</span></h3>
+          <p class="card-body">Search streets and places, see how much you drove, and plan loops or routes to a goal over roads you have not driven.</p>
+        </li>
+        <li class="card">
+          <h3 class="card-title"><svg class="icon card-icon" viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><line x1="2.9" y1="17.1" x2="17.1" y2="17.1"/><line x1="6" y1="17.1" x2="6" y2="10.5"/><line x1="10" y1="17.1" x2="10" y2="5.5"/><line x1="14" y1="17.1" x2="14" y2="8.2"/></svg><span>Measures the drive</span></h3>
+          <p class="card-body">Braking, acceleration, cornering, bumps and road surface from the motion sensors, live and per trip.</p>
+        </li>
+        <li class="card">
+          <h3 class="card-title"><svg class="icon card-icon" viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M10 2.2 l6 2.2 v5.1 c0 3.9-2.6 6.5-6 8.3 c-3.4-1.8-6-4.4-6-8.3 V4.4 z"/></svg><span>Honest about gaps</span></h3>
+          <p class="card-body">A GPS gap stays a gap. The likely road across it is a suggestion you accept or reject, and the recording never changes.</p>
+        </li>
+        <li class="card">
+          <h3 class="card-title"><svg class="icon card-icon" viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M17.5 12.5 v3.3 a1.7 1.7 0 0 1-1.7 1.7 H4.2 a1.7 1.7 0 0 1-1.7-1.7 v-3.3"/><polyline points="5.8 8.3 10 12.5 14.2 8.3"/><line x1="10" y1="12.5" x2="10" y2="2.5"/></svg><span>Exports everything</span></h3>
+          <p class="card-body">GPX, CSV, GeoJSON, JSON, the raw motion samples, or every trip as one ZIP.</p>
+        </li>
+      </ul>
+      <!-- launch:features:end -->
+    </section>
+
+    <!-- Install and usage -->
+    <section class="section section-install" aria-labelledby="install-heading">
+      <!-- launch:install:start -->
+      <h2 class="section-title" id="install-heading"><svg class="icon section-icon" viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><polyline points="6.2 6.5 2.7 10 6.2 13.5"/><polyline points="13.8 6.5 17.3 10 13.8 13.5"/><line x1="11.4" y1="3.8" x2="8.6" y2="16.2"/></svg><span>Read the source</span></h2>
+      <p class="prose">Spur is not on the App Store. The source is public to be read; it is not licensed for use.</p>
+      <ol class="steps">
+        <li class="step">
+          <h3 class="step-title">Clone</h3>
+          <p class="step-body">Swift 6 and SwiftUI, Apple frameworks only, no packages.</p>
+          <div class="copy">
+          <pre class="copy-code" id="install-step-1"><code>git clone https://github.com/noluyorAbi/spur-ios</code></pre>
+          <button class="copy-btn" type="button" data-copy-target="install-step-1" aria-label="Copy the command git clone https://github.com/noluyorAbi/spur-ios to the clipboard">
+            <span class="copy-btn-label" aria-hidden="true">Copy</span>
+          </button>
+        </div>
+        </li>
+        <li class="step">
+          <h3 class="step-title">Generate the project</h3>
+          <p class="step-body">The Xcode project is generated from project.yml with XcodeGen.</p>
+          <div class="copy">
+          <pre class="copy-code" id="install-step-2"><code>xcodegen generate</code></pre>
+          <button class="copy-btn" type="button" data-copy-target="install-step-2" aria-label="Copy the command xcodegen generate to the clipboard">
+            <span class="copy-btn-label" aria-hidden="true">Copy</span>
+          </button>
+        </div>
+        </li>
+        <li class="step">
+          <h3 class="step-title">Run the tests</h3>
+          <p class="step-body">More than 370 unit tests on an iOS 26 simulator.</p>
+          <div class="copy">
+          <pre class="copy-code" id="install-step-3"><code>xcodebuild -project Spur.xcodeproj -scheme Spur -destination 'platform=iOS Simulator,name=iPhone 17 Pro' test</code></pre>
+          <button class="copy-btn" type="button" data-copy-target="install-step-3" aria-label="Copy the command xcodebuild -project Spur.xcodeproj -scheme Spur -destination 'platform=iOS Simulator,name=iPhone 17 Pro' test to the clipboard">
+            <span class="copy-btn-label" aria-hidden="true">Copy</span>
+          </button>
+        </div>
+        </li>
+      </ol>
+      <p class="note">AGENTS.md in the repository explains the layout, the scripts and the rules the code follows.</p>
+      <!-- launch:install:end -->
+    </section>
+
+  </main>
+
+  <footer class="section site-footer">
+    <!-- launch:footer:start -->
+      <p class="footer-license">All rights reserved. The source is published to be read, not licensed for use.</p>
+      
+      <nav class="footer-links" aria-label="Elsewhere">
+        <a class="footer-link" href="https://github.com/noluyorAbi/spur-ios?utm_source=landing&amp;utm_medium=footer-repo&amp;utm_campaign=spur-ios" data-utm-slot="footer-repo" rel="noopener">GitHub</a>
+        <a class="footer-link" href="https://github.com/noluyorAbi/spur-ios/blob/main/CHANGELOG.md?utm_source=landing&amp;utm_medium=footer-changelog&amp;utm_campaign=spur-ios" data-utm-slot="footer-changelog" rel="noopener">Changelog</a>
+        <a class="footer-link" href="https://github.com/noluyorAbi/spur-ios/security/policy?utm_source=landing&amp;utm_medium=footer-security&amp;utm_campaign=spur-ios" data-utm-slot="footer-security" rel="noopener">Security</a>
+      </nav>
+      <p class="footer-copy">Copyright 2026 noluyorAbi. Road data (c) OpenStreetMap contributors, ODbL.</p>
+    <!-- launch:footer:end -->
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

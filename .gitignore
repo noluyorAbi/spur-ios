@@ -27,3 +27,4 @@ node_modules/
 CLAUDE.local.md
 DECISIONS.md
 .orchestra/
+.vercel/

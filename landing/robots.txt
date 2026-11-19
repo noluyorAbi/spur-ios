@@ -1,0 +1,5 @@
+# Static one page site. Everything here is public.
+User-agent: *
+Allow: /
+
+Sitemap: https://spur-ios.vercel.app/sitemap.xml

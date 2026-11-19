@@ -3,7 +3,8 @@
 <p align="center">
   <b>Know which roads you have already driven.</b><br>
   An iPhone app that records every drive in full GPS and motion detail, shows the roads and
-  directions you have covered, and plans routes over the ones you have not.
+  directions you have covered, and plans routes over the ones you have not.<br>
+  <a href="https://spur-ios.vercel.app/?utm_source=readme&utm_medium=header&utm_campaign=spur-ios">spur-ios.vercel.app</a>
 </p>
 
 <p align="center">

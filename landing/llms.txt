@@ -1,0 +1,16 @@
+# Spur
+
+> An iPhone app that records every drive in full GPS and motion detail, shows the roads and directions you have covered, and plans routes over the ones you have not. Everything stays on the phone. Source published to be read, all rights reserved.
+
+## Source and documentation
+
+- [Repository](https://github.com/noluyorAbi/spur-ios): Swift 6, SwiftUI, Apple frameworks only
+- [README](https://github.com/noluyorAbi/spur-ios/blob/main/README.md): what it does, privacy, how to build
+- [AGENTS.md](https://github.com/noluyorAbi/spur-ios/blob/main/AGENTS.md): layout, scripts and the rules the code follows
+- [SPEC.md](https://github.com/noluyorAbi/spur-ios/blob/main/SPEC.md): the specification the code cites by section
+- [Motion file format](https://github.com/noluyorAbi/spur-ios/blob/main/docs/MOTION-FORMAT.md)
+- [User manual, German](https://github.com/noluyorAbi/spur-ios/blob/main/docs/ANLEITUNG.md)
+
+## License
+
+All rights reserved: https://github.com/noluyorAbi/spur-ios/blob/main/LICENSE
